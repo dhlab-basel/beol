@@ -55,8 +55,10 @@
                 <section *ngIf="props?.page.length > 0">
                     <h4>Pages</h4>
                     <ul *ngFor="let page of props.page">
-                        <li>{{page['strval']}}</li>
-<!--                        <li><dsp-link-value [displayValue]="props?.page[0]" [parentResource]="resource.readResource" [propIri]="props?.page[0].property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value></li>-->
+                        <li>
+                            <dsp-link-value [displayValue]="page" [parentResource]="resource.readResource"
+                                            [propIri]="page.property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
+                        </li>
                     </ul>
                 </section>
 
@@ -73,10 +75,6 @@
                     <h4>Stages</h4>
                     <table>[data in table]</table>
                 </section>
-            </ng-container>
-
-            <ng-container *ngIf="!isPartOfReisbuechlein">
-                NOT Reisebüchlein
             </ng-container>
 
         </div>
