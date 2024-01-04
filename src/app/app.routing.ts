@@ -85,7 +85,7 @@ const appRoutes: Routes = [
         component: PageComponent
     },
     {
-        path: 'new-page',
+        path: 'pageTranscription',
         component: PageTranscriptionComponent
     },
     {
