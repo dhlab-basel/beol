@@ -758,7 +758,7 @@ export class BeolService {
                             }
                         }
                     }
-                    isPartOfReisbuechlein ? this._router.navigateByUrl('pageTranscription') : this._router.navigateByUrl('page/' + encodeURIComponent(referredResourceIri));
+                    isPartOfReisbuechlein ? this._router.navigateByUrl('pageTranscription/' + encodeURIComponent(referredResourceIri)) : this._router.navigateByUrl('page/' + encodeURIComponent(referredResourceIri));
                 })
         } else if (referredResourceType === 'http://api.knora.org/ontology/knora-api/v2#Region') {
             // route region to page it belongs to
