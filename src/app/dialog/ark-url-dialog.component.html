@@ -1,0 +1,11 @@
+<h3 mat-dialog-title>Citation Link</h3>
+<mat-dialog-content>
+    <mat-form-field>
+        <mat-label>ARK URL</mat-label>
+        <input matInput [(ngModel)]="arkURL"/>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button class="btn-copy-arkurl" (click)="copyToClipBoard()">Copy To Clipboard</button>
+</mat-dialog-actions>

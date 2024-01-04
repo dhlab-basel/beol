@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { BeolService } from './beol.service';
-import { DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken } from '../dsp-ui-lib/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('BeolService', () => {

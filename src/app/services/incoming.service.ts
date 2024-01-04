@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { ReadResourceSequence, KnoraApiConnection } from '@dasch-swiss/dsp-js';
-import { DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken } from '../dsp-ui-lib/core';
 import { Observable } from 'rxjs';
 import { ApiResponseError } from '@dasch-swiss/dsp-js';
 

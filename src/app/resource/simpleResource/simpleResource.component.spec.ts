@@ -9,7 +9,7 @@ import { SimpleResourceComponent } from './simpleResource.component';
 import { ReadTextValueAsHtmlComponent } from '../../properties/read-text-value-as-html/read-text-value-as-html.component';
 import { ReadListValueComponent } from '../../properties/read-list-value/read-list-value.component';
 import { MathJaxDirective } from '../../directives/mathjax.directive';
-import { DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken } from '../../dsp-ui-lib/core';
 import { ReadResource, ReadResourceSequence, ResourcesEndpointV2, SearchEndpointV2 } from '@dasch-swiss/dsp-js';
 
 describe('SimpleResourceComponent', () => {

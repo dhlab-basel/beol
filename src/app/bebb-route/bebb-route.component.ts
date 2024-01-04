@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { KnoraApiConnection, ReadResourceSequence } from '@dasch-swiss/dsp-js';
-import { DspApiConnectionToken, AppInitService } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken, AppInitService } from '../dsp-ui-lib/core';
 import { BeolService } from '../services/beol.service';
 
 @Component({

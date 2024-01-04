@@ -1,0 +1,411 @@
+<div class="full-size scroll-y-only">
+
+    <dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
+
+    <div *ngIf="!isLoading">
+
+        <div class="sidebar">
+            <button mat-stroked-button class="previousBtn" (click)="location.back()">
+                <mat-icon>arrow_back</mat-icon>
+                Previous
+            </button>
+        </div>
+
+        <div class="main-content" [ngSwitch]="name">
+
+            <ng-container *ngSwitchCase="'Jacob I Bernoulli'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/jacob-I-bernoulli.jpg" alt="portrait of Jacob I Bernoulli">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/hauptrubrik-uebersichtsseite-3/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/6E07Zq0RRTeRnBreFKB-TQ -->
+                        <li><a href="https://beol.dasch.swiss/person/http%3A%2F%2Frdfh.ch%2F0801%2F6E07Zq0RRTeRnBreFKB-TQ">BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <h2>Diaries</h2>
+                    <mat-card class="intro-card" appearance="outlined"
+                                  (click)="searchForManuscriptEntries('http://rdfh.ch/0801/HSmk8KWbQjy6YCqnBrwYgA')">
+                        <mat-card-content>Meditationes</mat-card-content>
+                    </mat-card>
+                    <mat-card class="intro-card" appearance="outlined">
+                            <!--  TODO: calling searchForManuscriptEntries() with url of 'Reisbüchlein'  -->
+                        <mat-card-content>Reisbüchlein</mat-card-content>
+                    </mat-card>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Johann I Bernoulli'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/johann-I-bernoulli.jpg" alt="portrait of Johann I Bernoulli">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/johann-i-bernoulli/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/Ok3F5-KBT2-VZcYD_7RZrA -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Johann_I_Bernoulli.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <ng-container *ngFor="let section of correspondences_Johann_I_Bernoulli.sections">
+                                    <mat-option *ngFor="let corr of section.correspondences" [value]="corr.correspondent2.name"
+                                                (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                        {{corr.correspondent2.name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Nicolaus I Bernoulli'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/placeholder.jpg" alt="placeholder portrait for Nicolaus I Bernoulli">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/nicolaus-i-bernoulli/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/qmLrRr3lRfWspN1O-LMp_Q -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Nicolaus_I_Bernoulli.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <ng-container *ngFor="let section of correspondences_Nicolaus_I_Bernoulli.sections">
+                                    <mat-option *ngFor="let corr of section.correspondences" [value]="corr.correspondent2.name"
+                                                (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                        {{corr.correspondent2.name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Nicolaus II Bernoulli'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/nicolaus-II-bernoulli.jpg" alt="portrait of Nicolaus II Bernoulli">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/nicolaus-ii-bernoulli/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/UenWkKtpSAS2DEFmSw_MzQ -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Nicolaus_II_Bernoulli.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <ng-container *ngFor="let section of correspondences_Nicolaus_II_Bernoulli.sections">
+                                    <mat-option *ngFor="let corr of section.correspondences" [value]="corr.correspondent2.name"
+                                                (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                        {{corr.correspondent2.name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Daniel I Bernoulli'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/daniel-bernoulli.jpg" alt="portrait of Daniel Bernoulli">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/daniel-bernoulli/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/pUDSy_NZQp2R8fgKaSHbhw -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Daniel_I_Bernoulli.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <ng-container *ngFor="let section of correspondences_Daniel_I_Bernoulli.sections">
+                                    <mat-option *ngFor="let corr of section.correspondences" [value]="corr.correspondent2.name"
+                                                (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                        {{corr.correspondent2.name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Johann II Bernoulli'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/johann-II-bernoulli.jpg" alt="portrait of Johann II Bernoulli">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/johann-ii-bernoulli/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/oMBDmsqfS7OIRw-BcJi-Ow -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Johann_II_Bernoulli.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <ng-container *ngFor="let section of correspondences_Johann_II_Bernoulli.sections">
+                                    <mat-option *ngFor="let corr of section.correspondences" [value]="corr.correspondent2.name"
+                                                (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                        {{corr.correspondent2.name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Johann III Bernoulli'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/johann-III-bernoulli.jpg" alt="portrait of Johann III Bernoulli">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/johann-iii-bernoulli/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/hcCmk-oBSHSv4a4fsug5mQ -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Jacob II Bernoulli'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/jacob-II-bernoulli.jpg" alt="portrait of Jacob II Bernoulli">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/jacob-ii-bernoulli/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/9pauOqjjSQusBpMTXbxWgw -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Jacob Hermann'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/jacob-hermann.jpg" alt="portrait of Jacob Hermann">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/jacob-hermann/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/de6bO0SsS-COyx-75vto_A -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Jacob_Hermann.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <ng-container *ngFor="let section of correspondences_Jacob_Hermann.sections">
+                                    <mat-option *ngFor="let corr of section.correspondences" [value]="corr.correspondent2.name"
+                                                (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                        {{corr.correspondent2.name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Leonhard Euler'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/leonhard-euler.jpg" alt="portrait of Leonhard Euler">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/leonhard-euler/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/NbmhfOBlQoGbX3HwXuC3Tg -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <h2>Correspondence</h2>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Leonhard_Euler.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <mat-option *ngFor="let corr of correspondences_Leonhard_Euler.correspondences" [value]="corr.correspondent2.name"
+                                            (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                    {{corr.correspondent2.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <h2>Additional</h2>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Condorcet.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <ng-container *ngFor="let section of correspondences_Condorcet.sections">
+                                    <mat-option *ngFor="let corr of section.correspondences" [value]="corr.correspondent2.name"
+                                                (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                        {{corr.correspondent2.name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-card class="intro-card" appearance="outlined" routerLink="/leooIVA_IV_intro">
+                            <mat-card-content>
+                                <mat-card-title>Introduction</mat-card-title>
+                                Leonhardi Euleri Opera Omnia IVA/IV
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card class="intro-card" appearance="outlined" routerLink="/lece_intro">
+                            <mat-card-content>
+                                <mat-card-title>Introduction</mat-card-title>
+                                Leonhardi Euleri Commercium Epistolicum
+                            </mat-card-content>
+                        </mat-card>
+                    </p>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Johann Albrecht Euler'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/johann-albrecht-euler.jpg" alt="portrait of Johann Albrecht Euler">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/johann-albrecht-euler/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/vsOlDy18QNSTqOuaHk_wnA -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <h2>Correspondence</h2>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Johann_Albrecht_Euler.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <mat-option *ngFor="let corr of correspondences_Johann_Albrecht_Euler.correspondences" [value]="corr.correspondent2.name"
+                                            (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                    {{corr.correspondent2.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'Nicolaus Fuss'">
+                <h1 *ngIf="name">{{name}}</h1>
+                <section class="biography">
+                    <h2>Biography</h2>
+                    <img src="assets/images/nicolaus-fuss.jpg" alt="portrait of Nicolaus Fuss">
+                    <p>[...]</p>
+                    <ul class="further-links">
+                        <li><a href="https://bez.unibas.ch/de/basler-mathematiker/nicolaus-fuss/">BEZ (Bernoulli-Euler-Zentrum)</a></li>
+                        <!-- BEOL Link: https://beol.dasch.swiss/person/http://rdfh.ch/0801/6NP2qP1oRWeSaZDEccqP8Q -->
+                        <li><a>BEOL (Bernoulli Euler Online)</a></li>
+                    </ul>
+                </section>
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <h2>Correspondence</h2>
+                    <p>Correspondence between
+                        <strong>{{correspondences_Niklaus_I_Fuss.mainCorrespondent.name}}</strong> and
+                        <!-- select list to choose the recipient name (among one or several choices) -->
+                        <mat-form-field>
+                            <mat-select placeholder="Select Correspondent">
+                                <mat-option *ngFor="let corr of correspondences_Niklaus_I_Fuss.correspondences" [value]="corr.correspondent2.name"
+                                            (click)="searchForCorrespondence(corr.correspondent1.gnd, corr.correspondent2.gnd)">
+                                    {{corr.correspondent2.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </section>
+            </ng-container>
+
+            <!-- in case the name does not exist -->
+            <ng-container *ngSwitchDefault>
+                <h1>Oops!</h1>
+                <p>
+                    <strong>The biography you are looking for does not exist!</strong>
+                </p>
+            </ng-container>
+
+        </div>
+    </div>
+
+</div>

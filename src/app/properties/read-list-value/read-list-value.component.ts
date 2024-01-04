@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnChanges } from '@angular/core';
 import { ApiResponseError, KnoraApiConnection, ListNodeV2, ReadListValue } from '@dasch-swiss/dsp-js';
-import { DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken } from '../../dsp-ui-lib/core';
 import { Observable } from 'rxjs';
 
 @Component({

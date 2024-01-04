@@ -1,0 +1,38 @@
+<div class="grid-container">
+    <div class="value-component">
+        <span [ngSwitch]="resourcePropertyDefinition.objectType">
+            <dsp-text-value-as-string #createVal *ngSwitchCase="'ReadTextValueAsString'" [mode]="mode"></dsp-text-value-as-string>
+            <dsp-text-value-as-html #createVal *ngSwitchCase="'ReadTextValueAsHtml'" [mode]="mode"></dsp-text-value-as-html>
+            <dsp-text-value-as-xml #createVal *ngSwitchCase="'ReadTextValueAsXml'" [mode]="mode"></dsp-text-value-as-xml>
+            <dsp-int-value #createVal *ngSwitchCase="constants.IntValue" [mode]="mode"></dsp-int-value>
+            <dsp-boolean-value #createVal *ngSwitchCase="constants.BooleanValue" [mode]="mode"></dsp-boolean-value>
+            <dsp-uri-value #createVal *ngSwitchCase="constants.UriValue" [mode]="mode"></dsp-uri-value>
+            <dsp-decimal-value #createVal *ngSwitchCase="constants.DecimalValue" [mode]="mode"></dsp-decimal-value>
+            <dsp-color-value #createVal *ngSwitchCase="constants.ColorValue" [mode]="mode"></dsp-color-value>
+            <dsp-interval-value #createVal *ngSwitchCase="constants.IntervalValue" [mode]="mode"></dsp-interval-value>
+            <dsp-time-value #createVal *ngSwitchCase="constants.TimeValue" [mode]="mode"></dsp-time-value>
+            <dsp-geoname-value #createVal *ngSwitchCase="constants.GeonameValue" [mode]="mode"></dsp-geoname-value>
+            <dsp-link-value #createVal *ngSwitchCase="constants.LinkValue" [mode]="mode"
+                        [parentResource]="parentResource" [propIri]="resourcePropertyDefinition.id"></dsp-link-value>
+            <dsp-date-value #createVal *ngSwitchCase="constants.DateValue" [mode]="mode"></dsp-date-value>
+            <dsp-list-value #createVal *ngSwitchCase="constants.ListValue" [mode]="mode"
+                        [propertyDef]="resourcePropertyDefinition"></dsp-list-value>
+        </span>
+    </div>
+    <div class="crud-buttons">
+        <button class="save"
+                *ngIf="createModeActive"
+                (click)="saveAddValue()"
+                title="save"
+                [disabled]='!createValueComponent.form.valid'>
+            <mat-icon>save</mat-icon>
+        </button>
+        <button class="cancel"
+                *ngIf="createModeActive"
+                (click)="cancelAddValue()"
+                title="cancel">
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <dsp-progress-indicator *ngIf="submittingValue" [status]="progressIndicatorStatus" [color]="progressIndicatorColor"></dsp-progress-indicator>
+    </div>
+</div>

@@ -3,9 +3,7 @@ import { MaterialModule } from '../material-module';
 import { LandingPageComponent } from './landing-page.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { CorrespondenceComponent } from '../correspondence/correspondence.component';
-import { AppInitService } from '@dasch-swiss/dsp-ui';
+import { AppInitService } from '../dsp-ui-lib/core';
 import { BeolService } from '../services/beol.service';
 
 describe('LandingPageComponent', () => {
@@ -28,7 +26,7 @@ describe('LandingPageComponent', () => {
                 RouterTestingModule,
                 BrowserAnimationsModule
             ],
-            declarations: [LandingPageComponent, CorrespondenceComponent],
+            declarations: [LandingPageComponent],
             providers: [
                 { provide: BeolService, useValue: beolServiceSpy },
                 { provide: AppInitService, useValue: appInitServiceMock }

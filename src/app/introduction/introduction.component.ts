@@ -8,7 +8,7 @@ import {
     ReadResource,
     ReadResourceSequence, ReadTextValue
 } from '@dasch-swiss/dsp-js';
-import { AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AppInitService, DspApiConnectionToken } from '../dsp-ui-lib/core';
 import { Subscription } from 'rxjs';
 import { BeolService } from '../services/beol.service';
 import {MatSnackBar} from '@angular/material/snack-bar';

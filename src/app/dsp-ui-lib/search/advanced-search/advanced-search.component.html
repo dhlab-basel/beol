@@ -1,0 +1,23 @@
+<form *ngIf="!errorMessage" [formGroup]="form" (ngSubmit)="submit()" class="dsp-form-content">
+
+    <div *ngIf="ontologiesMetadata?.ontologies.length > 0">
+        <dsp-select-ontology [formGroup]="form" [ontologiesMetadata]="ontologiesMetadata"
+                             (ontologySelected)="setActiveOntology($event)"></dsp-select-ontology>
+    </div>
+
+    <dsp-resource-and-property-selection *ngIf="activeOntology !== undefined" #resAndPropSel [formGroup]="form" [activeOntology]="activeOntology" [topLevel]="true">
+    </dsp-resource-and-property-selection>
+
+    <div class="dsp-form-action">
+        <button class="reset" mat-button type="button" (click)="resourceAndPropertySelection?.resetForm()" [disabled]="this.activeOntology === undefined">
+            Reset
+        </button>
+        <span class="fill-remaining-space"></span>
+        <button class="advanced-search-button" mat-raised-button color="primary" type="submit" [disabled]="!formValid">
+            Search
+        </button>
+    </div>
+
+</form>
+
+<dsp-message *ngIf="errorMessage" [apiError]="errorMessage" [size]="'medium'"></dsp-message>

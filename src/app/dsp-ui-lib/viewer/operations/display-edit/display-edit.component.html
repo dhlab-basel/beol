@@ -1,0 +1,76 @@
+<div class="grid-container">
+    <div class="value-component"
+        (mouseenter)="mouseEnter()"
+        (mouseleave)="mouseLeave()"
+        [ngClass]='backgroundColor'>
+        <span [ngSwitch]="valueTypeOrClass">
+            <!-- display value is cast as 'any' because the compiler cannot infer the value type expected by the child component -->
+            <dsp-text-value-as-string class="parent-value-component" #displayVal *ngSwitchCase="'ReadTextValueAsString'" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-text-value-as-string>
+            <dsp-text-value-as-html class="parent-value-component" #displayVal *ngSwitchCase="'ReadTextValueAsHtml'" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-text-value-as-html>
+            <dsp-text-value-as-xml class="parent-value-component" #displayVal *ngSwitchCase="'ReadTextValueAsXml'" [mode]="mode" [displayValue]="$any(displayValue)"
+                                   (internalLinkClicked)="standoffLinkClicked($event)" (internalLinkHovered)="standoffLinkHovered($event)"></dsp-text-value-as-xml>
+            <dsp-int-value class="parent-value-component" #displayVal *ngSwitchCase="constants.IntValue" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-int-value>
+            <dsp-boolean-value class="parent-value-component" #displayVal *ngSwitchCase="constants.BooleanValue" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-boolean-value>
+            <dsp-uri-value class="parent-value-component" #displayVal *ngSwitchCase="constants.UriValue" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-uri-value>
+            <dsp-decimal-value class="parent-value-component" #displayVal *ngSwitchCase="constants.DecimalValue" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-decimal-value>
+            <dsp-color-value class="parent-value-component" #displayVal *ngSwitchCase="constants.ColorValue" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-color-value>
+            <dsp-interval-value class="parent-value-component" #displayVal *ngSwitchCase="constants.IntervalValue" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-interval-value>
+            <dsp-time-value class="parent-value-component" #displayVal *ngSwitchCase="constants.TimeValue" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-time-value>
+            <dsp-geoname-value class="parent-value-component" #displayVal *ngSwitchCase="constants.GeonameValue" [mode]="mode" [displayValue]="$any(displayValue)"></dsp-geoname-value>
+            <dsp-link-value class="parent-value-component" #displayVal *ngSwitchCase="constants.LinkValue" [mode]="mode" [displayValue]="$any(displayValue)"
+                        [parentResource]="parentResource" [propIri]="displayValue.property" (referredResourceClicked)="referredResourceClicked.emit($event)" (referredResourceHovered)="referredResourceHovered.emit($event)"></dsp-link-value>
+            <dsp-date-value class="parent-value-component" #displayVal *ngSwitchCase="constants.DateValue" [mode]="mode" [displayValue]="$any(displayValue)" [displayOptions]="dateDisplayOptions" [labels]="showDateLabels" [ontologyDateFormat]="dateFormat"></dsp-date-value>
+            <dsp-list-value class="parent-value-component" #displayVal *ngSwitchCase="constants.ListValue" [mode]="mode" [displayValue]="$any(displayValue)"
+                        [propertyDef]="$any(parentResource.entityInfo.properties[displayValue.property])"></dsp-list-value>
+            <span *ngSwitchDefault>{{displayValue.strval}}</span>
+        </span>
+        <div class="action-bubble" *ngIf="showActionBubble && !editModeActive" [@simpleFadeAnimation]="'in'">
+            <div class="button-container">
+                <button mat-button
+                        class="edit"
+                        [matTooltip]="'edit'"
+                        *ngIf="!readOnlyValue && canModify && !editModeActive"
+                        (click)="activateEditMode()">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-button
+                        class="info"
+                        matTooltip="{{getTooltipText()}}"
+                        matTooltipClass="info-tooltip">
+                        <mat-icon>info</mat-icon>
+                </button>
+                <button mat-button
+                        class="comment-toggle"
+                        title="toggle comment"
+                        *ngIf="shouldShowCommentToggle"
+                        (click)="toggleComment()">
+                    <mat-icon>comment</mat-icon>
+                </button>
+                <span [matTooltip]="(canDelete ? 'delete' : 'This value cannot be deleted because at least one value is required')">
+                    <button mat-button
+                        class="delete"
+                        *ngIf="!readOnlyValue && canModify && !editModeActive"
+                        [disabled]="!canDelete"
+                        (click)="openDialog()">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="crud-buttons" *ngIf="!readOnlyValue">
+        <button class="save"
+                title="save"
+                *ngIf="editModeActive"
+                [disabled]="!displayValueComponent.form.valid"
+                (click)="saveEditValue()">
+                <mat-icon>save</mat-icon>
+        </button>
+        <button class="cancel"
+                title="cancel"
+                *ngIf="editModeActive"
+                (click)="cancelEditValue()">
+                <mat-icon>undo</mat-icon>
+        </button>
+    </div>
+</div>

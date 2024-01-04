@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import {
     Constants,
     KnoraApiConnection,
-    ReadResource,
     ResourceClassAndPropertyDefinitions
 } from '@dasch-swiss/dsp-js';
-import { DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import {AppInitService, DspApiConnectionToken} from '../../dsp-ui-lib/core';
 import { Subscription } from 'rxjs';
 import { IncomingService } from 'src/app/services/incoming.service';
 import { BeolService } from '../../services/beol.service';
-import { BeolCompoundResource, BeolResource } from './../beol-resource';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { BeolCompoundResource, BeolResource } from '../beol-resource';
+import { ArkUrlDialogComponent } from '../../dialog/ark-url-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-simple-resource',
@@ -34,14 +34,14 @@ export class SimpleResourceComponent extends BeolResource {
 
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
+        private _appInitService: AppInitService,
         protected _route: ActivatedRoute,
         protected _incomingService: IncomingService,
-        public location: Location,
         protected _beolService: BeolService,
-        protected _snackBar: MatSnackBar
-        ) {
-
-        super(_dspApiConnection, _route, _incomingService, _beolService, _snackBar);
+        public location: Location,
+        public dialog: MatDialog
+    ) {
+        super(_dspApiConnection, _route, _incomingService, _beolService);
     }
 
     initProps() {
@@ -58,4 +58,13 @@ export class SimpleResourceComponent extends BeolResource {
         this._beolService.routeByResourceType(resType, resIri, res);
     }
 
+    openDialog(arkURL: string) {
+        this.dialog.open(ArkUrlDialogComponent, {
+            hasBackdrop: true,
+            width: '600px',
+            data: {
+                arkURL: arkURL
+            }
+        });
+    }
 }

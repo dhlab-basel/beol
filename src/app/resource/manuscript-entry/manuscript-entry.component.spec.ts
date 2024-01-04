@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { MathJaxDirective } from '../../directives/mathjax.directive';
 import { ReadTextValueAsHtmlComponent } from '../../properties/read-text-value-as-html/read-text-value-as-html.component';
 import { ReadTextValueComponent } from '../../properties/read-text-value/read-text-value.component';
-import { AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AppInitService, DspApiConnectionToken } from '../../dsp-ui-lib/core';
 import { ReadResource, ReadResourceSequence, ResourcesEndpointV2, SearchEndpointV2 } from '@dasch-swiss/dsp-js';
 
 describe('ManuscriptEntryComponent', () => {

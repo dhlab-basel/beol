@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { BeolService } from '../services/beol.service';
-import { AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AppInitService, DspApiConnectionToken } from '../dsp-ui-lib/core';
 import { ReadResource, ReadResourceSequence, SearchEndpointV2 } from '@dasch-swiss/dsp-js';
 
 describe('BebbRouteComponent', () => {

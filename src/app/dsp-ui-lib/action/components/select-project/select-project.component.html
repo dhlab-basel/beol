@@ -1,0 +1,27 @@
+<div class="dsp-select-project-component">
+    <form class="form-content" [formGroup]="selectProjectForm">
+        <mat-form-field class="large-field select-project">
+
+            <input
+                matInput
+                placeholder="Select project"
+                [matAutocomplete]="project"
+                [formControlName]="'projectName'">
+
+            <button
+                mat-icon-button
+                matSuffix
+                *ngIf="projectNameFormControl.value"
+                type="button"
+                (click)="resetInput($event)">
+                <mat-icon>close</mat-icon>
+            </button>
+
+            <mat-autocomplete #project="matAutocomplete" (optionSelected)="getProject($event.option.value)">
+                <mat-option *ngFor="let project of filteredProjects | async" [value]="project?.shortname">
+                    {{ project?.shortname }} | {{ project?.longname }} | {{ project?.shortcode }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</div>

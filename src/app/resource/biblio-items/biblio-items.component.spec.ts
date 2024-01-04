@@ -8,7 +8,7 @@ import { BiblioItemsComponent } from './biblio-items.component';
 import { ReadTextValueAsHtmlComponent } from '../../properties/read-text-value-as-html/read-text-value-as-html.component';
 import { MathJaxDirective } from '../../directives/mathjax.directive';
 import { ReadTextValueComponent } from '../../properties/read-text-value/read-text-value.component';
-import { AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AppInitService, DspApiConnectionToken } from '../../dsp-ui-lib/core';
 import { ResourcesEndpointV2, SearchEndpointV2, ReadResource, ReadResourceSequence } from '@dasch-swiss/dsp-js';
 
 describe('BiblioItemsComponent', () => {

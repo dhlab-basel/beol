@@ -13,14 +13,15 @@ import {
     ReadValue,
     ResourceClassAndPropertyDefinitions
 } from '@dasch-swiss/dsp-js';
-import { DspApiConnectionToken, AppInitService } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken, AppInitService } from '../../dsp-ui-lib/core';
 import { Subscription } from 'rxjs';
 import { IncomingService } from 'src/app/services/incoming.service';
 import { BeolService } from '../../services/beol.service';
 import { BeolCompoundResource, BeolResource, PropertyValues, PropIriToNameMapping } from '../beol-resource';
 import { HttpClient } from '@angular/common/http';
 import * as BeolConstants from '../../beol-constants';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ArkUrlDialogComponent } from '../../dialog/ark-url-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 class LetterProps implements PropertyValues {
     id: ReadTextValue[] = [];
@@ -84,17 +85,15 @@ export class LeibnizLetterComponent extends BeolResource {
 
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
-        protected _route: ActivatedRoute,
-        protected _incomingService: IncomingService,
-        public location: Location,
-        protected _beolService: BeolService,
         private _appInitService: AppInitService,
         private _http: HttpClient,
-        protected _snackBar: MatSnackBar
+        protected _route: ActivatedRoute,
+        protected _incomingService: IncomingService,
+        protected _beolService: BeolService,
+        public location: Location,
+        public dialog: MatDialog
     ) {
-
-        super(_dspApiConnection, _route, _incomingService, _beolService, _snackBar);
-
+        super(_dspApiConnection, _route, _incomingService, _beolService);
     }
 
     // this is for our own (knora) resources
@@ -155,7 +154,18 @@ export class LeibnizLetterComponent extends BeolResource {
         const updatedBody = this.getLeibnizImages(html.body);
         this.letter = updatedBody;
     }
+
     showIncomingRes(resIri, resType, res) {
         this._beolService.routeByResourceType(resType, resIri, res);
+    }
+
+    openDialog(arkURL: string) {
+        this.dialog.open(ArkUrlDialogComponent, {
+            hasBackdrop: true,
+            width: '600px',
+            data: {
+                arkURL: arkURL
+            }
+        });
     }
 }

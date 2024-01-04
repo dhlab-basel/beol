@@ -19,25 +19,9 @@
         <div class="main-content">
 
             <section class="cite-link">
-                <button mat-button class="share-res" matTooltip="Share resource by copying ARK url" matTooltipPosition="above"
-                        [matMenuTriggerFor]="share">
-                    <mat-icon>share</mat-icon>
-                    <span class="desktop-only">Citation Link</span>
+                <button mat-stroked-button class="share-res" (click)="openDialog(resource.readResource.versionArkUrl)">
+                    <mat-icon>share</mat-icon>Citation Link
                 </button>
-                <mat-menu #share="matMenu" class="res-share-menu">
-                    <!-- citation link - ARK URL -->
-                    <div class="ark-url-label mat-body">
-                        <label for="clipboard-arkurl">Citation Link (ARK URL)</label>
-                    </div>
-                    <div class="ark-url-input">
-                        <input id="clipboard-arkurl" class="clipboard-arkurl" cols="30" rows="10" readonly
-                               [(ngModel)]="resource.readResource.versionArkUrl" />
-                        <button mat-button class="btn-copy-arkurl" [cdkCopyToClipboard]="resource.readResource.versionArkUrl"
-                                matTooltip="Copy ARK url" matTooltipPosition="below" (click)="openARKURLSnackBar()">
-                            <mat-icon class="icon-arkurl">copy</mat-icon>
-                        </button>
-                    </div>
-                </mat-menu>
             </section>
 
             <h4>{{resource?.readResource.label}}</h4>

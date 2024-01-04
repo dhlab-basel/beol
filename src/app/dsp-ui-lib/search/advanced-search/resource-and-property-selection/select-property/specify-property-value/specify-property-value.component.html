@@ -1,0 +1,33 @@
+<span *ngIf="comparisonOperators?.length > 0" [formGroup]="form">
+<mat-form-field class="search-operator-field small-field">
+    <mat-select placeholder="Comparison Operator" [formControlName]="'comparisonOperator'" class="comparison-operator">
+        <mat-option *ngFor="let compOp of comparisonOperators" [value]="compOp">{{ compOp.label }}</mat-option>
+    </mat-select>
+</mat-form-field>
+</span>
+
+<!-- select apt component for value specification using a switch case statement-->
+<span
+    *ngIf="comparisonOperatorSelected !== undefined && comparisonOperatorSelected !== null && comparisonOperatorSelected.getClassName() != 'Exists'" [ngSwitch]="propertyValueType">
+    <dsp-search-int-value #propertyValue [formGroup]="form" *ngSwitchCase="Constants.IntValue"></dsp-search-int-value>
+    <dsp-search-decimal-value #propertyValue [formGroup]="form" *ngSwitchCase="Constants.DecimalValue"></dsp-search-decimal-value>
+    <dsp-search-boolean-value #propertyValue [formGroup]="form" *ngSwitchCase="Constants.BooleanValue"></dsp-search-boolean-value>
+    <dsp-search-date-value #propertyValue [formGroup]="form" *ngSwitchCase="Constants.DateValue"></dsp-search-date-value>
+
+    <span *ngSwitchCase="Constants.Resource">
+        <span *ngIf="comparisonOperatorSelected.getClassName() == 'Match'; else elseBlock">
+            <dsp-search-resource #propertyValue [formGroup]="form" [restrictResourceClass]="objectClassConstraint"></dsp-search-resource>
+        </span>
+        <ng-template #elseBlock>
+            <dsp-search-link-value #propertyValue [formGroup]="form" [restrictResourceClass]="objectClassConstraint"></dsp-search-link-value>
+        </ng-template>
+    </span>
+
+    <dsp-search-text-value #propertyValue [formGroup]="form" *ngSwitchCase="Constants.TextValue"></dsp-search-text-value>
+    <dsp-search-list-value #propertyValue [formGroup]="form" [property]="property" *ngSwitchCase="Constants.ListValue"></dsp-search-list-value>
+    <dsp-search-uri-value #propertyValue [formGroup]="form" *ngSwitchCase="Constants.UriValue"></dsp-search-uri-value>
+    <span *ngSwitchDefault>Not supported {{propertyValueType}}</span>
+</span>
+<!-- TODO: Resource: handle linking properties with target class restriction: access property member to get objectClass via property() getter method -->
+
+

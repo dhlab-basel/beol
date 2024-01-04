@@ -7,7 +7,8 @@ import { MathJaxDirective } from '../directives/mathjax.directive';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { ReadListValueComponent } from '../properties/read-list-value/read-list-value.component';
-import { AdvancedSearchParams, AdvancedSearchParamsService, AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AppInitService, DspApiConnectionToken } from '../dsp-ui-lib/core';
+import { AdvancedSearchParams, AdvancedSearchParamsService } from '../dsp-ui-lib/search';
 import { CountQueryResponse, ReadResourceSequence, SearchEndpointV2 } from '@dasch-swiss/dsp-js';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

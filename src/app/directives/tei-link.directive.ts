@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
-import { AppInitService } from '@dasch-swiss/dsp-ui';
+import { AppInitService } from '../dsp-ui-lib/core';
 import * as BeolConstants from '../beol-constants';
 
 @Directive({
@@ -48,7 +48,7 @@ export class TeiLinkDirective implements OnChanges {
         const teiConfig = teiInitConfig[this._resourceType];
 
         if (teiConfig !== undefined) {
-            
+
             const teiLink = settings['ontologyIRI'] + '/v2/tei/' + encodeURIComponent(this._resourceIri)
                 + `?${this.textProperty}=` + encodeURIComponent(teiConfig.textProperty)
                 + `&${this.mappingIri}=` + encodeURIComponent(teiConfig.mappingIRI)

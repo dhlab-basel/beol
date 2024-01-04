@@ -5,7 +5,7 @@ import { ReadTextValueComponent } from './read-text-value.component';
 import { ReadTextValueAsHtmlComponent } from '../read-text-value-as-html/read-text-value-as-html.component';
 import { MathJaxDirective } from '../../directives/mathjax.directive';
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
-import { DspViewerModule, TextValueAsStringComponent } from '@dasch-swiss/dsp-ui';
+import { DspViewerModule, TextValueAsStringComponent } from '../../dsp-ui-lib/viewer';
 import { By } from '@angular/platform-browser';
 import {
     Constants,

@@ -2,7 +2,7 @@ import { TeiLinkDirective } from './tei-link.directive';
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AppInitService } from '@dasch-swiss/dsp-ui';
+import { AppInitService } from '../dsp-ui-lib/core';
 
 describe('TeiLinkDirective', () => {
     let component: TestComponent;

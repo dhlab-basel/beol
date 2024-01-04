@@ -7,7 +7,7 @@ import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AsyncSubject } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
-import { AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AppInitService, DspApiConnectionToken } from '../../dsp-ui-lib/core';
 import { ListNodeV2Cache } from '@dasch-swiss/dsp-js/src/cache/ListNodeV2Cache';
 import { ListNodeV2, ReadListValue } from '@dasch-swiss/dsp-js';
 

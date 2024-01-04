@@ -10,7 +10,6 @@ import { PublisherComponent } from './resource/publisher/publisher.component';
 import { PublishedLetterComponent } from './resource/publishedLetter/publishedLetter.component';
 import { ResourceComponent } from './resource/resource.component';
 import { SimpleResourceComponent } from './resource/simpleResource/simpleResource.component';
-import { CorrespondenceComponent } from './correspondence/correspondence.component';
 import { ContactComponent } from './contact/contact.component';
 import { EndnoteComponent } from './resource/endnote/endnote.component';
 import { LeooRouteComponent } from './leoo-route/leoo-route.component';
@@ -23,6 +22,8 @@ import { BebbRouteComponent } from './bebb-route/bebb-route.component';
 import { TranscriptionComponent } from './resource/transcription/transcription.component';
 import { ManuscriptEntryComponent } from './resource/manuscript-entry/manuscript-entry.component';
 import { CommentComponent } from './resource/comment/comment.component';
+import { BiographyComponent } from './biography/biography.component';
+import { LeceLeooComponent } from './lece-leoo/lece-leoo.component';
 
 
 const appRoutes: Routes = [
@@ -31,12 +32,20 @@ const appRoutes: Routes = [
         component: LandingPageComponent,
     },
     {
+        path: 'biography/:person',
+        component: BiographyComponent
+    },
+    {
         path: 'introduction/:project/:id',
         component: IntroductionComponent
     },
     {
-        path: 'correspondence/:project',
-        component: CorrespondenceComponent,
+        path: 'leooIVA_IV_intro',
+        component: LeceLeooComponent
+    },
+    {
+        path: 'lece_intro',
+        component: LeceLeooComponent
     },
     {
         path: 'resource/:id',
@@ -135,7 +144,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload', relativeLinkResolution: 'legacy' })],
+    imports: [RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' })],
     exports: [RouterModule]
 })
 

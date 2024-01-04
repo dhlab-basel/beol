@@ -13,12 +13,13 @@ import {
     ReadValue,
     ResourceClassAndPropertyDefinitions
 } from '@dasch-swiss/dsp-js';
-import { DspApiConnectionToken, AppInitService } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken, AppInitService } from '../../dsp-ui-lib/core';
 import { Subscription } from 'rxjs';
 import { IncomingService } from 'src/app/services/incoming.service';
 import { BeolService } from '../../services/beol.service';
 import { BeolCompoundResource, BeolResource, PropertyValues, PropIriToNameMapping } from '../beol-resource';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ArkUrlDialogComponent } from '../../dialog/ark-url-dialog.component';
 
 class PageProps implements PropertyValues {
 
@@ -67,14 +68,14 @@ export class PageComponent extends BeolResource {
 
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
+        private _appInitService: AppInitService,
         protected _route: ActivatedRoute,
         protected _incomingService: IncomingService,
         protected _beolService: BeolService,
         public location: Location,
-        private _appInitService: AppInitService,
-        protected _snackBar: MatSnackBar) {
-
-        super(_dspApiConnection, _route, _incomingService, _beolService, _snackBar);
+        public dialog: MatDialog
+    ) {
+        super(_dspApiConnection, _route, _incomingService, _beolService);
     }
 
     initProps() {
@@ -171,5 +172,15 @@ export class PageComponent extends BeolResource {
 
     goToResource(resType: string, resIri: string, res) {
         this._beolService.routeByResourceType(resType, resIri, res);
+    }
+
+    openDialog(arkURL: string) {
+        this.dialog.open(ArkUrlDialogComponent, {
+            hasBackdrop: true,
+            width: '600px',
+            data: {
+                arkURL: arkURL
+            }
+        });
     }
 }

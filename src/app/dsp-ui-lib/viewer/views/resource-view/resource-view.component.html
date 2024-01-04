@@ -1,0 +1,35 @@
+<div class="resource-view" *ngIf="resource">
+
+    <!-- dsp-resource-representation -->
+    <div class="center">
+        <dsp-still-image *ngIf="stillImageRepresentations.length" [images]="stillImageRepresentations">
+        </dsp-still-image>
+        <!-- TODO: here we'll add more viewers and players dsp-moving-image, dsp-audio etc. -->
+        <mat-divider></mat-divider>
+    </div>
+
+    <!-- dsp-property-toolbar with action buttons and project information -->
+    <dsp-property-toolbar *ngIf="showToolbar"
+        [resource]="resource"
+        [showAllProps]="showAllProps"
+        (toggleProps)="toggleProps($event)"
+        (referredProjectHovered)="referredProjectHovered.emit($event)"
+        (referredProjectClicked)="referredProjectClicked.emit($event)">
+    </dsp-property-toolbar>
+
+    <!-- dsp-property-view -->
+    <dsp-property-view *ngIf="resPropInfoVals.length !== 0 || systemPropDefs.length !== 0; else noProperty"
+        [parentResource]="resource"
+                       [propArray]="resPropInfoVals"
+                       [systemPropArray]="systemPropDefs"
+                       [showAllProps]="showAllProps"
+                       (referredResourceClicked)="referredResourceClicked.emit($event)"
+                       (referredResourceHovered)="referredResourceHovered.emit($event)">
+    </dsp-property-view>
+
+    <ng-template #noProperty>The resource {{resource?.resourceClassLabel}} has no defined properties.</ng-template>
+
+</div>
+
+<!-- progress indicator -->
+<dsp-progress-indicator *ngIf="!resource"></dsp-progress-indicator>

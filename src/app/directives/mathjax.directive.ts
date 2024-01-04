@@ -22,7 +22,7 @@ export class ReferredResources {
 /**
  * This directive makes MathJax render the mathematical notation contained in the inserted HTML.
  */
-// tslint:disable-next-line:directive-selector
+// eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({selector: '[mathJax]'})
 export class MathJaxDirective implements OnChanges {
 

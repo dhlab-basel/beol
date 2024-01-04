@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchParams } from '@dasch-swiss/dsp-ui';
+import { SearchParams } from './dsp-ui-lib/viewer';
 import { Router } from '@angular/router';
 import * as BeolConstants from './beol-constants';
 

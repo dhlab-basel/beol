@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { ReadResource, ReadTextValue, Constants } from '@dasch-swiss/dsp-js';
-import { ValueService } from '@dasch-swiss/dsp-ui';
+import { ValueService } from '../../dsp-ui-lib/viewer';
 
 @Component({
     selector: 'read-text-value',

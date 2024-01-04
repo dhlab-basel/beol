@@ -56,28 +56,11 @@
   margin: 12px 0 48px 0;
 }
 
-.flex-container {
-  //  flex-direction: row;
-  //  box-sizing: border-box;
-  //  display: flex;
-}
-
 // cards on the landing page
 .intro-card {
-  // from corr-card
-  //  position:static !important;
-  //  margin: 15px;
-
-  // from intro-card
-  box-shadow: none !important;
-  border: 1px solid #dfdfdf;
-  border-radius: 3px;
   cursor: pointer;
   text-align: center;
-  height: 60px !important;
-  padding: 30px;
   margin: 5px;
-  font-size: 1.1em;
 
   &:hover {
     background: rgba(133, 133, 133, .5);

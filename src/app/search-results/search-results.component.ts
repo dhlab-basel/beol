@@ -11,10 +11,12 @@ import {
 import {
     AdvancedSearchParams,
     AdvancedSearchParamsService,
+} from '../dsp-ui-lib/search';
+import {
     AppInitService,
-    DspApiConnectionToken,
-    ValueService
-} from '@dasch-swiss/dsp-ui';
+    DspApiConnectionToken
+} from '../dsp-ui-lib/core';
+import { ValueService } from '../dsp-ui-lib/viewer';
 import { Subscription } from 'rxjs';
 import { BeolService } from '../services/beol.service';
 import * as BeolConstants from '../beol-constants';

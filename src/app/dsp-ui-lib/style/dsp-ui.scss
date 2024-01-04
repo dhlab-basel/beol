@@ -1,0 +1,103 @@
+/*
+ * Main dsp-ui stylesheet which has to be imported in
+ * angular.json in the angular application.
+ */
+
+@import "./config";
+@import "./mixins";
+@import "./responsive";
+@import "./viewer";
+
+// general reusable classes
+
+.center {
+  text-align: center;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.custom-error-message {
+  font-size: 12px;
+  margin-top: -1em;
+  padding-bottom: 1em;
+}
+
+// The following styles will override material design!
+
+// jdnconvertiblecalendar main style
+.mat-datepicker-content {
+  .mat-calendar {
+    height: auto !important;
+  }
+}
+
+.grid-card {
+  margin: 0 0 !important;
+}
+
+dsp-color-value {
+
+  .mat-mdc-form-field-flex,
+  .color-picker-input {
+    cursor: pointer !important;
+  }
+  /*
+ TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.
+ */
+  .mat-form-field-label span {
+    display: block;
+    padding: 8px 4px;
+    margin: 0 auto;
+  }
+}
+
+// String literal input
+// string literal textarea: overwrite material styling !important
+.string-literal {
+  &.short-text {
+    .mat-mdc-form-field-infix {
+      margin-left: 12px;
+    }
+  }
+
+  &.long-text {
+    .mat-button-toggle-appearance-standard {
+      .mat-button-toggle-label-content {
+        line-height: 36px !important;
+        padding: 0 8px !important;
+      }
+    }
+
+    // textarea
+    .mat-mdc-form-field-subscript-wrapper {
+      width: 100%;
+
+      .mat-mdc-form-field-flex {
+        border-left: 1px solid rgba(0, 0, 0, 0.12);
+        min-height: calc(4 * 36px + 2px);
+
+        .mat-mdc-form-field-infix {
+          // negative values are not the best choice,
+          // but with this margin-top the placeholder is at the
+          // same position as in the short-text input
+          margin: -12px auto auto 12px;
+        }
+      }
+    }
+  }
+}
+
+.mat-menu-panel.res-share-menu {
+  max-width: 360px !important;
+  padding: 6px !important;
+}
+
+.info-tooltip {
+  white-space: pre-line;
+}

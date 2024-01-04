@@ -1,16 +1,19 @@
 // Include non-theme styles for core.
-@import '~@angular/material/theming';
-@include mat-core();
+@use '@angular/material' as mat;
+@include mat.all-component-typographies();
+@include mat.core();
 
 // Define the color palettes for the theme.
-$primary: mat-palette($mat-brown, 700, 500, 800);
-$accent: mat-palette($mat-deep-orange, A100, A200, A400);
+$primary: mat.define-palette(mat.$brown-palette, 700, 500, 800);
+$accent: mat.define-palette(mat.$deep-orange-palette, A100, A200, A400);
 
 // The warn palette is optional (defaults to red).
-$warn: mat-palette($mat-red);
+$warn: mat.define-palette(mat.$red-palette);
 
 // Define a theme.
-$theme: mat-light-theme($primary, $accent, $warn);
+$theme: mat.define-light-theme($primary, $accent, $warn);
 
 // Include all theme styles for the components.
-@include angular-material-theme($theme);
+/* TODO(mdc-migration): Remove all-legacy-component-themes once all legacy components are migrated*/
+@include mat.all-legacy-component-themes($theme);
+@include mat.all-component-themes($theme);

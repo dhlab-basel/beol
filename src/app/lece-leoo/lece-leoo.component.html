@@ -1,0 +1,62 @@
+<div class="full-size scroll-y-only">
+
+    <dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
+
+    <div *ngIf="!isLoading">
+
+        <div class="sidebar">
+            <button mat-stroked-button class="previousBtn" (click)="location.back()">
+                <mat-icon>arrow_back</mat-icon>
+                Previous
+            </button>
+        </div>
+
+        <div class="main-content" [ngSwitch]="url">
+
+            <ng-container *ngSwitchCase="'leooIVA_IV_intro'">
+                <h1>Leonhardi Euleri Opera Omnia IVA/IV</h1>
+
+                <div class="row">
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/leoo/goldbach_preface">
+                        <mat-card-content>Preface</mat-card-content>
+                    </mat-card>
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/leoo/goldbach_abbreviations">
+                        <mat-card-content>List of Abbreviations</mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div class="row">
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/leoo/goldbach_introduction_1">
+                        <mat-card-content>Historical and biographical setting</mat-card-content>
+                    </mat-card>
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/leoo/goldbach_introduction_2">
+                        <mat-card-content>Main subjects of the correspondence</mat-card-content>
+                    </mat-card>
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/leoo/goldbach_introduction_3.1">
+                        <mat-card-content>Editing the Euler-Goldbach correspondence</mat-card-content>
+                    </mat-card>
+                </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'lece_intro'">
+                <h1>Leonhardi Euleri Commercium Epistolicum</h1>
+                <div class="row">
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/lece/CondorcetTurgot_preface">
+                        <mat-card-content>Préface</mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div class="row">
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/lece/CondorcetMJA_Introduction">
+                        <mat-card-content>Correspondance d'Euler avec Condorcet</mat-card-content>
+                    </mat-card>
+
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/lece/Turgot_Introduction">
+                        <mat-card-content>Correspondance d'Euler avec Turgot</mat-card-content>
+                    </mat-card>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+</div>

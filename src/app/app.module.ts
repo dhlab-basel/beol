@@ -7,13 +7,13 @@ import { KnoraApiConnection } from '@dasch-swiss/dsp-js';
 // @dsp-ui library
 import {
     AppInitService,
-    DspActionModule,
     DspApiConfigToken,
     DspApiConnectionToken,
-    DspCoreModule,
-    DspSearchModule,
-    DspViewerModule
-} from '@dasch-swiss/dsp-ui';
+    DspCoreModule
+} from './dsp-ui-lib/core';
+import { DspSearchModule } from './dsp-ui-lib/search';
+import { DspActionModule } from './dsp-ui-lib/action';
+import { DspViewerModule } from './dsp-ui-lib/viewer';
 // modules from @angular/material and @angular/flex-layout
 import { MaterialModule } from './material-module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -41,7 +41,6 @@ import { PublishedLetterComponent } from './resource/publishedLetter/publishedLe
 // directives
 import { MathJaxDirective } from './directives/mathjax.directive';
 // Loads the application configuration file during application startup
-import { CorrespondenceComponent } from './correspondence/correspondence.component';
 import { ContactComponent } from './contact/contact.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -63,6 +62,9 @@ import { ManuscriptEntryComponent } from './resource/manuscript-entry/manuscript
 import { TeiLinkDirective } from './directives/tei-link.directive';
 import { CommentComponent } from './resource/comment/comment.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BiographyComponent } from './biography/biography.component';
+import { LeceLeooComponent } from './lece-leoo/lece-leoo.component';
+import { ArkUrlDialogComponent } from './dialog/ark-url-dialog.component';
 
 @NgModule({
     declarations: [
@@ -80,7 +82,6 @@ import { HttpClientModule } from '@angular/common/http';
         LeibnizLetterComponent,
         ReadListValueComponent,
         ReadTextValueAsHtmlComponent,
-        CorrespondenceComponent,
         ContactComponent,
         MathJaxDirective,
         LeooRouteComponent,
@@ -100,6 +101,9 @@ import { HttpClientModule } from '@angular/common/http';
         TeiLinkDirective,
         CommentComponent,
         PublishedLetterComponent,
+        BiographyComponent,
+        LeceLeooComponent,
+        ArkUrlDialogComponent
     ],
     imports: [
         AppRouting,

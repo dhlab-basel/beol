@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { BeolService } from '../services/beol.service';
 import { ActivatedRoute } from '@angular/router';
 import { MathJaxDirective } from '../directives/mathjax.directive';
-import { DspApiConnectionToken, AppInitService } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken, AppInitService } from '../dsp-ui-lib/core';
 import { ReadResource, ReadResourceSequence, ResourcesEndpointV2, SearchEndpointV2 } from '@dasch-swiss/dsp-js';
 
 describe('IntroductionComponent', () => {

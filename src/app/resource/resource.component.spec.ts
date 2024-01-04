@@ -9,7 +9,7 @@ import { ResourceComponent } from './resource.component';
 import { ReadTextValueAsHtmlComponent } from '../properties/read-text-value-as-html/read-text-value-as-html.component';
 import { ReadListValueComponent } from '../properties/read-list-value/read-list-value.component';
 import { MathJaxDirective } from '../directives/mathjax.directive';
-import { AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AppInitService, DspApiConnectionToken } from '../dsp-ui-lib/core';
 import { ReadResource, ReadResourceSequence, ResourcesEndpointV2, SearchEndpointV2 } from '@dasch-swiss/dsp-js';
 import { BeolService } from '../services/beol.service';
 

@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { AdvancedSearchParams, AdvancedSearchParamsService, AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AdvancedSearchParams, AdvancedSearchParamsService} from '../dsp-ui-lib/search';
+import { AppInitService, DspApiConnectionToken} from '../dsp-ui-lib/core';
 import { ApiResponseError, KnoraApiConnection, ReadResourceSequence } from '@dasch-swiss/dsp-js';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';

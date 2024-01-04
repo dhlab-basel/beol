@@ -9,11 +9,11 @@ import {
     ReadValue
 } from '@dasch-swiss/dsp-js';
 import { Subscription } from 'rxjs';
-import { DspApiConnectionToken, Region, StillImageComponent, StillImageRepresentation } from '@dasch-swiss/dsp-ui';
+import { DspApiConnectionToken } from '../dsp-ui-lib/core';
+import { Region, StillImageComponent, StillImageRepresentation} from '../dsp-ui-lib/viewer';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { IncomingService } from '../services/incoming.service';
 import { BeolService } from '../services/beol.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class BeolCompoundResource {
 
@@ -45,7 +45,7 @@ export abstract class BeolResource implements OnInit, OnDestroy {
 
     abstract iri: string;
     abstract resource: BeolCompoundResource;
-    abstract isLoading = true;
+    isLoading = true;
     abstract errorMessage: any;
     abstract incomingStillImageRepresentationCurrentOffset: number;
     abstract navigationSubscription: Subscription;
@@ -57,15 +57,11 @@ export abstract class BeolResource implements OnInit, OnDestroy {
 
     abstract propIris: PropIriToNameMapping;
 
-    message: string; // message to show in the snackbar to confirm the copy of the ARK URL
-    action: string; // label for the snackbar action
-
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
         protected _route: ActivatedRoute,
         protected _incomingService: IncomingService,
-        protected _beolService: BeolService,
-        protected _snackBar: MatSnackBar) {
+        protected _beolService: BeolService) {
     }
 
     /**
@@ -367,20 +363,4 @@ export abstract class BeolResource implements OnInit, OnDestroy {
                 }
             );
     }
-
-    /**
-     * Display message to confirm the copy of the citation link (ARK URL)
-     * @param message
-     * @param action
-     */
-    openARKURLSnackBar() {
-        this.message = 'Copied to clipboard!';
-        this.action = 'Citation Link';
-        this._snackBar.open(this.message, this.action, {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top'
-        });
-    }
-
 }

@@ -1,0 +1,20 @@
+.biography {
+  margin-block-end: 1.5rem;
+
+  img {
+    float: right;
+    height: 320px;
+    width: auto;
+  }
+
+  .further-links {
+    list-style: none;
+    padding-inline-start: 0;
+  }
+}
+
+.biography::after {
+  content: "";
+  clear: both;
+  display: table;
+}

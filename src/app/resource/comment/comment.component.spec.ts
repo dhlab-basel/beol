@@ -11,7 +11,7 @@ import { HanCatalogueDirective } from '../../directives/han-catalogue.directive'
 import { TeiLinkDirective } from '../../directives/tei-link.directive';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { AppInitService, DspApiConnectionToken } from '@dasch-swiss/dsp-ui';
+import { AppInitService, DspApiConnectionToken } from '../../dsp-ui-lib/core';
 import { ReadResource, ReadResourceSequence, ResourcesEndpointV2, SearchEndpointV2 } from '@dasch-swiss/dsp-js';
 
 describe('CommentComponent', () => {
