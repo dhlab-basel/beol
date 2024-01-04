@@ -748,7 +748,18 @@ export class BeolService {
             // route to biblio-items template
             this._router.navigateByUrl('biblio/' + encodeURIComponent(referredResourceIri));
         } else if (referredResourceType === this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#page') {
-            this._router.navigateByUrl('page/' + encodeURIComponent(referredResourceIri));
+            this._dspApiConnection.v2.res.getResource(referredResourceIri)
+                .subscribe((result: ReadResource) => {
+                    let isPartOfReisbuechlein = false;
+                    for(let property of Object.keys(result.properties)) {
+                        if (property.endsWith("v2#partOfValue")) {
+                            if ((result.properties[property][0] as ReadLinkValue).linkedResource?.id === "http://rdfh.ch/0801/N1XIvGvYSBO1wODFfl0QjQ") {
+                                isPartOfReisbuechlein = true;
+                            }
+                        }
+                    }
+                    isPartOfReisbuechlein ? this._router.navigateByUrl('pageTranscription') : this._router.navigateByUrl('page/' + encodeURIComponent(referredResourceIri));
+                })
         } else if (referredResourceType === 'http://api.knora.org/ontology/knora-api/v2#Region') {
             // route region to page it belongs to
             this.routeToPageWithActiveRegion(referredResourceIri);
