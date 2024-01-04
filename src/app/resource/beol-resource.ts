@@ -209,7 +209,7 @@ export abstract class BeolResource implements OnInit, OnDestroy {
 
     /**
      * Get StillImageRepresentations pointing to [[this.resource]].
-     * This method may have to called several times with an increasing offsetChange in order to get all available StillImageRepresentations.
+     * This method may have to be called several times with an increasing offsetChange in order to get all available StillImageRepresentations.
      *
      * @param offset the offset to be used (needed for paging). First request uses an offset of 0.
      * It takes the number of images returned as an argument.
@@ -340,8 +340,6 @@ export abstract class BeolResource implements OnInit, OnDestroy {
         this._dspApiConnection.v2.res.getResource(iri)
             .subscribe(
                 (result: ReadResource) => {
-
-                    // console.log(result)
 
                     const res = new BeolCompoundResource(result);
 
