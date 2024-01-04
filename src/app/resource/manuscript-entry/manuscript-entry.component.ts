@@ -49,8 +49,8 @@ export class ManuscriptEntryComponent extends BeolResource {
 
     propIris: PropIriToNameMapping = {
         'title': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#title',
-        'page': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#hasPageValue',
         'seqnum': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#seqnum',
+        'page': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#hasPageValue',
         'manuscriptEntryOf': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#manuscriptEntryOfValue'
     };
 
