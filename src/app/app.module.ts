@@ -66,6 +66,7 @@ import { BiographyComponent } from './biography/biography.component';
 import { LeceLeooComponent } from './lece-leoo/lece-leoo.component';
 import { PageTranscriptionComponent } from './resource/page-transcription/page-transcription.component';
 import { ArkUrlDialogComponent } from './dialog/ark-url-dialog.component';
+import { ReisbuechleinUriPipe } from './pipes/reisbuechlein-uri.pipe';
 
 @NgModule({
     declarations: [
@@ -105,7 +106,8 @@ import { ArkUrlDialogComponent } from './dialog/ark-url-dialog.component';
         BiographyComponent,
         LeceLeooComponent,
         PageTranscriptionComponent,
-        ArkUrlDialogComponent
+        ArkUrlDialogComponent,
+        ReisbuechleinUriPipe
     ],
     imports: [
         AppRouting,

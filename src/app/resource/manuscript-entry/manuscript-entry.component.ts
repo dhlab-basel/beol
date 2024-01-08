@@ -13,7 +13,7 @@ import {
     ResourceClassAndPropertyDefinitions
 } from '@dasch-swiss/dsp-js';
 import { DspApiConnectionToken, AppInitService } from '../../dsp-ui-lib/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IncomingService } from 'src/app/services/incoming.service';
 import { BeolService } from '../../services/beol.service';
 import { BeolCompoundResource, BeolResource, PropertyValues, PropIriToNameMapping } from '../beol-resource';
@@ -57,6 +57,8 @@ export class ManuscriptEntryComponent extends BeolResource {
     props: ManuscriptEntryProps;
 
     transcriptions: ReadResource[] = [];
+    journey$: Observable<any>;
+    stages$: Observable<any>;
 
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
@@ -81,6 +83,12 @@ export class ManuscriptEntryComponent extends BeolResource {
         this.getTranscriptions();
 
         this.checkReisbuechlein();
+
+        if (this.isPartOfReisbuechlein) {
+            this.getPages();
+            this.getJourney();
+            this.getStages();
+        }
     }
 
     private getTranscriptions() {
@@ -105,8 +113,25 @@ export class ManuscriptEntryComponent extends BeolResource {
         this.isPartOfReisbuechlein = this.props?.manuscriptEntryOf[0].linkedResourceIri === "http://rdfh.ch/0801/N1XIvGvYSBO1wODFfl0QjQ";
     }
 
+    private getPages() {
+        // TODO
+    }
+
+    private getJourney() {
+        this.journey$ = this._beolService.getJourney(this.iri);
+    }
+
+    private getStages() {
+        this.stages$ = this._beolService.getStages(this.iri);
+    }
+
     goToResource(resType: string, resIri: string, res) {
         this._beolService.routeByResourceType(resType, resIri, res);
+    }
+
+    goToFirstPageTranscription() {
+        // TODO
+        console.log(this.resource, this.props);
     }
 
     openDialog(arkURL: string) {

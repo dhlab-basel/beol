@@ -5,6 +5,12 @@ import { ApiResponseError, KnoraApiConnection, ReadResourceSequence } from '@das
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Constants, ReadResource, ReadLinkValue } from '@dasch-swiss/dsp-js';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+type DataGraphDB = {
+    head: { vars: string[] },
+    results: { bindings: any[] }
+}
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +21,8 @@ export class BeolService {
         @Inject(DspApiConnectionToken) private _dspApiConnection: KnoraApiConnection,
         private _searchParamsService: AdvancedSearchParamsService,
         private _appInitService: AppInitService,
-        private _router: Router
+        private _router: Router,
+        private _http: HttpClient
     ) { }
 
     /**
@@ -657,7 +664,6 @@ export class BeolService {
 
         `;
 
-
         return pageTemplate;
     }
 
@@ -708,6 +714,78 @@ export class BeolService {
         }
         return manuscriptEntriesTemplate + offsetTemplate;
 
+    }
+
+    getJourney(entryIri: string): Observable<DataGraphDB> {
+        const journeyTemplate = `
+        PREFIX trip-onto: <http://www.dhlab.unibas.ch/ontology/trip-onto#>
+        PREFIX schema: <https://schema.org/>
+        PREFIX : <http://www.dhlab.unibas.ch/data/JBReisebuechlein#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX ofn:<http://www.ontotext.com/sparql/functions/>
+        SELECT ?From ?To ?Departure ?Arrival ?EndDate ?DurationOfStayInDays
+        WHERE {
+            BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
+            BIND(<${entryIri}> AS ?entryIRI)
+            ?journeyTriple trip-onto:mentionedIn ?entryIRI .
+            ?journey trip-onto:hasStartLocation ?From .
+            BIND(<<	?journey trip-onto:hasStartLocation ?From >> AS ?startStatement)
+            ?journey trip-onto:hasDestination ?To .
+            ?startStatement trip-onto:hasStartDate ?Departure .
+            BIND(<<	?journey trip-onto:hasDestination ?To >> AS ?arrivalStatement)
+            ?arrivalStatement trip-onto:hasArrival ?Arrival .
+            ?journeyTriple trip-onto:hasEndDate ?EndDate .
+            BIND(ofn:days-from-duration(?EndDate-?Arrival) AS ?duration_d)
+            BIND(ofn:years-from-duration(?EndDate-?Arrival) AS ?duration_y)
+            BIND(ofn:months-from-duration(?EndDate-?Arrival) AS ?duration_m)
+            BIND(?duration_y *365+ ?duration_m*12 + ?duration_d AS ?DurationOfStayInDays)
+        }
+
+        OFFSET 0
+        `;
+
+        return this.requestGraphDB(journeyTemplate);
+    }
+
+    getStages(entryIri: string):Observable<DataGraphDB> {
+        const stageTemplate = `
+        PREFIX trip-onto: <http://www.dhlab.unibas.ch/ontology/trip-onto#>
+        PREFIX schema: <https://schema.org/>
+        PREFIX : <http://www.dhlab.unibas.ch/data/JBReisebuechlein#>
+        SELECT ?From ?To ?startDate ?endDate ?Transportation ?Accomodation
+        WHERE {
+           ?journey a trip-onto:Journey .
+            BIND(<${entryIri}> AS ?entryIRI)
+            BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
+            ?journeyTriple trip-onto:mentionedIn ?entryIRI .
+            ?journeyTriple trip-onto:hasStage ?stage .
+            BIND(<<?journeyTriple trip-onto:hasStage ?stage>> AS ?stageTriple)
+            ?stage trip-onto:hasStartLocation ?From .
+            ?stageTriple trip-onto:hasEndDate ?endDate .
+            ?stageTriple trip-onto:hasStartDate ?startDate .
+            ?stage trip-onto:hasDestination ?To .
+            ?stage trip-onto:meanOfTransportation ?Transportation .
+            OPTIONAL {
+            ?stage trip-onto:hasStay ?stay  .
+            ?stay trip-onto:hasAccommodation ?accomodationRes .
+            ?accomodationRes schema:name ?Accomodation .
+            }
+        }
+        `;
+
+        return this.requestGraphDB(stageTemplate);
+    }
+
+    requestGraphDB(query: string): Observable<DataGraphDB> {
+        const url = "http://localhost:7200/repositories/reisbuechlein";
+        const headers = {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json",
+        }
+        const body = new HttpParams()
+            .set('query', query)
+
+        return this._http.post<DataGraphDB>(url, body, {'headers': headers});
     }
 
     /**
