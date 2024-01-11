@@ -15,28 +15,31 @@
     <dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
 
     <ng-container *ngIf="!isLoading">
+        <h1>{{this.resource.readResource.label}}</h1>
+        <nav>
+            <ol class="pagination">
+                <li>
+                    <button mat-button [disabled]="!previousPage" (click)="goToResource(previousPage?.type, previousPage?.id, previousPage)">
+                        < Previous Page
+                    </button>
+                <li>
+                    <button mat-button [disabled]="!nextPage" (click)="goToResource(nextPage?.type, nextPage?.id, nextPage)">
+                        Next Page >
+                    </button>
+                </li>
+            </ol>
+        </nav>
+
         <section class="page">
-            <h3>Page</h3>
-            <dsp-still-image #OSDViewer class="osd-viewer"></dsp-still-image>
-            <nav>
-                <ol class="pagination">
-                    <li>
-                        <button mat-button [disabled]="!previousPage" (click)="goToResource(previousPage?.type, previousPage?.id, previousPage)">
-                            < Previous Page
-                        </button>
-                    <li>
-                        <button mat-button [disabled]="!nextPage" (click)="goToResource(nextPage?.type, nextPage?.id, nextPage)">
-                            Next Page >
-                        </button>
-                    </li>
-                </ol>
-            </nav>
+            <h2>Page</h2>
+            <dsp-still-image #OSDViewer class="osd-viewer" [images]="resource?.stillImageRepresentationsToDisplay"
+                             [activateRegion]="activeRegion" (regionClicked)="regionActive($event)"></dsp-still-image>
         </section>
 
         <section class="transcription">
-            <h3>Transcription</h3>
+            <h2>Transcription</h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et urna ac risus cursus posuere non id lectus. Etiam id pharetra elit, eget malesuada elit. Sed eros justo, consequat vitae laoreet in, iaculis suscipit nibh. Ut semper finibus tincidunt. Donec ac interdum velit. Cras tristique tempus varius. Morbi ut enim consectetur, sodales dui ut, tincidunt magna. Vestibulum sagittis eu turpis ut gravida. Nam metus lectus, mollis sed leo eu, bibendum viverra diam. Pellentesque mollis iaculis turpis. Nunc lobortis in ligula quis tempor. Etiam in finibus ante, id pellentesque massa. Maecenas eget vehicula nunc, vel viverra nibh.
+                [Transcription]
             </p>
         </section>
     </ng-container>

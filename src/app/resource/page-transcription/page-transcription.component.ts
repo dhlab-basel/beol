@@ -1,7 +1,15 @@
 import { Component, Inject} from '@angular/core';
 import { Location } from '@angular/common';
-import { BeolCompoundResource, BeolResource, PropIriToNameMapping } from '../beol-resource';
-import { Constants, KnoraApiConnection, ReadResource } from '@dasch-swiss/dsp-js';
+import { BeolCompoundResource, BeolResource, PropertyValues, PropIriToNameMapping } from '../beol-resource';
+import {
+    Constants,
+    KnoraApiConnection,
+    ReadIntValue,
+    ReadLinkValue,
+    ReadResource, ReadResourceSequence,
+    ReadTextValue,
+    ReadTextValueAsHtml, ReadValue
+} from '@dasch-swiss/dsp-js';
 import { Subscription } from 'rxjs';
 import { AppInitService, DspApiConnectionToken } from '../../dsp-ui-lib/core';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +17,15 @@ import { IncomingService } from '../../services/incoming.service';
 import { BeolService } from '../../services/beol.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ArkUrlDialogComponent } from '../../dialog/ark-url-dialog.component';
+
+class PageProps implements PropertyValues {
+    pagenum: ReadTextValue[] = [];
+    seqnum: ReadIntValue[] = [];
+    partOf: ReadLinkValue[] = [];
+    hasTranscription: ReadLinkValue[] = [];
+
+    [index: string]: ReadValue[];
+}
 
 @Component({
   selector: 'app-page-transcription',
@@ -23,10 +40,18 @@ export class PageTranscriptionComponent extends BeolResource {
     incomingStillImageRepresentationCurrentOffset: number;
     iri: string;
     navigationSubscription: Subscription;
-    propIris: PropIriToNameMapping;
-    resource: BeolCompoundResource | any;
-    previousPage: ReadResource | any;
-    nextPage: ReadResource | any;
+    propIris: PropIriToNameMapping = {
+        'pagenum': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#pagenum',
+        'seqnum': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#seqnum',
+        'partOf': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#partOfValue',
+        'hasTranscription': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#hasTranscriptionValue'
+    };
+    resource: BeolCompoundResource;
+    previousPage: ReadResource;
+    nextPage: ReadResource;
+    activeRegion: string;
+    props: PageProps;
+
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
         protected _route: ActivatedRoute,
@@ -37,13 +62,6 @@ export class PageTranscriptionComponent extends BeolResource {
         public dialog: MatDialog
     ) {
         super(_dspApiConnection, _route, _incomingService, _beolService);
-        setTimeout(() => {
-            this.isLoading = false;
-            this.previousPage = {label: "previous"};
-            this.nextPage = {label: "next"};
-            this.resource = {readResource: {label: "Med_Ms_p0002"}};
-        }, 1000);
-        // this.isLoading = false;
     }
 
     openDialog(arkURL: string) {
@@ -57,9 +75,48 @@ export class PageTranscriptionComponent extends BeolResource {
     }
 
     initProps(): void {
+        const props = new PageProps();
+
+        this.mapper(props);
+
+        this.props = props;
+        this.versionArkUrl = this.resource.readResource.versionArkUrl;
+
+        this.getPreviousAndNextPage();
+    }
+
+    private getPreviousAndNextPage() {
+
+        const manuscriptIri = this.props.partOf[0].linkedResourceIri;
+
+        const gravsearchQuery = this._beolService.getPreviousAndNextPartOfCompound(manuscriptIri, this.props.seqnum[0].int);
+
+        this._dspApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe(
+            (pages: ReadResourceSequence) => {
+
+                if (pages.resources.length === 2) {
+                    this.previousPage = pages.resources[0];
+                    this.nextPage = pages.resources[1];
+                } else if (pages.resources.length === 1) {
+                    if (this.props.seqnum[0].int === 1) {
+                        // first page
+                        this.nextPage = pages.resources[0];
+                        this.previousPage = null;
+                    } else {
+                        // last page
+                        this.previousPage = pages.resources[0];
+                        this.nextPage = null;
+                    }
+                }
+
+            });
+    }
+
+    regionActive(regionIri: string) {
+        this._beolService.routeToPageWithActiveRegion(regionIri);
     }
 
     goToResource(resType: string, resIri: string, res) {
-        // this._beolService.routeByResourceType(resType, resIri, res);
+        this._beolService.routeByResourceType(resType, resIri, res);
     }
 }

@@ -21,14 +21,16 @@ main {
   margin-inline-end: 2rem;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 1rem;
 
-  dsp-progress-indicator {
-    flex: 1;
+  h1 {
+    width: 100%;
+    font-size: xx-large;
   }
 
-  section {
-    flex: 1;
+  nav {
+    width: 100%;
 
     .pagination {
       list-style: none;
@@ -42,6 +44,14 @@ main {
         flex-direction: row-reverse;
       }
     }
+  }
+
+  dsp-progress-indicator {
+    flex: 1;
+  }
+
+  section {
+    flex: 1;
   }
 
   .transcription p {
