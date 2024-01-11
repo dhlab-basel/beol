@@ -74,7 +74,7 @@
                 <tbody>
                 <tr *ngFor="let dataSet of journey.results.bindings">
                     <ng-container *ngFor="let hItem of journey.head.vars">
-                        <td *ngIf="dataSet[hItem]">{{dataSet[hItem] | reisbuechleinURI}}</td>
+                        <td>{{dataSet[hItem] | reisbuechleinURI}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -93,7 +93,7 @@
                 <tbody>
                 <tr *ngFor="let dataSet of stages.results.bindings">
                     <ng-container *ngFor="let hItem of stages.head.vars">
-                        <td *ngIf="dataSet[hItem]">{{dataSet[hItem] | reisbuechleinURI}}</td>
+                        <td>{{dataSet[hItem] | reisbuechleinURI}}</td>
                     </ng-container>
                 </tr>
                 </tbody>

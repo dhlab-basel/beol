@@ -12,6 +12,10 @@ type BindingGraphDB = {
 export class ReisbuechleinUriPipe implements PipeTransform {
 
   transform(value: BindingGraphDB): string {
+      if (value === undefined) {
+          return "";
+      }
+
       return (value.type === "uri") ? value.value.split("#")[1] : value.value;
   }
 
