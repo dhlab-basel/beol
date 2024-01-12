@@ -67,6 +67,7 @@ import { LeceLeooComponent } from './lece-leoo/lece-leoo.component';
 import { PageTranscriptionComponent } from './resource/page-transcription/page-transcription.component';
 import { ArkUrlDialogComponent } from './dialog/ark-url-dialog.component';
 import { ReisbuechleinUriPipe } from './pipes/reisbuechlein-uri.pipe';
+import { OnlyTranscriptionComponent } from './resource/page-transcription/only-transcription/only-transcription.component';
 
 @NgModule({
     declarations: [
@@ -107,7 +108,8 @@ import { ReisbuechleinUriPipe } from './pipes/reisbuechlein-uri.pipe';
         LeceLeooComponent,
         PageTranscriptionComponent,
         ArkUrlDialogComponent,
-        ReisbuechleinUriPipe
+        ReisbuechleinUriPipe,
+        OnlyTranscriptionComponent
     ],
     imports: [
         AppRouting,

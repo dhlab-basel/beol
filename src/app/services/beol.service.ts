@@ -33,8 +33,7 @@ export class BeolService {
      * @returns Gravsearch query.
      */
     searchForBookByTitle(isbn: string, sectionTitle: string): string {
-
-        const bookTemplate = `
+        return `
     PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
     PREFIX biblio: <${this._appInitService.config['ontologyIRI']}/ontology/0801/biblio/simple/v2#>
     PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
@@ -80,9 +79,6 @@ export class BeolService {
 
     OFFSET 0
         `;
-
-        return bookTemplate;
-
     }
 
 
@@ -93,8 +89,7 @@ export class BeolService {
      * @returns Gravsearch query.
      */
     searchForIntroductionById(id: string): string {
-
-        const introTemplate = `
+        return `
     PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
     PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
 
@@ -113,14 +108,11 @@ export class BeolService {
 
     OFFSET 0
         `;
-
-        return introTemplate;
-
     }
 
 
     /**
-     * Creates the Gravsearch needed for the search for the LEOO correspodence ordered by date.
+     * Creates the Gravsearch needed for the search for the LEOO correspondence ordered by date.
      *
      * @param gnd1 the GND/IAF identifier for the first correspondent.
      * @param gnd2 the GND/IAF identifier for the second correspondent.
@@ -202,14 +194,13 @@ export class BeolService {
     }
 
     /**
-     * Creates the Gravsearch needed for the search for the correspodence between two persons, ordered by date  (LECE and BEBB editions).
+     * Creates the Gravsearch needed for the search for the correspondence between two persons, ordered by date  (LECE and BEBB editions).
      *
      * @param gnd1 the GND/IAF identifier for the first correspondent.
      * @param gnd2 the GND/IAF identifier for the second correspondent.
      * @param offset the offset to be used.
      */
     searchForCorrespondence(gnd1: string, gnd2: string, offset: number = 0): string {
-
 
         const correspondenceTemplate = `
             PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/v2#>
@@ -265,7 +256,7 @@ export class BeolService {
     }
 
     /**
-     * Creates the Gravsearch needed for the search for the newton correspodence.
+     * Creates the Gravsearch needed for the search for the newton correspondence.
      */
     searchForNewtonCorrespondence(offset: number = 0): string {
 
@@ -350,8 +341,7 @@ export class BeolService {
      * @returns the Gravsearch query.
      */
     searchForLetterFromLEOO(repertoriumNumber: string): string {
-
-        const letterByNumberTemplate = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
         CONSTRUCT {
@@ -369,9 +359,6 @@ export class BeolService {
 
         OFFSET 0
         `;
-
-        return letterByNumberTemplate;
-
     }
 
     /**
@@ -382,8 +369,7 @@ export class BeolService {
      * @returns the Gravsearch query to get the transcription Iris.
      */
     getTranscriptionIriForRegion(regionIri: string, offset: number = 0) {
-
-        const transcriptionIriForPage = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
@@ -394,8 +380,6 @@ export class BeolService {
 
         OFFSET ${offset}
         `;
-
-        return transcriptionIriForPage;
     }
 
     /**
@@ -445,7 +429,7 @@ export class BeolService {
 
     getTitleRegionTranscriptionForManuscriptEntry(manuscriptEntryIri: string, offset: number = 0) {
 
-        const titleRegionTranscriptionsForManuscriptEntry = `
+        return `
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
 
@@ -471,9 +455,6 @@ export class BeolService {
 
         OFFSET ${offset}
         `;
-
-        return titleRegionTranscriptionsForManuscriptEntry;
-
     }
 
     /**
@@ -515,8 +496,7 @@ export class BeolService {
      * @return Gravsearch string.
      */
     private getRegionDimensionsAndPageQuery(regionIri: string): string {
-
-        const regionDimsTemplate = `
+        return `
     PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
     PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
 
@@ -540,8 +520,6 @@ export class BeolService {
 
     } OFFSET 0
         `;
-
-        return regionDimsTemplate;
     }
 
     /**
@@ -565,8 +543,7 @@ export class BeolService {
      * @returns the Gravsearch query.
      */
     searchForLetterFromBEBB(title: string): string {
-
-        const letterByTitleTemplate = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
@@ -590,9 +567,6 @@ export class BeolService {
 
         OFFSET 0
         `;
-
-        return letterByTitleTemplate;
-
     }
 
 
@@ -603,8 +577,7 @@ export class BeolService {
      * @returns the Gravsearch query.
      */
     searchForPersonWithGND(gnd: string): string {
-
-        const personByGNDTemplate = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
@@ -628,9 +601,6 @@ export class BeolService {
 
         OFFSET 0
         `;
-
-        return personByGNDTemplate;
-
     }
 
     /**
@@ -640,8 +610,7 @@ export class BeolService {
      * @param currentSeqnum the sequence number of the current part.
      */
     getPreviousAndNextPartOfCompound(compoundIri: string, currentSeqnum: number): string {
-
-        const pageTemplate = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
@@ -661,10 +630,7 @@ export class BeolService {
 
         ORDER BY ?seqnum
         OFFSET 0
-
         `;
-
-        return pageTemplate;
     }
 
     /**
@@ -714,6 +680,26 @@ export class BeolService {
         }
         return manuscriptEntriesTemplate + offsetTemplate;
 
+    }
+
+    getPagesOfManuscriptEntry(entryIri: string) {
+        return `
+            PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
+            PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
+
+            CONSTRUCT {
+                ?page knora-api:isMainResource true .
+                ?page beol:seqnum ?seqnum .
+                ?entry beol:hasPage ?page .
+            } WHERE {
+                BIND (<${entryIri}> AS ?entry)
+	            ?entry beol:hasPage ?page .
+	            ?page beol:seqnum ?seqnum .
+            }
+            ORDER BY ?seqnum
+
+            OFFSET 0
+        `;
     }
 
     getJourney(entryIri: string): Observable<DataGraphDB> {

@@ -56,8 +56,8 @@
     </section>-->
 
     <ng-container *ngIf="isPartOfReisbuechlein">
-        <section class="transcription-btn">
-            <mat-card class="intro-card" appearance="outlined" (click)="goToFirstPageTranscription()">
+        <section *ngIf="pages$ | async as page" class="transcription-btn">
+            <mat-card class="intro-card" appearance="outlined" (click)="goToFirstPageTranscription(page.resources[0].id)">
                 <mat-card-content>Transcription</mat-card-content>
             </mat-card>
         </section>
@@ -69,14 +69,22 @@
                     Table 1: Information about the journey
                 </caption>
                 <thead>
-                <th *ngFor="let headerItem of journey.head.vars">{{headerItem}}</th>
+                    <tr>
+                        <th *ngFor="let headerItem of journey.head.vars">{{headerItem}}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let dataSet of journey.results.bindings">
-                    <ng-container *ngFor="let hItem of journey.head.vars">
-                        <td>{{dataSet[hItem] | reisbuechleinURI}}</td>
+                    <ng-container *ngIf="journey.results.bindings.length > 0; else noData">
+                        <tr *ngFor="let dataSet of journey.results.bindings">
+                            <td *ngFor="let hItem of journey.head.vars">{{dataSet[hItem] | reisbuechleinURI}}</td>
+                        </tr>
                     </ng-container>
-                </tr>
+
+                    <ng-template #noData>
+                        <tr class="no-data">
+                            <td [colSpan]="journey.head.vars.length"> No data available</td>
+                        </tr>
+                    </ng-template>
                 </tbody>
             </table>
         </section>
@@ -88,14 +96,22 @@
                     Table 2: Stages of the journey
                 </caption>
                 <thead>
-                <th *ngFor="let headerItem of stages.head.vars">{{headerItem}}</th>
+                    <tr>
+                        <th *ngFor="let headerItem of stages.head.vars">{{headerItem}}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let dataSet of stages.results.bindings">
-                    <ng-container *ngFor="let hItem of stages.head.vars">
-                        <td>{{dataSet[hItem] | reisbuechleinURI}}</td>
+                    <ng-container *ngIf="stages.results.bindings.length > 0; else noData">
+                        <tr *ngFor="let dataSet of stages.results.bindings">
+                            <td *ngFor="let hItem of stages.head.vars">{{dataSet[hItem] | reisbuechleinURI}}</td>
+                        </tr>
                     </ng-container>
-                </tr>
+
+                    <ng-template #noData>
+                        <tr class="no-data">
+                            <td [colSpan]="stages.head.vars.length"> No data available</td>
+                        </tr>
+                    </ng-template>
                 </tbody>
             </table>
         </section>

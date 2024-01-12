@@ -38,9 +38,14 @@
 
         <section class="transcription">
             <h2>Transcription</h2>
-            <p>
-                [Transcription]
+            <p *ngIf="this.props['hasTranscription'].length > 0; else notranscription">
+                <app-only-transcription [iri]=getTranscriptionIRI()></app-only-transcription>
             </p>
+            <ng-template #notranscription>
+                <p class="no-transcription">
+                    No transcription available
+                </p>
+            </ng-template>
         </section>
     </ng-container>
 </main>

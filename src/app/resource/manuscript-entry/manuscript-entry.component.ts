@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
     Constants,
     KnoraApiConnection,
@@ -46,23 +46,22 @@ export class ManuscriptEntryComponent extends BeolResource {
     dspConstants = Constants;
     navigationSubscription: Subscription;
     isPartOfReisbuechlein: boolean;
-
     propIris: PropIriToNameMapping = {
         'title': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#title',
         'seqnum': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#seqnum',
         'page': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#hasPageValue',
         'manuscriptEntryOf': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#manuscriptEntryOfValue'
     };
-
     props: ManuscriptEntryProps;
-
     transcriptions: ReadResource[] = [];
     journey$: Observable<any>;
     stages$: Observable<any>;
+    pages$: Observable<any>;
 
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
         private _appInitService: AppInitService,
+        private _router: Router,
         protected _route: ActivatedRoute,
         protected _incomingService: IncomingService,
         protected _beolService: BeolService,
@@ -114,7 +113,8 @@ export class ManuscriptEntryComponent extends BeolResource {
     }
 
     private getPages() {
-        // TODO
+        const gravsearch = this._beolService.getPagesOfManuscriptEntry(this.iri);
+        this.pages$ = this._dspApiConnection.v2.search.doExtendedSearch(gravsearch);
     }
 
     private getJourney() {
@@ -129,9 +129,8 @@ export class ManuscriptEntryComponent extends BeolResource {
         this._beolService.routeByResourceType(resType, resIri, res);
     }
 
-    goToFirstPageTranscription() {
-        // TODO
-        console.log(this.resource, this.props);
+    goToFirstPageTranscription(id: string) {
+        this._router.navigate(['pageTranscription/', id]);
     }
 
     openDialog(arkURL: string) {

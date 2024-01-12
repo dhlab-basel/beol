@@ -26,7 +26,10 @@ main {
 
   h1 {
     width: 100%;
+    text-align: center;
     font-size: xx-large;
+    margin-block-start: 0;
+    margin-block-end: 0;
   }
 
   nav {
@@ -35,9 +38,10 @@ main {
     .pagination {
       list-style: none;
       padding-inline-start: 0;
+      margin-block-start: 0;
+      margin-block-end: 0;
       display: flex;
       flex-direction: row;
-      //border: 1px solid black;
       justify-content: space-between;
 
       .next-btn {
@@ -55,20 +59,14 @@ main {
   }
 
   .transcription p {
+    min-height: 550px;
+    padding: 1rem;
     border: 1px solid darkgray;
   }
 }
 
-@media(max-width: map-get($grid-breakpoints, tablet)) {
-  menu {
-    list-style: none;
-    margin-inline-start: 2rem;
-    margin-inline-end: 2rem;
-  }
-
+@media(max-width: map-get($grid-breakpoints, notebook)) {
   main {
     flex-direction: column;
-    margin-inline-start: 2rem;
-    margin-inline-end: 2rem;
   }
 }

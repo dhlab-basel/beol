@@ -8,7 +8,7 @@ import {
     ReadLinkValue,
     ReadResource, ReadResourceSequence,
     ReadTextValue,
-    ReadTextValueAsHtml, ReadValue
+    ReadValue
 } from '@dasch-swiss/dsp-js';
 import { Subscription } from 'rxjs';
 import { AppInitService, DspApiConnectionToken } from '../../dsp-ui-lib/core';
@@ -110,6 +110,10 @@ export class PageTranscriptionComponent extends BeolResource {
                 }
 
             });
+    }
+
+    getTranscriptionIRI() {
+        return this.props['hasTranscription'][0].linkedResourceIri;
     }
 
     regionActive(regionIri: string) {
