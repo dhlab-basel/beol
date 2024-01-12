@@ -87,31 +87,15 @@
         <!-- Main content of the page -->
         <div class="main-content" *ngIf="!isLoading && props">
             <section class="cite-link">
-                <button mat-button class="share-res" matTooltip="Share resource by copying ARK url" matTooltipPosition="above"
-                        [matMenuTriggerFor]="share">
-                    <mat-icon>share</mat-icon>
-                    <span class="desktop-only">Citation Link</span>
+                <button mat-stroked-button class="share-res" (click)="openDialog(resource.versionArkUrl)">
+                    <mat-icon>share</mat-icon>Citation Link
                 </button>
-                <mat-menu #share="matMenu" class="res-share-menu">
-                    <!-- citation link - ARK URL -->
-                    <div class="ark-url-label mat-body">
-                        <label for="clipboard-arkurl">Citation Link (ARK URL)</label>
-                    </div>
-                    <div class="ark-url-input">
-                        <input id="clipboard-arkurl" class="clipboard-arkurl" cols="30" rows="10" readonly
-                               [(ngModel)]="resource.versionArkUrl" />
-                        <button mat-button class="btn-copy-arkurl" [cdkCopyToClipboard]="resource.versionArkUrl"
-                                matTooltip="Copy ARK url" matTooltipPosition="below" (click)="openARKURLSnackBar()">
-                            <mat-icon class="icon-arkurl">copy</mat-icon>
-                        </button>
-                    </div>
-                </mat-menu>
             </section>
+
             <section class="title center">
                 <h3 mat-card-subtitle>{{resource?.label}}</h3>
                 <h1 mat-card-title *ngFor="let title of props.title">{{title.strval}}</h1>
             </section>
-
 
             <section class="text introduction">
                 <read-text-value-as-html [valueObject]="$any(props.text[0])" [resource]="resource"
