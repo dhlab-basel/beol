@@ -1,0 +1,51 @@
+<menu>
+    <li>
+        <button mat-stroked-button class="previousBtn" (click)="location.back()">
+            <mat-icon>arrow_back</mat-icon>Previous
+        </button>
+    </li>
+    <li>
+        <button mat-stroked-button class="share-res" (click)="openDialog('http://0.0.0.0:3336/ark:/72163/1/0801/t0DN=IPHSti3u6kt_1bAnAy.20160720T152340842Z')">
+            <mat-icon>share</mat-icon>Citation Link
+        </button>
+    </li>
+</menu>
+
+<main>
+    <dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
+
+    <ng-container *ngIf="!isLoading">
+        <h1>{{this.resource.readResource.label}}</h1>
+        <nav>
+            <ol class="pagination">
+                <li>
+                    <button mat-button [disabled]="!previousPage" (click)="goToResource(previousPage?.type, previousPage?.id, previousPage)">
+                        < Previous Page
+                    </button>
+                <li>
+                    <button mat-button [disabled]="!nextPage" (click)="goToResource(nextPage?.type, nextPage?.id, nextPage)">
+                        Next Page >
+                    </button>
+                </li>
+            </ol>
+        </nav>
+
+        <section class="page">
+            <h2>Page</h2>
+            <dsp-still-image #OSDViewer class="osd-viewer" [images]="resource?.stillImageRepresentationsToDisplay"
+                             [activateRegion]="activeRegion" (regionClicked)="regionActive($event)"></dsp-still-image>
+        </section>
+
+        <section class="transcription">
+            <h2>Transcription</h2>
+            <p *ngIf="this.props['hasTranscription'].length > 0; else notranscription">
+                <app-only-transcription [iri]=getTranscriptionIRI()></app-only-transcription>
+            </p>
+            <ng-template #notranscription>
+                <p class="no-transcription">
+                    No transcription available
+                </p>
+            </ng-template>
+        </section>
+    </ng-container>
+</main>

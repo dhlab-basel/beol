@@ -64,7 +64,10 @@ import { CommentComponent } from './resource/comment/comment.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BiographyComponent } from './biography/biography.component';
 import { LeceLeooComponent } from './lece-leoo/lece-leoo.component';
+import { PageTranscriptionComponent } from './resource/page-transcription/page-transcription.component';
 import { ArkUrlDialogComponent } from './dialog/ark-url-dialog.component';
+import { ReisbuechleinUriPipe } from './pipes/reisbuechlein-uri.pipe';
+import { OnlyTranscriptionComponent } from './resource/page-transcription/only-transcription/only-transcription.component';
 
 @NgModule({
     declarations: [
@@ -103,7 +106,10 @@ import { ArkUrlDialogComponent } from './dialog/ark-url-dialog.component';
         PublishedLetterComponent,
         BiographyComponent,
         LeceLeooComponent,
-        ArkUrlDialogComponent
+        PageTranscriptionComponent,
+        ArkUrlDialogComponent,
+        ReisbuechleinUriPipe,
+        OnlyTranscriptionComponent
     ],
     imports: [
         AppRouting,

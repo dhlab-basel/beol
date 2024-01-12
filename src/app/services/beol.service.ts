@@ -5,6 +5,12 @@ import { ApiResponseError, KnoraApiConnection, ReadResourceSequence } from '@das
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Constants, ReadResource, ReadLinkValue } from '@dasch-swiss/dsp-js';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+type DataGraphDB = {
+    head: { vars: string[] },
+    results: { bindings: any[] }
+}
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +21,8 @@ export class BeolService {
         @Inject(DspApiConnectionToken) private _dspApiConnection: KnoraApiConnection,
         private _searchParamsService: AdvancedSearchParamsService,
         private _appInitService: AppInitService,
-        private _router: Router
+        private _router: Router,
+        private _http: HttpClient
     ) { }
 
     /**
@@ -26,8 +33,7 @@ export class BeolService {
      * @returns Gravsearch query.
      */
     searchForBookByTitle(isbn: string, sectionTitle: string): string {
-
-        const bookTemplate = `
+        return `
     PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
     PREFIX biblio: <${this._appInitService.config['ontologyIRI']}/ontology/0801/biblio/simple/v2#>
     PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
@@ -73,9 +79,6 @@ export class BeolService {
 
     OFFSET 0
         `;
-
-        return bookTemplate;
-
     }
 
 
@@ -86,8 +89,7 @@ export class BeolService {
      * @returns Gravsearch query.
      */
     searchForIntroductionById(id: string): string {
-
-        const introTemplate = `
+        return `
     PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
     PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
 
@@ -106,14 +108,11 @@ export class BeolService {
 
     OFFSET 0
         `;
-
-        return introTemplate;
-
     }
 
 
     /**
-     * Creates the Gravsearch needed for the search for the LEOO correspodence ordered by date.
+     * Creates the Gravsearch needed for the search for the LEOO correspondence ordered by date.
      *
      * @param gnd1 the GND/IAF identifier for the first correspondent.
      * @param gnd2 the GND/IAF identifier for the second correspondent.
@@ -195,14 +194,13 @@ export class BeolService {
     }
 
     /**
-     * Creates the Gravsearch needed for the search for the correspodence between two persons, ordered by date  (LECE and BEBB editions).
+     * Creates the Gravsearch needed for the search for the correspondence between two persons, ordered by date  (LECE and BEBB editions).
      *
      * @param gnd1 the GND/IAF identifier for the first correspondent.
      * @param gnd2 the GND/IAF identifier for the second correspondent.
      * @param offset the offset to be used.
      */
     searchForCorrespondence(gnd1: string, gnd2: string, offset: number = 0): string {
-
 
         const correspondenceTemplate = `
             PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/v2#>
@@ -258,7 +256,7 @@ export class BeolService {
     }
 
     /**
-     * Creates the Gravsearch needed for the search for the newton correspodence.
+     * Creates the Gravsearch needed for the search for the newton correspondence.
      */
     searchForNewtonCorrespondence(offset: number = 0): string {
 
@@ -343,8 +341,7 @@ export class BeolService {
      * @returns the Gravsearch query.
      */
     searchForLetterFromLEOO(repertoriumNumber: string): string {
-
-        const letterByNumberTemplate = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
         CONSTRUCT {
@@ -362,9 +359,6 @@ export class BeolService {
 
         OFFSET 0
         `;
-
-        return letterByNumberTemplate;
-
     }
 
     /**
@@ -375,8 +369,7 @@ export class BeolService {
      * @returns the Gravsearch query to get the transcription Iris.
      */
     getTranscriptionIriForRegion(regionIri: string, offset: number = 0) {
-
-        const transcriptionIriForPage = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
@@ -387,8 +380,6 @@ export class BeolService {
 
         OFFSET ${offset}
         `;
-
-        return transcriptionIriForPage;
     }
 
     /**
@@ -438,7 +429,7 @@ export class BeolService {
 
     getTitleRegionTranscriptionForManuscriptEntry(manuscriptEntryIri: string, offset: number = 0) {
 
-        const titleRegionTranscriptionsForManuscriptEntry = `
+        return `
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
 
@@ -464,9 +455,6 @@ export class BeolService {
 
         OFFSET ${offset}
         `;
-
-        return titleRegionTranscriptionsForManuscriptEntry;
-
     }
 
     /**
@@ -508,8 +496,7 @@ export class BeolService {
      * @return Gravsearch string.
      */
     private getRegionDimensionsAndPageQuery(regionIri: string): string {
-
-        const regionDimsTemplate = `
+        return `
     PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
     PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
 
@@ -533,8 +520,6 @@ export class BeolService {
 
     } OFFSET 0
         `;
-
-        return regionDimsTemplate;
     }
 
     /**
@@ -558,8 +543,7 @@ export class BeolService {
      * @returns the Gravsearch query.
      */
     searchForLetterFromBEBB(title: string): string {
-
-        const letterByTitleTemplate = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
@@ -583,9 +567,6 @@ export class BeolService {
 
         OFFSET 0
         `;
-
-        return letterByTitleTemplate;
-
     }
 
 
@@ -596,8 +577,7 @@ export class BeolService {
      * @returns the Gravsearch query.
      */
     searchForPersonWithGND(gnd: string): string {
-
-        const personByGNDTemplate = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
@@ -621,9 +601,6 @@ export class BeolService {
 
         OFFSET 0
         `;
-
-        return personByGNDTemplate;
-
     }
 
     /**
@@ -633,8 +610,7 @@ export class BeolService {
      * @param currentSeqnum the sequence number of the current part.
      */
     getPreviousAndNextPartOfCompound(compoundIri: string, currentSeqnum: number): string {
-
-        const pageTemplate = `
+        return `
         PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
         PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
         CONSTRUCT {
@@ -654,11 +630,7 @@ export class BeolService {
 
         ORDER BY ?seqnum
         OFFSET 0
-
         `;
-
-
-        return pageTemplate;
     }
 
     /**
@@ -710,6 +682,98 @@ export class BeolService {
 
     }
 
+    getPagesOfManuscriptEntry(entryIri: string) {
+        return `
+            PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
+            PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
+
+            CONSTRUCT {
+                ?page knora-api:isMainResource true .
+                ?page beol:seqnum ?seqnum .
+                ?entry beol:hasPage ?page .
+            } WHERE {
+                BIND (<${entryIri}> AS ?entry)
+	            ?entry beol:hasPage ?page .
+	            ?page beol:seqnum ?seqnum .
+            }
+            ORDER BY ?seqnum
+
+            OFFSET 0
+        `;
+    }
+
+    getJourney(entryIri: string): Observable<DataGraphDB> {
+        const journeyTemplate = `
+        PREFIX trip-onto: <http://www.dhlab.unibas.ch/ontology/trip-onto#>
+        PREFIX schema: <https://schema.org/>
+        PREFIX : <http://www.dhlab.unibas.ch/data/JBReisebuechlein#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX ofn:<http://www.ontotext.com/sparql/functions/>
+        SELECT ?From ?To ?Departure ?Arrival ?EndDate ?DurationOfStayInDays
+        WHERE {
+            BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
+            BIND(<${entryIri}> AS ?entryIRI)
+            ?journeyTriple trip-onto:mentionedIn ?entryIRI .
+            ?journey trip-onto:hasStartLocation ?From .
+            BIND(<<	?journey trip-onto:hasStartLocation ?From >> AS ?startStatement)
+            ?journey trip-onto:hasDestination ?To .
+            ?startStatement trip-onto:hasStartDate ?Departure .
+            BIND(<<	?journey trip-onto:hasDestination ?To >> AS ?arrivalStatement)
+            ?arrivalStatement trip-onto:hasArrival ?Arrival .
+            ?journeyTriple trip-onto:hasEndDate ?EndDate .
+            BIND(ofn:days-from-duration(?EndDate-?Arrival) AS ?duration_d)
+            BIND(ofn:years-from-duration(?EndDate-?Arrival) AS ?duration_y)
+            BIND(ofn:months-from-duration(?EndDate-?Arrival) AS ?duration_m)
+            BIND(?duration_y *365+ ?duration_m*12 + ?duration_d AS ?DurationOfStayInDays)
+        }
+
+        OFFSET 0
+        `;
+
+        return this.requestGraphDB(journeyTemplate);
+    }
+
+    getStages(entryIri: string):Observable<DataGraphDB> {
+        const stageTemplate = `
+        PREFIX trip-onto: <http://www.dhlab.unibas.ch/ontology/trip-onto#>
+        PREFIX schema: <https://schema.org/>
+        PREFIX : <http://www.dhlab.unibas.ch/data/JBReisebuechlein#>
+        SELECT ?From ?To ?startDate ?endDate ?Transportation ?Accomodation
+        WHERE {
+           ?journey a trip-onto:Journey .
+            BIND(<${entryIri}> AS ?entryIRI)
+            BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
+            ?journeyTriple trip-onto:mentionedIn ?entryIRI .
+            ?journeyTriple trip-onto:hasStage ?stage .
+            BIND(<<?journeyTriple trip-onto:hasStage ?stage>> AS ?stageTriple)
+            ?stage trip-onto:hasStartLocation ?From .
+            ?stageTriple trip-onto:hasEndDate ?endDate .
+            ?stageTriple trip-onto:hasStartDate ?startDate .
+            ?stage trip-onto:hasDestination ?To .
+            ?stage trip-onto:meanOfTransportation ?Transportation .
+            OPTIONAL {
+            ?stage trip-onto:hasStay ?stay  .
+            ?stay trip-onto:hasAccommodation ?accomodationRes .
+            ?accomodationRes schema:name ?Accomodation .
+            }
+        }
+        `;
+
+        return this.requestGraphDB(stageTemplate);
+    }
+
+    requestGraphDB(query: string): Observable<DataGraphDB> {
+        const url = "http://localhost:7200/repositories/reisbuechlein";
+        const headers = {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json",
+        }
+        const body = new HttpParams()
+            .set('query', query)
+
+        return this._http.post<DataGraphDB>(url, body, {'headers': headers});
+    }
+
     /**
      * Chooses the apt route to display a resource, depending on its type.
      *
@@ -748,7 +812,18 @@ export class BeolService {
             // route to biblio-items template
             this._router.navigateByUrl('biblio/' + encodeURIComponent(referredResourceIri));
         } else if (referredResourceType === this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#page') {
-            this._router.navigateByUrl('page/' + encodeURIComponent(referredResourceIri));
+            this._dspApiConnection.v2.res.getResource(referredResourceIri)
+                .subscribe((result: ReadResource) => {
+                    let isPartOfReisbuechlein = false;
+                    for(let property of Object.keys(result.properties)) {
+                        if (property.endsWith("v2#partOfValue")) {
+                            if ((result.properties[property][0] as ReadLinkValue).linkedResource?.id === "http://rdfh.ch/0801/N1XIvGvYSBO1wODFfl0QjQ") {
+                                isPartOfReisbuechlein = true;
+                            }
+                        }
+                    }
+                    isPartOfReisbuechlein ? this._router.navigateByUrl('pageTranscription/' + encodeURIComponent(referredResourceIri)) : this._router.navigateByUrl('page/' + encodeURIComponent(referredResourceIri));
+                })
         } else if (referredResourceType === 'http://api.knora.org/ontology/knora-api/v2#Region') {
             // route region to page it belongs to
             this.routeToPageWithActiveRegion(referredResourceIri);

@@ -24,6 +24,7 @@ import { ManuscriptEntryComponent } from './resource/manuscript-entry/manuscript
 import { CommentComponent } from './resource/comment/comment.component';
 import { BiographyComponent } from './biography/biography.component';
 import { LeceLeooComponent } from './lece-leoo/lece-leoo.component';
+import { PageTranscriptionComponent } from './resource/page-transcription/page-transcription.component';
 
 
 const appRoutes: Routes = [
@@ -82,6 +83,10 @@ const appRoutes: Routes = [
     {
         path: 'page/:id/:region',
         component: PageComponent
+    },
+    {
+        path: 'pageTranscription/:id',
+        component: PageTranscriptionComponent
     },
     {
         path: 'newtonLetter/:id',

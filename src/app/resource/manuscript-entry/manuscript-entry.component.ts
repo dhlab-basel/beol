@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
     Constants,
     KnoraApiConnection,
@@ -13,7 +13,7 @@ import {
     ResourceClassAndPropertyDefinitions
 } from '@dasch-swiss/dsp-js';
 import { DspApiConnectionToken, AppInitService } from '../../dsp-ui-lib/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IncomingService } from 'src/app/services/incoming.service';
 import { BeolService } from '../../services/beol.service';
 import { BeolCompoundResource, BeolResource, PropertyValues, PropIriToNameMapping } from '../beol-resource';
@@ -24,6 +24,7 @@ class ManuscriptEntryProps implements PropertyValues {
 
     title: ReadTextValue[] = [];
     seqnum: ReadIntValue[] = [];
+    page: ReadLinkValue[] = [];
     manuscriptEntryOf: ReadLinkValue[] = [];
 
     [index: string]: ReadValue[];
@@ -44,27 +45,29 @@ export class ManuscriptEntryComponent extends BeolResource {
     errorMessage: any;
     dspConstants = Constants;
     navigationSubscription: Subscription;
-
+    isPartOfReisbuechlein: boolean;
     propIris: PropIriToNameMapping = {
         'title': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#title',
         'seqnum': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#seqnum',
+        'page': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#hasPageValue',
         'manuscriptEntryOf': this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#manuscriptEntryOfValue'
     };
-
     props: ManuscriptEntryProps;
-
     transcriptions: ReadResource[] = [];
+    journey$: Observable<any>;
+    stages$: Observable<any>;
+    pages$: Observable<any>;
 
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
         private _appInitService: AppInitService,
+        private _router: Router,
         protected _route: ActivatedRoute,
         protected _incomingService: IncomingService,
         protected _beolService: BeolService,
         public location: Location,
         public dialog: MatDialog
     ) {
-
         super(_dspApiConnection, _route, _incomingService, _beolService);
     }
 
@@ -77,6 +80,14 @@ export class ManuscriptEntryComponent extends BeolResource {
         this.props = props;
 
         this.getTranscriptions();
+
+        this.checkReisbuechlein();
+
+        if (this.isPartOfReisbuechlein) {
+            this.getPages();
+            this.getJourney();
+            this.getStages();
+        }
     }
 
     private getTranscriptions() {
@@ -97,8 +108,29 @@ export class ManuscriptEntryComponent extends BeolResource {
 
     }
 
+    private checkReisbuechlein() {
+        this.isPartOfReisbuechlein = this.props?.manuscriptEntryOf[0].linkedResourceIri === "http://rdfh.ch/0801/N1XIvGvYSBO1wODFfl0QjQ";
+    }
+
+    private getPages() {
+        const gravsearch = this._beolService.getPagesOfManuscriptEntry(this.iri);
+        this.pages$ = this._dspApiConnection.v2.search.doExtendedSearch(gravsearch);
+    }
+
+    private getJourney() {
+        this.journey$ = this._beolService.getJourney(this.iri);
+    }
+
+    private getStages() {
+        this.stages$ = this._beolService.getStages(this.iri);
+    }
+
     goToResource(resType: string, resIri: string, res) {
         this._beolService.routeByResourceType(resType, resIri, res);
+    }
+
+    goToFirstPageTranscription(id: string) {
+        this._router.navigate(['pageTranscription/', id]);
     }
 
     openDialog(arkURL: string) {

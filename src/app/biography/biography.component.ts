@@ -72,7 +72,7 @@ class CorrespondenceGroup {
   templateUrl: './biography.component.html',
   styleUrls: ['./biography.component.scss']
 })
-export class BiographyComponent implements OnInit, OnDestroy{
+export class BiographyComponent implements OnInit, OnDestroy {
     isLoading = true;
     name: string;
     navigationSubscription: Subscription;

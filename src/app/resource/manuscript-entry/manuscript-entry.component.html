@@ -1,61 +1,120 @@
-<div class="full-size scroll-y-only">
+<menu>
+    <li>
+        <button mat-stroked-button class="previousBtn" (click)="location.back()">
+            <mat-icon>arrow_back</mat-icon>Previous
+        </button>
+    </li>
+    <li>
+        <button mat-stroked-button class="share-res" (click)="openDialog('http://0.0.0.0:3336/ark:/72163/1/0801/t0DN=IPHSti3u6kt_1bAnAy.20160720T152340842Z')">
+            <mat-icon>share</mat-icon>Citation Link
+        </button>
+    </li>
+</menu>
 
-    <dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
+<dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
 
-    <div *ngIf="!isLoading && props">
+<aside *ngIf="!isLoading">
+    <section *ngIf="transcriptions[0]">
+        <h4 class="subheading-2">Transcriptions:</h4>
+        <p class="margin-left">
+            <mat-list>
+                <mat-list-item *ngFor="let trans of transcriptions">
+                    <a class="salsah-link" (click)="goToResource(trans.type, trans.id, trans)">{{trans.label}}</a>
+                </mat-list-item>
+            </mat-list>
+        </p>
+    </section>
 
-        <div class="sidebar">
+    <section class="pages" *ngIf="isPartOfReisbuechlein && props?.page.length > 0">
+        <h4>Pages</h4>
+        <ul>
+            <li *ngFor="let page of props.page">
+                <dsp-link-value [displayValue]="page" [parentResource]="resource.readResource"
+                                [propIri]="page.property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
+            </li>
+        </ul>
+    </section>
+</aside>
 
-            <button mat-stroked-button class="previousBtn" (click)="location.back()">
-                <mat-icon>arrow_back</mat-icon>
-                Previous
-            </button>
+<main *ngIf="!isLoading">
 
-            <section>
+    <section *ngIf="props?.title[0]">
+        <h4 class="subheading-2">{{props?.title[0].propertyLabel}}</h4>
+        <read-text-value [valueObject]="props?.title[0]" [bindEvents]="false" [resource]="resource.readResource">
+        </read-text-value>
+    </section>
 
-                <div *ngIf="transcriptions[0]">
-                    <h4 class="subheading-2">Transcriptions:</h4>
-                    <p class="margin-left">
-                        <mat-list>
-                            <mat-list-item *ngFor="let trans of transcriptions">
-                                <a class="salsah-link" (click)="goToResource(trans.type, trans.id, trans)">{{trans.label}}</a>
-                            </mat-list-item>
-                        </mat-list>
-                    </p>
-                </div>
+    <section *ngIf="props?.manuscriptEntryOf[0]">
+        <h4 class="subheading-2">{{props?.manuscriptEntryOf[0].propertyLabel}}</h4>
+        <dsp-link-value [displayValue]="props?.manuscriptEntryOf[0]" [parentResource]="resource.readResource"
+                        [propIri]="props?.manuscriptEntryOf[0].property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
+    </section>
 
+    <!--<section *ngIf="props?.seqnum[0]">
+        <h4 class="subheading-2">{{ontologyInfo?.getLabelForProperty(props?.seqnum[0].propIri)}}</h4>
+        <kui-integer-value [valueObject]="props?.seqnum[0]"></kui-integer-value>
+    </section>-->
 
-            </section>
+    <ng-container *ngIf="isPartOfReisbuechlein">
+        <section *ngIf="pages$ | async as page" class="transcription-btn">
+            <mat-card class="intro-card" appearance="outlined" (click)="goToFirstPageTranscription(page.resources[0].id)">
+                <mat-card-content>Transcription</mat-card-content>
+            </mat-card>
+        </section>
 
-        </div>
+        <section *ngIf="journey$ | async as journey">
+            <h4>Journey</h4>
+            <table>
+                <caption>
+                    Table 1: Information about the journey
+                </caption>
+                <thead>
+                    <tr>
+                        <th *ngFor="let headerItem of journey.head.vars">{{headerItem}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="journey.results.bindings.length > 0; else noData">
+                        <tr *ngFor="let dataSet of journey.results.bindings">
+                            <td *ngFor="let hItem of journey.head.vars">{{dataSet[hItem] | reisbuechleinURI}}</td>
+                        </tr>
+                    </ng-container>
 
-        <div class="main-content">
+                    <ng-template #noData>
+                        <tr class="no-data">
+                            <td [colSpan]="journey.head.vars.length"> No data available</td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </section>
 
-            <section class="cite-link">
-                <button mat-stroked-button class="share-res" (click)="openDialog(resource.readResource.versionArkUrl)">
-                    <mat-icon>share</mat-icon>Citation Link
-                </button>
-            </section>
+        <section *ngIf="stages$ | async as stages">
+            <h4>Stages</h4>
+            <table>
+                <caption>
+                    Table 2: Stages of the journey
+                </caption>
+                <thead>
+                    <tr>
+                        <th *ngFor="let headerItem of stages.head.vars">{{headerItem}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="stages.results.bindings.length > 0; else noData">
+                        <tr *ngFor="let dataSet of stages.results.bindings">
+                            <td *ngFor="let hItem of stages.head.vars">{{dataSet[hItem] | reisbuechleinURI}}</td>
+                        </tr>
+                    </ng-container>
 
-            <section *ngIf="props?.title[0]">
-                <h4 class="subheading-2">{{props?.title[0].propertyLabel}}</h4>
-                <read-text-value [valueObject]="props?.title[0]" [bindEvents]="false" [resource]="resource.readResource">
-                </read-text-value>
-            </section>
+                    <ng-template #noData>
+                        <tr class="no-data">
+                            <td [colSpan]="stages.head.vars.length"> No data available</td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </section>
+    </ng-container>
 
-            <section *ngIf="props?.manuscriptEntryOf[0]">
-                <h4 class="subheading-2">{{props?.manuscriptEntryOf[0].propertyLabel}}</h4>
-                <dsp-link-value [displayValue]="props?.manuscriptEntryOf[0]" [parentResource]="resource.readResource"
-                    [propIri]="props?.manuscriptEntryOf[0].property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
-            </section>
-
-            <!--<section *ngIf="props?.seqnum[0]">
-                <h4 class="subheading-2">{{ontologyInfo?.getLabelForProperty(props?.seqnum[0].propIri)}}</h4>
-                <kui-integer-value [valueObject]="props?.seqnum[0]"></kui-integer-value>
-            </section>-->
-
-        </div>
-
-    </div>
-
-</div>
+</main>
