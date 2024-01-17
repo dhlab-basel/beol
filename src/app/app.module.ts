@@ -42,7 +42,7 @@ import { PublishedLetterComponent } from './resource/publishedLetter/publishedLe
 import { MathJaxDirective } from './directives/mathjax.directive';
 // Loads the application configuration file during application startup
 import { ContactComponent } from './contact/contact.component';
-
+import { AboutComponent } from './about/about.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { PageComponent } from './resource/page/page.component';
@@ -86,6 +86,7 @@ import { OnlyTranscriptionComponent } from './resource/page-transcription/only-t
         ReadListValueComponent,
         ReadTextValueAsHtmlComponent,
         ContactComponent,
+        AboutComponent,
         MathJaxDirective,
         LeooRouteComponent,
         BiblioItemsComponent,
