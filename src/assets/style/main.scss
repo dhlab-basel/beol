@@ -132,7 +132,7 @@ td.center {
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -145,94 +145,94 @@ td.center {
 }
 
 .icon-fxL:before {
-  content: " \e900 ";
+  content: "\e911";
   font-weight: bold;
   font-size: 14px;
 }
 .icon-fxK:before {
-  content: " \e901 ";
+  content: "\e912";
   font-weight: bold;
   font-size: 14px;
 }
 .icon-fxJ:before {
-  content: " \e902 ";
+  content: "\e913";
   font-weight: bold;
   font-size: 14px;
 }
 .icon-fxH:before {
-  content: " \e903 ";
+  content: "\e914";
   font-weight: bold;
   font-size: 14px;
   vertical-align: middle;
 }
 .icon-fxI:before {
-  content: " \e904 ";
+  content: "\e915";
   font-weight: bold;
   font-size: 14px;
   vertical-align: middle;
 }
 .icon-fxA:before {
-  content: " \e905 ";
+  content: "\e916";
   font-size: 12px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxB:before {
-  content: " \e906 ";
+  content: "\e917";
   font-size: 12px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxBk:before {
-  content: "\e906";
+  content: "\e917";
   font-size: 10px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxC:before {
-  content: "\e907";
+  content: "\e918";
   font-size: 12px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxCk:before {
-  content: "\e907";
+  content: "\e918";
   font-size: 10px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxD:before {
-  content: " \e908 ";
+  content: "\e919";
   font-size: 12px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxDk:before {
-  content: " \e908 ";
+  content: "\e919";
   font-size: 9px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxE:before {
-  content: " \e909 ";
+  content: "\e91a";
   font-size: 14px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxEk:before {
-  content: " \e909 ";
+  content: "\e91a";
   font-size: 10px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxF:before {
-  content: " \e90a ";
+  content: "\e91b";
   font-size: 12px;
   font-weight: bold;
   vertical-align: middle;
 }
 .icon-fxFk:before {
-  content: " \e90a ";
+  content: "\e91b";
   font-size: 9px;
   font-weight: bold;
   vertical-align: middle;
@@ -251,6 +251,107 @@ td.center {
   vertical-align: middle;
   bottom: 2px;
   position: relative;
+}
+
+.icon-p171:before {
+  content: "\e91c";
+}
+.icon-p172:before {
+  content: "\e91e";
+}
+.icon-p166 .path1:before {
+  content: "\e901";
+  color: rgb(255, 255, 255);
+}
+.icon-p166 .path2:before {
+  content: "\e902";
+  margin-left: -0.5654296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-p166 .path3:before {
+  content: "\e903";
+  margin-left: -0.5654296875em;
+  color: rgb(255, 255, 255);
+}
+.icon-p166 .path4:before {
+  content: "\e904";
+  margin-left: -0.5654296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-p166 .path5:before {
+  content: "\e905";
+  margin-left: -0.5654296875em;
+  color: rgb(255, 255, 255);
+}
+.icon-p166 .path6:before {
+  content: "\e906";
+  margin-left: -0.5654296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-p166 .path7:before {
+  content: "\e907";
+  margin-left: -0.5654296875em;
+  color: rgb(255, 255, 255);
+}
+.icon-p166 .path8:before {
+  content: "\e908";
+  margin-left: -0.5654296875em;
+  color: rgb(255, 255, 255);
+}
+.icon-p166 .path9:before {
+  content: "\e909";
+  margin-left: -0.5654296875em;
+  color: rgb(255, 255, 255);
+}
+.icon-p166 .path10:before {
+  content: "\e90a";
+  margin-left: -0.5654296875em;
+  color: rgb(255, 255, 255);
+}
+.icon-p166 .path11:before {
+  content: "\e90b";
+  margin-left: -0.5654296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-p166 .path12:before {
+  content: "\e90c";
+  margin-left: -0.5654296875em;
+  color: rgb(255, 255, 255);
+}
+.icon-p166 .path13:before {
+  content: "\e90d";
+  margin-left: -0.5654296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-p145_2:before {
+  content: "\e90e";
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.icon-p145_1:before {
+  content: "\e90f";
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.icon-p36:before {
+  content: "\e910";
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.icon-reference:before {
+  content: "\e91d";
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.icon-p17:before {
+  content: "\e900";
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
 }
 
 @font-face {
