@@ -704,9 +704,8 @@ export class BeolService {
 
     getJourney(entryIri: string): Observable<DataGraphDB> {
         const journeyTemplate = `
-        PREFIX trip-onto: <http://www.dhlab.unibas.ch/ontology/trip-onto#>
+        PREFIX trip-onto: <http://journeyStar.dhlab.ch/ontology/trip-onto#>
         PREFIX schema: <https://schema.org/>
-        PREFIX : <http://www.dhlab.unibas.ch/data/JBReisebuechlein#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         PREFIX ofn:<http://www.ontotext.com/sparql/functions/>
         SELECT ?From ?To ?Departure ?Arrival ?EndDate ?DurationOfStayInDays
@@ -735,9 +734,8 @@ export class BeolService {
 
     getStages(entryIri: string):Observable<DataGraphDB> {
         const stageTemplate = `
-        PREFIX trip-onto: <http://www.dhlab.unibas.ch/ontology/trip-onto#>
+        PREFIX trip-onto: <http://journeyStar.dhlab.ch/ontology/trip-onto#>
         PREFIX schema: <https://schema.org/>
-        PREFIX : <http://www.dhlab.unibas.ch/data/JBReisebuechlein#>
         SELECT ?From ?To ?startDate ?endDate ?Transportation ?Accomodation
         WHERE {
            ?journey a trip-onto:Journey .
@@ -763,7 +761,8 @@ export class BeolService {
     }
 
     requestGraphDB(query: string): Observable<DataGraphDB> {
-        const url = "http://localhost:7200/repositories/reisbuechlein";
+
+        const url = "https://graphdb.organa.myds.me/repositories/journeyStar";
         const headers = {
             "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "application/json",
@@ -771,7 +770,7 @@ export class BeolService {
         const body = new HttpParams()
             .set('query', query)
 
-        return this._http.post<DataGraphDB>(url, body, {'headers': headers});
+        return this._http.post<DataGraphDB>(url, body, {'headers': headers, withCredentials: true });
     }
 
     /**
