@@ -1,5 +1,15 @@
 section {
   padding: 24px 0 48px 0;
+
+  h1 {
+    font-size: 50px;
+    font-family: 'Times New Roman';
+  }
+}
+
+.third-party-projects h3, .visualizations h3 {
+  font-size:35px;
+  font-family: 'Times New Roman';
 }
 
 .biographies {
