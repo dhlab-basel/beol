@@ -5,9 +5,9 @@ import { ApiResponseError, KnoraApiConnection, ReadResourceSequence } from '@das
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Constants, ReadResource, ReadLinkValue } from '@dasch-swiss/dsp-js';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-type DataGraphDB = {
+export type DataGraphDB = {
     head: { vars: string[] },
     results: { bindings: any[] }
 }
@@ -704,21 +704,27 @@ export class BeolService {
 
     getJourney(entryIri: string): Observable<DataGraphDB> {
         const journeyTemplate = `
-        PREFIX trip-onto: <http://www.dhlab.unibas.ch/ontology/trip-onto#>
+        PREFIX trip-onto: <http://journeyStar.dhlab.ch/ontology/trip-onto#>
         PREFIX schema: <https://schema.org/>
-        PREFIX : <http://www.dhlab.unibas.ch/data/JBReisebuechlein#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         PREFIX ofn:<http://www.ontotext.com/sparql/functions/>
-        SELECT ?From ?To ?Departure ?Arrival ?EndDate ?DurationOfStayInDays
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        SELECT ?From ?FromIri ?To ?ToIri ?Departure ?Arrival ?EndDate ?DurationOfStayInDays
         WHERE {
             BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
             BIND(<${entryIri}> AS ?entryIRI)
             ?journeyTriple trip-onto:mentionedIn ?entryIRI .
-            ?journey trip-onto:hasStartLocation ?From .
-            BIND(<<	?journey trip-onto:hasStartLocation ?From >> AS ?startStatement)
-            ?journey trip-onto:hasDestination ?To .
+            ?journey trip-onto:hasStartLocation ?FromLocation .
+            ?FromLocation owl:sameAs ?FromIri .
+            ?FromLocation schema:name ?FromName .
+            BIND(STR(?FromName) AS ?From)
+            BIND(<< ?journey trip-onto:hasStartLocation ?FromLocation >> AS ?startStatement)
+            ?journey trip-onto:hasDestination ?ToLocation .
+            ?ToLocation schema:name ?ToName .
+            ?ToLocation owl:sameAs ?ToIri .
+            BIND(STR(?ToName) AS ?To)
             ?startStatement trip-onto:hasStartDate ?Departure .
-            BIND(<<	?journey trip-onto:hasDestination ?To >> AS ?arrivalStatement)
+            BIND(<< ?journey trip-onto:hasDestination ?ToLocation >> AS ?arrivalStatement)
             ?arrivalStatement trip-onto:hasArrival ?Arrival .
             ?journeyTriple trip-onto:hasEndDate ?EndDate .
             BIND(ofn:days-from-duration(?EndDate-?Arrival) AS ?duration_d)
@@ -726,8 +732,6 @@ export class BeolService {
             BIND(ofn:months-from-duration(?EndDate-?Arrival) AS ?duration_m)
             BIND(?duration_y *365+ ?duration_m*12 + ?duration_d AS ?DurationOfStayInDays)
         }
-
-        OFFSET 0
         `;
 
         return this.requestGraphDB(journeyTemplate);
@@ -735,10 +739,10 @@ export class BeolService {
 
     getStages(entryIri: string):Observable<DataGraphDB> {
         const stageTemplate = `
-        PREFIX trip-onto: <http://www.dhlab.unibas.ch/ontology/trip-onto#>
+        PREFIX trip-onto: <http://journeyStar.dhlab.ch/ontology/trip-onto#>
         PREFIX schema: <https://schema.org/>
-        PREFIX : <http://www.dhlab.unibas.ch/data/JBReisebuechlein#>
-        SELECT ?From ?To ?startDate ?endDate ?Transportation ?Accomodation
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        SELECT ?From ?FromIri ?To ?ToIri ?startDate ?endDate ?Transportation ?Accomodation
         WHERE {
            ?journey a trip-onto:Journey .
             BIND(<${entryIri}> AS ?entryIRI)
@@ -746,10 +750,16 @@ export class BeolService {
             ?journeyTriple trip-onto:mentionedIn ?entryIRI .
             ?journeyTriple trip-onto:hasStage ?stage .
             BIND(<<?journeyTriple trip-onto:hasStage ?stage>> AS ?stageTriple)
-            ?stage trip-onto:hasStartLocation ?From .
+            ?stage trip-onto:hasStartLocation ?FromLocation .
+            ?FromLocation schema:name ?FromName .
+            ?FromLocation owl:sameAs ?FromIri .
+            BIND(STR(?FromName) As ?From)
             ?stageTriple trip-onto:hasEndDate ?endDate .
             ?stageTriple trip-onto:hasStartDate ?startDate .
-            ?stage trip-onto:hasDestination ?To .
+            ?stage trip-onto:hasDestination ?ToLocation .
+            ?ToLocation owl:sameAs ?ToIri .
+            ?ToLocation schema:name ?ToName .
+            BIND(STR(?ToName) As ?To)
             ?stage trip-onto:meanOfTransportation ?Transportation .
             OPTIONAL {
             ?stage trip-onto:hasStay ?stay  .
@@ -763,15 +773,18 @@ export class BeolService {
     }
 
     requestGraphDB(query: string): Observable<DataGraphDB> {
-        const url = "http://localhost:7200/repositories/reisbuechlein";
-        const headers = {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Accept": "application/json",
+        const url = "https://graphdb.organa.myds.me/repositories/journeyStar";
+        const httpOptions = {
+            headers: new HttpHeaders({
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json",
+                'Authorization': ('Basic ' + btoa('anonymous:test'))
+            })
         }
         const body = new HttpParams()
             .set('query', query)
 
-        return this._http.post<DataGraphDB>(url, body, {'headers': headers});
+        return this._http.post<DataGraphDB>(url, body, httpOptions);
     }
 
     /**
@@ -853,6 +866,8 @@ export class BeolService {
                 // route to generic template
                 this._router.navigateByUrl('simpleResource/' + encodeURIComponent(referredResourceIri));
             }
+        } else if (referredResourceType === this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#Location') {
+            this._router.navigateByUrl('location/' + encodeURIComponent(referredResourceIri));
         } else {
             // route to generic template
             this._router.navigateByUrl('simpleResource/' + encodeURIComponent(referredResourceIri));

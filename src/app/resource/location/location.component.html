@@ -1,0 +1,32 @@
+<div class="container">
+    <menu>
+        <li>
+            <button mat-stroked-button class="previousBtn" (click)="location.back()">
+                <mat-icon>arrow_back</mat-icon>Previous
+            </button>
+        </li>
+        <li>
+            <button mat-stroked-button class="share-res" (click)="openDialog(resource.readResource.versionArkUrl)">
+                <mat-icon>share</mat-icon>Citation Link
+            </button>
+        </li>
+    </menu>
+
+    <main>
+        <h1 mat-card-subtitle>{{resource?.readResource.resourceClassLabel}}</h1>
+        <h2>{{resource?.readResource.label}}</h2>
+
+        <section mat-line *ngFor="let prop of resource?.readResource.properties | keyvalue">
+            <h3>{{prop.value[0].propertyLabel}}</h3>
+            <ul>
+                <li *ngFor="let val of prop.value">
+                    <ng-container *ngIf="val.type === dspConstants.GeonameValue">{{val.strval}}</ng-container>
+                    <ng-container *ngIf="val.type === dspConstants.TextValue">{{val.strval}}</ng-container>
+                    <ng-container *ngIf="val.type === dspConstants.UriValue">
+                        <a [href]="val.strval">{{val.strval}}</a>
+                    </ng-container>
+                </li>
+            </ul>
+        </section>
+    </main>
+</div>
