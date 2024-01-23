@@ -11,6 +11,7 @@ import { PublishedLetterComponent } from './resource/publishedLetter/publishedLe
 import { ResourceComponent } from './resource/resource.component';
 import { SimpleResourceComponent } from './resource/simpleResource/simpleResource.component';
 import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 import { EndnoteComponent } from './resource/endnote/endnote.component';
 import { LeooRouteComponent } from './leoo-route/leoo-route.component';
 import { FigureComponent } from './resource/figure/figure.component';
@@ -137,6 +138,10 @@ const appRoutes: Routes = [
     {
         path: 'contact',
         component: ContactComponent
+    },
+    {
+        path: 'about',
+        component: AboutComponent
     },
     {
         path: 'publishedLetter/:id',

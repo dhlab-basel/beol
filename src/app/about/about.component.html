@@ -1,0 +1,124 @@
+<div class="full-size scroll-y-only">
+
+    <div class="sidebar">
+
+        <button mat-stroked-button class="previousBtn" (click)="location.back()">
+            <mat-icon>arrow_back</mat-icon>Previous
+        </button>
+
+    </div>
+
+    <div class="main-content">
+
+        <section>
+            <h1 style="font-size:50px; font-family: 'Times New Roman'">Bernoulli Euler Digital</h1>
+            <p>
+            The Bernoulli-Euler Digital represents a notable expansion of the <a target="_blank" href="https://app.dasch.swiss/project/yTerZGyxjZVqFMNNKXCDPF">Bernoulli-Euler Online (BEOL)</a> project.
+            This platform serves as a dedicated virtual research environment, focusing on exploring the influence of the
+            mathematicians of Basel on early modern mathematics and science. These mathematicians are members of the
+            Bernoulli dynasty, Leonhard Euler and his son Johann Albrecht Euler, and other prominent mathematicians such
+            as Jacob Hermann (Jacob Bernoulli's disciple) and Nicolaus Fuss.<br/>
+            </p>
+            <br/>
+            <h2 style="font-size:35px; font-family: 'Times New Roman'" mat-card-subtitle>Technical Description</h2>
+            <p>
+                Bernoulli Euler Digital is partially implemented using the
+                <a target="_blank" href="https://docs.dasch.swiss/">DaSCH Service Platform</a> &mdash; a generic virtual research
+                environment (VRE) for the humanities, built with
+                <a target="_blank" href="https://www.npmjs.com/org/dasch-swiss">DSP-JS and DSP-UI libraries</a>.
+                This platform will be further extended with further editions of works and correspondence of the members
+                of the Bernoulli dynasty and Leonhard Euler.
+            </p>
+            <p>
+                Bernoulli Euler Digital contains the first RDF-star-based digital edition in the field of humanities, namely the digital edition of
+                Jacob Bernoulli's Reisbüchlein. The information about the journeys is structured as RDF-star data using
+                the RDF-star-based `trip` ontology we defined for this purpose.
+                The SHACL shapes accompanied by this ontology are used to verify the data representing journeys, stays,
+                activities etc. that are given in travel journals such as Reisbüchlein.
+                We employed RDF-star technology to generate the digital edition of Reisbüchlein data because it is well suited for representing metadata-oriented documents.  <br/>
+                The RDF-star data of Reisbüchlein are stored separately from the DaSCH storage system in a GraphDB
+                triplestore. Hence, complex queries can be efficiently performed on this database using SPARQL-star technology.
+            </p>
+            <p>
+                It is to be noted that the named entities (persons and locations) are extracted automatically from the entries of Reisbüchlein through the
+                <a target="_blank" href="https://sepidehalassi.github.io/textToRDFGraph/">textToRDFGraph</a>
+                pipeline, which structures the extracted entities as RDF resources and enriches them with information available on
+                the <a target="_blank"  href="https://www.wikidata.org/wiki/Wikidata:Main_Page">Wikidata</a> database.
+            </p>
+            <p>
+                Bernoulli Euler Digital also contains the BEOL editions, including the correspondence of members of the
+                Bernoulli dynasty, their disciples, Leonhard Euler and his son, and a few other prominent mathematicians who were originally from Basel. <br/>
+                The Meditationes, the scientific notebook of Jacob Bernoulli, is also presented on this platform with his travel diary.
+                Like Reisbüchlein, this notebook is also represented as an interactive region-based digital edition, but
+                it is also multi-layered; i.e., the edition is created in four layers: diplomatic, critical, and
+                normalized transcriptions, as well as English translation layers.
+            </p>
+            <p>
+                Since early modern mathematicians corresponded extensively, creating a network of ideas known today as
+                the Republic of Letters, we have attempted to create an e-version of the Republic of Letters by
+                connecting our repository of the correspondence of Bernoulli mathematicians and Leonhard Euler to other
+                third-party repositories. As a proof of concept, we have connected the scientific correspondence of Sir
+                Isaac Newton (created by
+                <a target="_blank" href="https://www.newtonproject.ox.ac.uk/">The Newton Project</a> of the University
+                of Oxford) and the <a target="_blank" href="http://leibniz-briefportal.adw-goe.de/start">Briefportal Leibniz</a>,
+                containing the correspondence of Gottfried Wilhelm Leibniz. Users can thus access the letters included
+                in these two repositories through our platform. Furthermore, through advanced query tools of our platform,
+                users of our platform can also perform metadata and text queries on the entire correspondence network
+                included in this platform, namely correspondence of Bernoulli mathematicians Leonhard Euler, Johann
+                Albrecht Euler, Isaac Newton, and Gottfried Leibniz. Users can also see the correspondence network visually.
+            </p>
+            <p>
+                We have created 3D interactive web-based <a target="_blank" hre="https://vis.beol.dasch.swiss/">visualizations</a>
+                of the correspondence data that can be accessed here. The correspondence networks are visualized as 3D
+                force-directed graphs preventing the overlap of nodes and edges. Nodes represent RDF resources
+                (for correspondents and letters), and edges represent the relations between the resources; for example,
+                see <a target="_blank" href="https://vis.beol.dasch.swiss/myLetterNetwork_3D/graphs/bebbCorrespondence/">here</a>.
+                Users can interact with the visualization, zoom in and out, move the graph nodes around, and change
+                their viewpoint to study the graph. To study the underlying resources (letters, persons) closely, users
+                can access the representation of the nodes on the BEOL platform with a simple double-click on the nodes.
+                These visualizations are also available in WebVR format and can be viewed and interacted with using
+                standard VR headsets (such as Oculus). Our platform also contains the visualization of the correspondence
+                of Leonhard Euler and Christian Goldbach based on the topic of letters visualized as a 3D DAG-Force tree;
+                see <a target="_blank" href="https://vis.beol.dasch.swiss/myLetterNetwork_3D/graphs/subjectVisualization/">here</a>.
+                Through this visualization, users can study the change in the topic of correspondence between these two mathematicians over time.
+            </p>
+            <br/>
+            <h2 style="font-size:35px; font-family: 'Times New Roman'" mat-card-subtitle>About us</h2>
+            <p>
+                Bernoulli Euler Digital, as an extension of BEOL, was created in the framework of the
+                <a target="_blank" href="https://forschdb2.unibas.ch/inf2/rm_projects/object_view.php?r=4665830&type=1">JourneyStar
+                    project</a> funded by the University of Basel and executed at the  <a target="_blank" href="https://dhlab.unibas.ch">Digital Humanities Lab</a>
+                of the University of Basel. The project team consisted of:
+            </p>
+            <ul>
+                <li><a target="_blank" href="https://orcid.org/0000-0002-5627-9501">Dr. Sepideh Alassi</a> (Project Lead)</li>
+                <li>Vijeinath Tissaveerasingham (Front-End Developer)</li>
+                <li><a target="_blank" class="salsah-link" (click)="goToResource('http://rdfh.ch/0801/c4O3sR9bRp-xytsF4GJ-NQ')"> Martin Mattmüller</a> (Chief Editor)</li>
+                <li>Eline Elmiger (Assistant)</li>
+                <li>Ann Karimi Kern (Assistant)</li>
+            </ul>
+            <p>
+            Bernoulli-Euler Online (BEOL) was a <a href="https://p3.snf.ch/project-166072" target="_blank">project</a> funded by the Swiss
+                National Science Foundation during 2016-2020. It was a collaboration between the
+                <a target="_blank" href="https://bez.unibas.ch">Bernoulli Euler Centre</a> and the
+                <a target="_blank" href="https://dhlab.unibas.ch">Digital Humanities Lab</a> (both University of Basel).
+            The BEOL project team consisted of:
+            </p>
+            <ul>
+                <li><a target="_blank" href="https://orcid.org/0000-0003-1681-4036">Prof. Dr. Lukas Rosenthaler</a> (PI)</li>
+                <li>Prof. Dr. Helmut Harbrecht (PI)</li>
+                <li><a target="_blank" href="https://orcid.org/0000-0002-4480-900X">Dr. Tobias Schweizer</a> (Project Lead, Developer)</li>
+                <li><a target="_blank" href="https://orcid.org/0000-0002-5627-9501">Dr. Sepideh Alassi</a> (PhD candidate at the time, Developer)</li>
+                <li><a target="_blank" class="salsah-link" (click)="goToResource('http://rdfh.ch/0801/c4O3sR9bRp-xytsF4GJ-NQ')"> Martin Mattmüller</a> (Chief Editor)</li>
+            </ul>
+            <br/>
+            <h3 style="font-size:35px; font-family: 'Times New Roman'" mat-card-subtitle>Feedback</h3>
+            <p>
+                In case of questions or problems or if you have suggestions,
+                <br>please <a href="/contact">contact</a> us.
+            </p>
+            <br/>
+
+        </section>
+    </div>
+</div>
