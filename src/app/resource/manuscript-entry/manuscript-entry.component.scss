@@ -17,79 +17,81 @@ menu {
   }
 }
 
-aside {
+.container {
+  display: flex;
+  flex-direction: row;
   margin-inline-start: 2rem;
   margin-inline-end: 2rem;
-  position: fixed;
-  height: 100%;
-  width: $sidenav-width;
 
-  ul {
-    padding-inline-start: 25px;
-  }
+  aside {
+    width: $sidenav-width;
 
-  .pages {
-    li {
-      list-style: none;
+    ul {
+      padding-inline-start: 25px;
     }
-  }
-}
 
-main {
-  margin-inline-start: calc(2rem + $sidenav-width);
-  margin-inline-end: 2rem;
-  padding: 0 1rem;
-
-  .transcription-btn {
-    display: flex;
-    justify-content: center;
-
-    mat-card {
-      max-width: 40rem;
-      flex: 1;
+    .pages {
+      li {
+        list-style: none;
+      }
     }
   }
 
-  table {
-    border-collapse: collapse;
-    table-layout: fixed;
-    width: 100%;
-    word-break: break-all;
-    background-color: white;
+  main {
+    padding: 0 1rem;
+    flex: 1;
 
-    caption {
-      padding-block-start: 0.5rem;
-      caption-side: bottom;
-      font-style: italic;
-      font-size: small;
+    .transcription-btn {
+      display: flex;
+      justify-content: center;
+
+      mat-card {
+        max-width: 40rem;
+        flex: 1;
+      }
     }
 
-    thead {
-      background-color: rgb(200, 200, 200);
-      color: #363636;
-    }
+    table {
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 100%;
+      word-break: break-all;
+      background-color: white;
 
-    tr:nth-child(odd) td{
-      background: rgb(232, 232, 232);
-    }
+      caption {
+        padding-block-start: 0.5rem;
+        caption-side: bottom;
+        font-style: italic;
+        font-size: small;
+      }
 
-    th, td {
-      padding: 0.5rem 1rem;
-      border: 1px solid white;
+      thead {
+        background-color: rgb(200, 200, 200);
+        color: #363636;
+      }
+
+      tr:nth-child(odd) td{
+        background: rgb(232, 232, 232);
+      }
+
+      th, td {
+        padding: 0.5rem 1rem;
+        border: 1px solid white;
+      }
     }
   }
 }
 
 @media(max-width: map-get($grid-breakpoints, notebook)) {
-  aside {
-    position: static;
-    width: auto;
-    height: auto;
+  .container{
+    flex-direction: column;
+    aside {
+      width: 100%;
+    }
   }
 
   main {
-    margin-inline-start: 2rem;
-    padding: 0;
+    padding: 0!important;
 
     mat-card {
       max-width: none!important;
