@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 # We label our stage as 'builder'
-FROM node:16-stretch as builder
+FROM node:18-stretch as builder
 
 LABEL maintainer="support@dasch.swiss"
 

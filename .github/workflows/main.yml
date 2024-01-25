@@ -1,6 +1,6 @@
 name: CI
 env:
-  NV: 16.x  # node version
+  NV: 18.10.x  # node version
 
 on:
   push:
