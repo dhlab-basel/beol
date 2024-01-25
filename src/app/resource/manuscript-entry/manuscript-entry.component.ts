@@ -22,7 +22,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 
 class ManuscriptEntryProps implements PropertyValues {
-
     title: ReadTextValue[] = [];
     seqnum: ReadIntValue[] = [];
     page: ReadLinkValue[] = [];
@@ -55,9 +54,10 @@ export class ManuscriptEntryComponent extends BeolResource {
     };
     props: ManuscriptEntryProps;
     transcriptions: ReadResource[] = [];
+    pages$: Observable<any>;
     journey$: Observable<any>;
     stages$: Observable<any>;
-    pages$: Observable<any>;
+    mapCoordinates$: Observable<any>;
 
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
@@ -88,6 +88,7 @@ export class ManuscriptEntryComponent extends BeolResource {
             this.getPages();
             this.getJourney();
             this.getStages();
+            this.getMapCoordinates();
         }
     }
 
@@ -118,6 +119,12 @@ export class ManuscriptEntryComponent extends BeolResource {
         this.pages$ = this._dspApiConnection.v2.search.doExtendedSearch(gravsearch);
     }
 
+    /**
+     * Function that adds the uri information to the data.
+     *
+     * @param data
+     * @private
+     */
     private addURI(data: DataGraphDB) {
         const headerWithIRI = data.head.vars.filter((item: string) => item.endsWith("Iri"));
         data.head.vars = data.head.vars.filter((item: string) => !item.endsWith("Iri"));
@@ -149,6 +156,10 @@ export class ManuscriptEntryComponent extends BeolResource {
             .pipe(
                 map((data: DataGraphDB) => this.addURI(data)),
             );
+    }
+
+    private getMapCoordinates() {
+        this.mapCoordinates$ = this._beolService.make_coordinates_query(this.iri);
     }
 
     goToLocation(resIri) {

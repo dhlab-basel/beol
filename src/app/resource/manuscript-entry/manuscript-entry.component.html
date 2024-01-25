@@ -118,6 +118,10 @@
             </section>
         </ng-container>
 
+        <ng-container *ngIf="mapCoordinates$ | async as coordinates">
+            <app-map *ngIf="coordinates.results.bindings.length > 0" [mapData]="coordinates"></app-map>
+        </ng-container>
+
     </ng-container>
 
 </main>

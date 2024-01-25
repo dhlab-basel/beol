@@ -32,7 +32,7 @@ class TranscriptionProps implements PropertyValues {
   templateUrl: './only-transcription.component.html',
   styleUrls: ['./only-transcription.component.scss']
 })
-export class OnlyTranscriptionComponent implements OnInit, OnChanges {
+export class OnlyTranscriptionComponent implements OnChanges {
     @Input() iri: string;
     errorMessage: any;
     propIris: PropIriToNameMapping = {
@@ -56,10 +56,6 @@ export class OnlyTranscriptionComponent implements OnInit, OnChanges {
         public location: Location,
         public dialog: MatDialog
     ) {}
-
-    ngOnInit() {
-        console.log(this.iri);
-    }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.iri) {

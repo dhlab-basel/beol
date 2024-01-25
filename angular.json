@@ -28,6 +28,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "node_modules/leaflet/dist/leaflet.css",
               "src/assets/style/main.scss",
               "src/assets/style/material-theme.scss"
             ],
