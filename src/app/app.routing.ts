@@ -43,7 +43,7 @@ const appRoutes: Routes = [
         component: IntroductionComponent
     },
     {
-        path: 'leooIVA_IV_intro',
+        path: 'leoo4A_4_intro',
         component: LeceLeooComponent
     },
     {
