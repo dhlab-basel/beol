@@ -13,68 +13,69 @@
 
 <dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
 
-<aside *ngIf="!isLoading">
-    <section *ngIf="transcriptions[0]">
-        <h4 class="subheading-2">Transcriptions:</h4>
-        <p class="margin-left">
-            <mat-list>
-                <mat-list-item *ngFor="let trans of transcriptions">
-                    <a class="salsah-link" (click)="goToResource(trans.type, trans.id, trans)">{{trans.label}}</a>
-                </mat-list-item>
-            </mat-list>
-        </p>
-    </section>
-
-    <section class="pages" *ngIf="isPartOfReisbuechlein && props?.page.length > 0">
-        <h4>Pages</h4>
-        <ul>
-            <li *ngFor="let page of props.page">
-                <dsp-link-value [displayValue]="page" [parentResource]="resource.readResource"
-                                [propIri]="page.property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
-            </li>
-        </ul>
-    </section>
-</aside>
-
-<main *ngIf="!isLoading">
-
-    <section *ngIf="props?.title[0]">
-        <h4 class="subheading-2">{{props?.title[0].propertyLabel}}</h4>
-        <read-text-value [valueObject]="props?.title[0]" [bindEvents]="false" [resource]="resource.readResource">
-        </read-text-value>
-    </section>
-
-    <section *ngIf="props?.manuscriptEntryOf[0]">
-        <h4 class="subheading-2">{{props?.manuscriptEntryOf[0].propertyLabel}}</h4>
-        <dsp-link-value [displayValue]="props?.manuscriptEntryOf[0]" [parentResource]="resource.readResource"
-                        [propIri]="props?.manuscriptEntryOf[0].property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
-    </section>
-
-    <section *ngIf="props?.seqnum[0]">
-        <h4 class="subheading-2">Manuscript number</h4>
-        <p>{{props.seqnum[0].int}}</p>
-    </section>
-
-    <ng-container *ngIf="isPartOfReisbuechlein">
-        <section *ngIf="pages$ | async as page" class="transcription-btn">
-            <mat-card class="intro-card" appearance="outlined" (click)="goToFirstPageTranscription(page.resources[0].id)">
-                <mat-card-content>Transcription</mat-card-content>
-            </mat-card>
+<div class="container">
+    <aside *ngIf="!isLoading">
+        <section *ngIf="transcriptions[0]">
+            <h4 class="subheading-2">Transcriptions:</h4>
+            <p class="margin-left">
+                <mat-list>
+                    <mat-list-item *ngFor="let trans of transcriptions">
+                        <a class="salsah-link" (click)="goToResource(trans.type, trans.id, trans)">{{trans.label}}</a>
+                    </mat-list-item>
+                </mat-list>
+            </p>
         </section>
 
-        <ng-container *ngIf="journey$ | async as journey">
-            <section *ngIf="journey.results.bindings.length > 0">
-                <h4>Journey</h4>
-                <table>
-                    <caption>
-                        Table 1: Information about the journey
-                    </caption>
-                    <thead>
+        <section class="pages" *ngIf="isPartOfReisbuechlein && props?.page.length > 0">
+            <h4>Pages</h4>
+            <ul>
+                <li *ngFor="let page of props.page">
+                    <dsp-link-value [displayValue]="page" [parentResource]="resource.readResource"
+                                    [propIri]="page.property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
+    <main *ngIf="!isLoading">
+
+        <section *ngIf="props?.title[0]">
+            <h4 class="subheading-2">{{props?.title[0].propertyLabel}}</h4>
+            <read-text-value [valueObject]="props?.title[0]" [bindEvents]="false" [resource]="resource.readResource">
+            </read-text-value>
+        </section>
+
+        <section *ngIf="props?.manuscriptEntryOf[0]">
+            <h4 class="subheading-2">{{props?.manuscriptEntryOf[0].propertyLabel}}</h4>
+            <dsp-link-value [displayValue]="props?.manuscriptEntryOf[0]" [parentResource]="resource.readResource"
+                            [propIri]="props?.manuscriptEntryOf[0].property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
+        </section>
+
+        <section *ngIf="props?.seqnum[0]">
+            <h4 class="subheading-2">Manuscript number</h4>
+            <p>{{props.seqnum[0].int}}</p>
+        </section>
+
+        <ng-container *ngIf="isPartOfReisbuechlein">
+            <section *ngIf="pages$ | async as page" class="transcription-btn">
+                <mat-card class="intro-card" appearance="outlined" (click)="goToFirstPageTranscription(page.resources[0].id)">
+                    <mat-card-content>Transcription</mat-card-content>
+                </mat-card>
+            </section>
+
+            <ng-container *ngIf="journey$ | async as journey">
+                <section *ngIf="journey.results.bindings.length > 0">
+                    <h4>Journey</h4>
+                    <table>
+                        <caption>
+                            Table 1: Information about the journey
+                        </caption>
+                        <thead>
                         <tr>
                             <th *ngFor="let headerItem of journey.head.vars">{{headerItem}}</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr *ngFor="let dataSet of journey.results.bindings">
                             <td *ngFor="let hItem of journey.head.vars">
                                 <ng-container *ngIf="dataSet[hItem].uri; else notIRI">
@@ -85,24 +86,24 @@
                                 </ng-template>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-            </section>
-        </ng-container>
+                        </tbody>
+                    </table>
+                </section>
+            </ng-container>
 
-        <ng-container *ngIf="stages$ | async as stages">
-            <section *ngIf="stages.results.bindings.length > 0">
-                <h4>Stages</h4>
-                <table>
-                    <caption>
-                        Table 2: Stages of the journey
-                    </caption>
-                    <thead>
+            <ng-container *ngIf="stages$ | async as stages">
+                <section *ngIf="stages.results.bindings.length > 0">
+                    <h4>Stages</h4>
+                    <table>
+                        <caption>
+                            Table 2: Stages of the journey
+                        </caption>
+                        <thead>
                         <tr>
                             <th *ngFor="let headerItem of stages.head.vars">{{headerItem}}</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr *ngFor="let dataSet of stages.results.bindings">
                             <td *ngFor="let hItem of stages.head.vars">
                                 <ng-container *ngIf="dataSet[hItem]?.uri; else notIRI">
@@ -113,15 +114,16 @@
                                 </ng-template>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-            </section>
+                        </tbody>
+                    </table>
+                </section>
+            </ng-container>
+
+            <ng-container *ngIf="mapCoordinates$ | async as coordinates">
+                <app-map *ngIf="coordinates.results.bindings.length > 0" [mapData]="coordinates"></app-map>
+            </ng-container>
+
         </ng-container>
 
-        <ng-container *ngIf="mapCoordinates$ | async as coordinates">
-            <app-map *ngIf="coordinates.results.bindings.length > 0" [mapData]="coordinates"></app-map>
-        </ng-container>
-
-    </ng-container>
-
-</main>
+    </main>
+</div>
