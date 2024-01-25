@@ -26,6 +26,7 @@ import { CommentComponent } from './resource/comment/comment.component';
 import { BiographyComponent } from './biography/biography.component';
 import { LeceLeooComponent } from './lece-leoo/lece-leoo.component';
 import { PageTranscriptionComponent } from './resource/page-transcription/page-transcription.component';
+import { LocationComponent } from './resource/location/location.component';
 
 
 const appRoutes: Routes = [
@@ -52,6 +53,10 @@ const appRoutes: Routes = [
     {
         path: 'resource/:id',
         component: ResourceComponent
+    },
+    {
+        path: 'location/:id',
+        component: LocationComponent
     },
     {
         path: 'simpleResource/:id',

@@ -55,6 +55,7 @@ main {
     table-layout: fixed;
     width: 100%;
     word-break: break-all;
+    background-color: white;
 
     caption {
       padding-block-start: 0.5rem;
@@ -63,12 +64,18 @@ main {
       font-size: small;
     }
 
-    th, td {
-      border: 1px solid darkgray;
+    thead {
+      background-color: rgb(200, 200, 200);
+      color: #363636;
     }
 
-    .no-data {
-      text-align: center;
+    tr:nth-child(odd) td{
+      background: rgb(232, 232, 232);
+    }
+
+    th, td {
+      padding: 0.5rem 1rem;
+      border: 1px solid white;
     }
   }
 }

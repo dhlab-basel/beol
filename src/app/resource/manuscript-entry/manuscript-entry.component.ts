@@ -13,15 +13,15 @@ import {
     ResourceClassAndPropertyDefinitions
 } from '@dasch-swiss/dsp-js';
 import { DspApiConnectionToken, AppInitService } from '../../dsp-ui-lib/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription} from 'rxjs';
 import { IncomingService } from 'src/app/services/incoming.service';
-import { BeolService } from '../../services/beol.service';
+import { BeolService, DataGraphDB} from '../../services/beol.service';
 import { BeolCompoundResource, BeolResource, PropertyValues, PropIriToNameMapping } from '../beol-resource';
 import { ArkUrlDialogComponent } from '../../dialog/ark-url-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs/operators';
 
 class ManuscriptEntryProps implements PropertyValues {
-
     title: ReadTextValue[] = [];
     seqnum: ReadIntValue[] = [];
     page: ReadLinkValue[] = [];
@@ -54,9 +54,10 @@ export class ManuscriptEntryComponent extends BeolResource {
     };
     props: ManuscriptEntryProps;
     transcriptions: ReadResource[] = [];
+    pages$: Observable<any>;
     journey$: Observable<any>;
     stages$: Observable<any>;
-    pages$: Observable<any>;
+    mapCoordinates$: Observable<any>;
 
     constructor(
         @Inject(DspApiConnectionToken) protected _dspApiConnection: KnoraApiConnection,
@@ -87,6 +88,7 @@ export class ManuscriptEntryComponent extends BeolResource {
             this.getPages();
             this.getJourney();
             this.getStages();
+            this.getMapCoordinates();
         }
     }
 
@@ -117,12 +119,51 @@ export class ManuscriptEntryComponent extends BeolResource {
         this.pages$ = this._dspApiConnection.v2.search.doExtendedSearch(gravsearch);
     }
 
+    /**
+     * Function that adds the uri information to the data.
+     *
+     * @param data
+     * @private
+     */
+    private addURI(data: DataGraphDB) {
+        const headerWithIRI = data.head.vars.filter((item: string) => item.endsWith("Iri"));
+        data.head.vars = data.head.vars.filter((item: string) => !item.endsWith("Iri"));
+
+        for(let i = 0; i < data.results.bindings.length; i++) {
+
+            const keys = Object.keys(data.results.bindings[i]);
+            keys.map(key => {
+                if (headerWithIRI.find(header => header === key)) {
+                    const uri = data.results.bindings[i][key].value
+                    data.results.bindings[i][key.split('Iri')[0]]['uri'] = uri;
+                    delete data.results.bindings[i][key];
+                }
+                return key;
+            })
+        }
+        return data;
+    }
+
     private getJourney() {
-        this.journey$ = this._beolService.getJourney(this.iri);
+        this.journey$ = this._beolService.getJourney(this.iri)
+            .pipe(
+                map((data: DataGraphDB) => this.addURI(data))
+            );
     }
 
     private getStages() {
-        this.stages$ = this._beolService.getStages(this.iri);
+        this.stages$ = this._beolService.getStages(this.iri)
+            .pipe(
+                map((data: DataGraphDB) => this.addURI(data)),
+            );
+    }
+
+    private getMapCoordinates() {
+        this.mapCoordinates$ = this._beolService.make_coordinates_query(this.iri);
+    }
+
+    goToLocation(resIri) {
+        this.goToResource(this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#Location', resIri, undefined);
     }
 
     goToResource(resType: string, resIri: string, res) {

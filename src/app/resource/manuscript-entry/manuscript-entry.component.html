@@ -50,10 +50,10 @@
                         [propIri]="props?.manuscriptEntryOf[0].property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
     </section>
 
-    <!--<section *ngIf="props?.seqnum[0]">
-        <h4 class="subheading-2">{{ontologyInfo?.getLabelForProperty(props?.seqnum[0].propIri)}}</h4>
-        <kui-integer-value [valueObject]="props?.seqnum[0]"></kui-integer-value>
-    </section>-->
+    <section *ngIf="props?.seqnum[0]">
+        <h4 class="subheading-2">Manuscript number</h4>
+        <p>{{props.seqnum[0].int}}</p>
+    </section>
 
     <ng-container *ngIf="isPartOfReisbuechlein">
         <section *ngIf="pages$ | async as page" class="transcription-btn">
@@ -62,59 +62,66 @@
             </mat-card>
         </section>
 
-        <section *ngIf="journey$ | async as journey">
-            <h4>Journey</h4>
-            <table>
-                <caption>
-                    Table 1: Information about the journey
-                </caption>
-                <thead>
-                    <tr>
-                        <th *ngFor="let headerItem of journey.head.vars">{{headerItem}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngIf="journey.results.bindings.length > 0; else noData">
+        <ng-container *ngIf="journey$ | async as journey">
+            <section *ngIf="journey.results.bindings.length > 0">
+                <h4>Journey</h4>
+                <table>
+                    <caption>
+                        Table 1: Information about the journey
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th *ngFor="let headerItem of journey.head.vars">{{headerItem}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr *ngFor="let dataSet of journey.results.bindings">
-                            <td *ngFor="let hItem of journey.head.vars">{{dataSet[hItem] | reisbuechleinURI}}</td>
+                            <td *ngFor="let hItem of journey.head.vars">
+                                <ng-container *ngIf="dataSet[hItem].uri; else notIRI">
+                                    <a class="salsah-link" (click)="goToLocation(dataSet[hItem].uri)">{{dataSet[hItem].value}}</a>
+                                </ng-container>
+                                <ng-template #notIRI>
+                                    {{dataSet[hItem].value}}
+                                </ng-template>
+                            </td>
                         </tr>
-                    </ng-container>
+                    </tbody>
+                </table>
+            </section>
+        </ng-container>
 
-                    <ng-template #noData>
-                        <tr class="no-data">
-                            <td [colSpan]="journey.head.vars.length"> No data available</td>
+        <ng-container *ngIf="stages$ | async as stages">
+            <section *ngIf="stages.results.bindings.length > 0">
+                <h4>Stages</h4>
+                <table>
+                    <caption>
+                        Table 2: Stages of the journey
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th *ngFor="let headerItem of stages.head.vars">{{headerItem}}</th>
                         </tr>
-                    </ng-template>
-                </tbody>
-            </table>
-        </section>
-
-        <section *ngIf="stages$ | async as stages">
-            <h4>Stages</h4>
-            <table>
-                <caption>
-                    Table 2: Stages of the journey
-                </caption>
-                <thead>
-                    <tr>
-                        <th *ngFor="let headerItem of stages.head.vars">{{headerItem}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngIf="stages.results.bindings.length > 0; else noData">
+                    </thead>
+                    <tbody>
                         <tr *ngFor="let dataSet of stages.results.bindings">
-                            <td *ngFor="let hItem of stages.head.vars">{{dataSet[hItem] | reisbuechleinURI}}</td>
+                            <td *ngFor="let hItem of stages.head.vars">
+                                <ng-container *ngIf="dataSet[hItem]?.uri; else notIRI">
+                                    <a class="salsah-link" (click)="goToLocation(dataSet[hItem].uri)">{{dataSet[hItem].value}}</a>
+                                </ng-container>
+                                <ng-template #notIRI>
+                                    {{dataSet[hItem] | reisbuechleinURI}}
+                                </ng-template>
+                            </td>
                         </tr>
-                    </ng-container>
+                    </tbody>
+                </table>
+            </section>
+        </ng-container>
 
-                    <ng-template #noData>
-                        <tr class="no-data">
-                            <td [colSpan]="stages.head.vars.length"> No data available</td>
-                        </tr>
-                    </ng-template>
-                </tbody>
-            </table>
-        </section>
+        <ng-container *ngIf="mapCoordinates$ | async as coordinates">
+            <app-map *ngIf="coordinates.results.bindings.length > 0" [mapData]="coordinates"></app-map>
+        </ng-container>
+
     </ng-container>
 
 </main>

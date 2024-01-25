@@ -68,6 +68,8 @@ import { PageTranscriptionComponent } from './resource/page-transcription/page-t
 import { ArkUrlDialogComponent } from './dialog/ark-url-dialog.component';
 import { ReisbuechleinUriPipe } from './pipes/reisbuechlein-uri.pipe';
 import { OnlyTranscriptionComponent } from './resource/page-transcription/only-transcription/only-transcription.component';
+import { LocationComponent } from './resource/location/location.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
     declarations: [
@@ -110,7 +112,9 @@ import { OnlyTranscriptionComponent } from './resource/page-transcription/only-t
         PageTranscriptionComponent,
         ArkUrlDialogComponent,
         ReisbuechleinUriPipe,
-        OnlyTranscriptionComponent
+        OnlyTranscriptionComponent,
+        LocationComponent,
+        MapComponent
     ],
     imports: [
         AppRouting,
