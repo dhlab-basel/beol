@@ -1,14 +1,21 @@
+<menu>
+    <li>
+        <button mat-stroked-button class="previousBtn" (click)="location.back()">
+            <mat-icon>arrow_back</mat-icon>Previous
+        </button>
+    </li>
+    <li>
+        <button mat-stroked-button class="share-res" (click)="openDialog(versionArkUrl)">
+            <mat-icon>share</mat-icon>Citation Link
+        </button>
+    </li>
+</menu>
+
 <div class="full-size scroll-y-only">
 
     <div *ngIf="!isLoading && props">
 
         <div class="sidebar">
-
-            <button mat-stroked-button class="previousBtn" (click)="location.back()">
-                <mat-icon>arrow_back</mat-icon>
-                Previous
-            </button>
-
             <div *ngIf="props?.pagenum[0]">
                 <h4 class="subheading-2">{{props?.pagenum[0].propertyLabel}}: </h4>
                 <p>
@@ -27,12 +34,6 @@
     </div>
 
     <div class="main-content">
-
-        <section class="cite-link">
-            <button mat-stroked-button class="share-res" (click)="openDialog(versionArkUrl)">
-                <mat-icon>share</mat-icon>Citation Link
-            </button>
-        </section>
 
         <div style="text-align: center;">
             <a *ngIf="previousPage" class="salsah-link"

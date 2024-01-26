@@ -1,0 +1,15 @@
+menu {
+  list-style: none;
+  margin-inline-start: 2rem;
+  margin-inline-end: 2rem;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .previousBtn {
+    margin-inline-start: 0!important;
+  }
+}
