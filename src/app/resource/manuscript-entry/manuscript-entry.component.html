@@ -13,8 +13,8 @@
 
 <dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
 
-<div class="container">
-    <aside *ngIf="!isLoading">
+<div class="container" *ngIf="!isLoading">
+    <aside>
         <section *ngIf="transcriptions[0]">
             <h4 class="subheading-2">Transcriptions:</h4>
             <p class="margin-left">
@@ -37,7 +37,7 @@
         </section>
     </aside>
 
-    <main *ngIf="!isLoading">
+    <main>
 
         <section *ngIf="props?.title[0]">
             <h4 class="subheading-2">{{props?.title[0].propertyLabel}}</h4>

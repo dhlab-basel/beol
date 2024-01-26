@@ -1,5 +1,4 @@
 @import "src/app/dsp-ui-lib/style/responsive";
-@import "src/assets/style/main";
 
 menu {
   list-style: none;
@@ -24,7 +23,7 @@ menu {
   margin-inline-end: 2rem;
 
   aside {
-    width: $sidenav-width;
+    width: 320px;
 
     ul {
       padding-inline-start: 25px;
