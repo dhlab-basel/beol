@@ -97,6 +97,7 @@ export class StillImageComponent implements OnChanges, OnDestroy {
     @Input() images: StillImageRepresentation[];
     @Input() imageCaption?: string;
     @Input() activateRegion?: string; // highlight a region
+    @Input() smallContainer: boolean = false;
 
     @Output() regionClicked = new EventEmitter<string>();
 
@@ -127,6 +128,13 @@ export class StillImageComponent implements OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        const osdContainer = (document.getElementsByClassName('content') as HTMLCollectionOf<HTMLElement>)[0];
+        if (this.smallContainer) {
+            osdContainer?.classList.add('small-osd-container');
+        } else {
+            osdContainer?.classList.add('big-osd-container');
+        }
+
         if (changes['images'] && changes['images'].isFirstChange()) {
             this._setupViewer();
         }

@@ -34,13 +34,12 @@ $bright: #ccc;
   }
 
   .content {
-    height: $full-height;
+    height: 100%;
     width: 100%;
 
     .osd-container {
       color: $bright;
       background-color: $dark;
-      height: $osd-height;
 
       &.fullscreen {
         max-width: 100vw;
@@ -56,6 +55,21 @@ $bright: #ccc;
     }
   }
 }
+
+.big-osd-container {
+  height: 1300px;
+
+  .osd-container {
+    height: 1300px;
+  }
+}
+
+.small-osd-container {
+  .osd-container {
+    height: 500px;
+  }
+}
+
 
 
 /*

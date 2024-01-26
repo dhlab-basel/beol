@@ -176,7 +176,7 @@
             </section>
 
             <!-- OSD viewer -->
-            <dsp-still-image #OSDViewer class="osd-viewer"
+            <dsp-still-image #OSDViewer class="osd-viewer" [smallContainer]="true"
                 *ngIf="resource?.incomingStillImageRepresentations?.length > 0;"
                 [images]="resource?.stillImageRepresentationsToDisplay">
             </dsp-still-image>

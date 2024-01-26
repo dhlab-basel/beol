@@ -43,7 +43,7 @@
         </div>
 
         <div *ngIf="!isLoading && resource?.stillImageRepresentationsToDisplay.length > 0">
-            <dsp-still-image #OSDViewer class="osd-viewer" [images]="resource?.stillImageRepresentationsToDisplay"
+            <dsp-still-image #OSDViewer class="osd-viewer" [smallContainer]="true" [images]="resource?.stillImageRepresentationsToDisplay"
                 [activateRegion]="activeRegion" (regionClicked)="regionActive($event)">
             </dsp-still-image>
         </div>
