@@ -8,8 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { GregorianCalendarDate, CalendarPeriod, CalendarDate } from 'jdnconvertiblecalendar';
-import { MatJDNConvertibleCalendarDateAdapterModule } from 'jdnconvertiblecalendardateadapter';
+import { GregorianCalendarDate, CalendarPeriod, CalendarDate } from '../../../../../jdnconvertiblecalendar';
+import { MatJDNConvertibleCalendarDateAdapterModule } from '../../../../../jdnconvertiblecalendardateadapter';
 import { JDNDatepickerDirective } from '../../jdn-datepicker-directive/jdndatepicker.directive';
 
 

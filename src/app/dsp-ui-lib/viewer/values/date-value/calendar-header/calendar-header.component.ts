@@ -1,10 +1,10 @@
 /** Custom header component containing a calendar format switcher */
-import { JDNConvertibleCalendarDateAdapter } from 'jdnconvertiblecalendardateadapter';
+import { JDNConvertibleCalendarDateAdapter } from '../../../../../jdnconvertiblecalendardateadapter';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { JDNConvertibleCalendar } from 'jdnconvertiblecalendar';
+import { JDNConvertibleCalendar } from '../../../../../jdnconvertiblecalendar';
 import { MatCalendar, MatDatepickerContent } from '@angular/material/datepicker';
 import { DateAdapter } from '@angular/material/core';
-import { Component, Host, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({

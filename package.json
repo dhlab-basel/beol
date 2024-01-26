@@ -29,8 +29,6 @@
     "angular-split": "^15.0.0",
     "ckeditor5-custom-build": "github:dasch-swiss/ckeditor_custom_build",
     "core-js": "^3.6.5",
-    "jdnconvertiblecalendar": "^0.0.7",
-    "jdnconvertiblecalendardateadapter": "^1.0.1",
     "leaflet": "^1.9.4",
     "leaflet-arrowheads": "^1.4.0",
     "ngx-color-picker": "^13.0.0",

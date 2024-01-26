@@ -16,7 +16,7 @@ import {
     GregorianCalendarDate,
     JDNConvertibleCalendar,
     JulianCalendarDate
-} from 'jdnconvertiblecalendar';
+} from '../../../../../jdnconvertiblecalendar';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatSelectHarness as MatSelectHarness } from '@angular/material/select/testing';

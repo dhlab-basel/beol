@@ -2,7 +2,7 @@ import { JDNDatepickerDirective } from './jdndatepicker.directive';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ACTIVE_CALENDAR, JDNConvertibleCalendarDateAdapter } from "jdnconvertiblecalendardateadapter";
+import { ACTIVE_CALENDAR } from "../../../../jdnconvertiblecalendardateadapter";
 import { DateAdapter } from "@angular/material/core";
 
 /**

@@ -17,7 +17,7 @@ import {
 } from '@angular/forms';
 import { CanUpdateErrorState, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { CalendarDate, CalendarPeriod, GregorianCalendarDate } from 'jdnconvertiblecalendar';
+import { CalendarDate, CalendarPeriod, GregorianCalendarDate } from '../../../../../jdnconvertiblecalendar';
 import { Subject } from 'rxjs';
 import { CustomRegex } from '../../custom-regex';
 
