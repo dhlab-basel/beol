@@ -1,3 +1,19 @@
+menu {
+  list-style: none;
+  margin-inline-start: 2rem;
+  margin-inline-end: 2rem;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .previousBtn {
+    margin-inline-start: 0!important;
+  }
+}
+
 .divider-letter-metadata {
     margin: 40px 0;
 }
@@ -31,4 +47,8 @@ h4.subheading-2 {
   min-height: 24px !important;
   margin: 0 !important;
   font-size: 20px;
+}
+
+.main-content {
+  max-width: none !important;
 }

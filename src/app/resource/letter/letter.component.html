@@ -1,3 +1,16 @@
+<menu>
+    <li>
+        <button mat-stroked-button class="previousBtn" (click)="location.back()">
+            <mat-icon>arrow_back</mat-icon>Previous
+        </button>
+    </li>
+    <li>
+        <button mat-stroked-button class="share-res" (click)="openDialog(resource.readResource.arkUrl)">
+            <mat-icon>share</mat-icon>Citation Link
+        </button>
+    </li>
+</menu>
+
 <div class="full-size scroll-y-only">
 
     <dsp-progress-indicator *ngIf="isLoading" [color]="'#D88958'"></dsp-progress-indicator>
@@ -5,11 +18,6 @@
     <div *ngIf="!isLoading && props">
 
         <div class="sidebar">
-
-            <button mat-stroked-button class="previousBtn" (click)="location.back()">
-                <mat-icon>arrow_back</mat-icon>
-                Previous
-            </button>
 
             <section>
                 <h4 *ngIf="props?.title[0]" class="subheading-2">
@@ -135,12 +143,6 @@
             <section class="tei-link">
                 <span appTeiLink [resourceIri]="iri"
                     [resourceType]="ontologyIri + '/ontology/0801/beol/v2#letter'"></span>
-            </section>
-
-            <section class="cite-link">
-                <button mat-stroked-button class="share-res" (click)="openDialog(resource.readResource.versionArkUrl)">
-                    <mat-icon>share</mat-icon>Citation Link
-                </button>
             </section>
 
             <section class="title center">
