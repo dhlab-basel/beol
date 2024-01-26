@@ -1,8 +1,8 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Constants } from '@dasch-swiss/dsp-js';
-import { JDNConvertibleCalendar } from 'jdnconvertiblecalendar';
-import { CalendarHeaderComponent } from '../../../../../../viewer/values/date-value/calendar-header/calendar-header.component';
+import { JDNConvertibleCalendar } from '../../../../../../../jdnconvertiblecalendar';
+import { CalendarHeaderComponent } from '../../../../../../viewer';
 import { PropertyValue, Value, ValueLiteral } from '../operator';
 
 // https://stackoverflow.com/questions/45661010/dynamic-nested-reactive-form-expressionchangedafterithasbeencheckederror

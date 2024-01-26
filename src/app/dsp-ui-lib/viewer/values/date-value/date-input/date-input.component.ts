@@ -22,7 +22,7 @@ import {
     GregorianCalendarDate,
     JDNConvertibleCalendar,
     JulianCalendarDate
-} from 'jdnconvertiblecalendar';
+} from '../../../../../jdnconvertiblecalendar';
 import { Subject } from 'rxjs';
 import { CalendarHeaderComponent } from '../calendar-header/calendar-header.component';
 

@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CalendarHeaderComponent } from './calendar-header.component';
-import { ACTIVE_CALENDAR, JDNConvertibleCalendarDateAdapter } from 'jdnconvertiblecalendardateadapter';
+import { ACTIVE_CALENDAR, JDNConvertibleCalendarDateAdapter } from '../../../../../jdnconvertiblecalendardateadapter';
 import { MatSelectModule } from '@angular/material/select';
 import { DateAdapter } from '@angular/material/core';
 import { MatOptionModule } from '@angular/material/core';
@@ -16,7 +16,7 @@ import {
     GregorianCalendarDate,
     JDNConvertibleCalendar,
     JulianCalendarDate
-} from 'jdnconvertiblecalendar';
+} from '../../../../../jdnconvertiblecalendar';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatSelectHarness as MatSelectHarness } from '@angular/material/select/testing';

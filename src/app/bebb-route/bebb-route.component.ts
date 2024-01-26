@@ -5,9 +5,9 @@ import { DspApiConnectionToken, AppInitService } from '../dsp-ui-lib/core';
 import { BeolService } from '../services/beol.service';
 
 @Component({
-    selector: 'app-leoo-route',
+    selector: 'app-bebb-route',
     templateUrl: './bebb-route.component.html',
-    styleUrls: ['./leoo-route.component.scss']
+    styleUrls: ['./bebb-route.component.scss']
 })
 export class BebbRouteComponent implements OnInit {
 

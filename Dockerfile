@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 # We label our stage as 'builder'
-FROM node:16-stretch as builder
+FROM node:18 as builder
 
 LABEL maintainer="support@dasch.swiss"
 
@@ -27,7 +27,7 @@ RUN npm run build-prod
 
 ### STAGE 2: Setup ###
 
-FROM daschswiss/nginx-server:v1.1.1
+FROM daschswiss/nginx-server:1.1.2
 
 LABEL maintainer="support@dasch.swiss"
 

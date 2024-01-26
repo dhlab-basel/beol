@@ -16,7 +16,7 @@ import {
     IslamicCalendarDate,
     JDNConvertibleCalendar,
     JulianCalendarDate
-} from 'jdnconvertiblecalendar';
+} from '../../../jdnconvertiblecalendar';
 
 @Injectable({
     providedIn: 'root'
