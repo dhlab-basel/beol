@@ -69,7 +69,7 @@ $project-filter-width-small-device: 120px;
 
 // form elements
 $full-input-width: 320;
-$gc-large: decimal-floor($full-input-width / 1.618, 0) - 2;
+$gc-large: decimal-floor(calc($full-input-width / 1.618), 0) - 2;
 $gc-small: $full-input-width - $gc-large - 4;
 
 .dsp-form-content {
