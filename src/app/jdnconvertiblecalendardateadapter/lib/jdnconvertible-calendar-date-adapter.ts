@@ -28,11 +28,11 @@ export class JDNConvertibleCalendarDateAdapter extends DateAdapter<JDNConvertibl
   private static readonly MM_YYYY = 'MM-YYYY';
 
   private static readonly displayDateFormats = [
-    JDNConvertibleCalendarDateAdapter.DD_MM_YYYY,
-    JDNConvertibleCalendarDateAdapter.MM_YYYY,
+      'DD-MM-YYYY',
+      'MM-YYYY',
   ];
 
-  private static readonly parsableDateFormats = [JDNConvertibleCalendarDateAdapter.DD_MM_YYYY];
+  private static readonly parsableDateFormats = ['DD-MM-YYYY'];
 
   private static readonly dateFormatRegexes = {
     'DD-MM-YYYY': new RegExp('^(\\d?\\d)-(\\d?\\d)-(\\d{4})'),
