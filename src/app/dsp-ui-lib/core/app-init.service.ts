@@ -37,6 +37,7 @@ export class AppInitService {
                     const apiPath = (typeof dspApiConfig.apiPath === 'string' ? dspApiConfig.apiPath : '');
                     const jsonWebToken = (typeof dspApiConfig.jsonWebToken === 'string' ? dspApiConfig.jsonWebToken : '');
                     const logErrors = (typeof dspApiConfig.logErrors === 'boolean' ? dspApiConfig.logErrors : false);
+                    const graphDBURL = (typeof dspApiConfig.graphDBURL === 'string' ? dspApiConfig.graphDBURL: '');
 
                     // init dsp-api configuration
                     this.dspApiConfig = new KnoraApiConfig(
@@ -58,6 +59,7 @@ export class AppInitService {
                     this.config['apiPath'] = apiPath;
                     this.config['jsonWebToken'] = jsonWebToken;
                     this.config['logErrors'] = logErrors;
+                    this.config['graphDBURL'] = graphDBURL;
 
                     resolve();
                 }
