@@ -3,7 +3,7 @@
 # We label our stage as 'builder'
 FROM node:18 as builder
 
-LABEL maintainer="support@dasch.swiss"
+LABEL maintainer="sepideh.alassi@unibas.ch"
 
 # Sets the path where the app is going to be installed
 ENV NODE_ROOT /usr/app/
@@ -29,7 +29,7 @@ RUN npm run build-prod
 
 FROM daschswiss/nginx-server:1.1.2
 
-LABEL maintainer="support@dasch.swiss"
+LABEL maintainer="sepideh.alassi@unibas.ch"
 
 RUN rm -rf /public/*
 

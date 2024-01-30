@@ -1,4 +1,4 @@
-BEOL_REPO := daschswiss/0801-beol-app
+BEOL_REPO := dhlabbasel/beol
 
 ifeq ($(BUILD_TAG),)
 	BUILD_TAG := $(shell git describe --tag --dirty --abbrev=7)
