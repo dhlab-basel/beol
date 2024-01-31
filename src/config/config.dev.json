@@ -11,5 +11,6 @@
   "ontologyIRI": "http://0.0.0.0:3333",
   "iiifURL": "http://0.0.0.0:1024",
   "appURL": "http://0.0.0.0:4200",
-  "graphDBURL": "http://admin:test@localhost:3030/knora-test/query"
+  "fusekiUrl": "http://localhost:3030/knora-test/query",
+  "graphDBUrl": "http://localhost:7200/repositories/journeyStar"
 }

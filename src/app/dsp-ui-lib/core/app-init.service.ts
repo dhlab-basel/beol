@@ -37,7 +37,8 @@ export class AppInitService {
                     const apiPath = (typeof dspApiConfig.apiPath === 'string' ? dspApiConfig.apiPath : '');
                     const jsonWebToken = (typeof dspApiConfig.jsonWebToken === 'string' ? dspApiConfig.jsonWebToken : '');
                     const logErrors = (typeof dspApiConfig.logErrors === 'boolean' ? dspApiConfig.logErrors : false);
-                    const graphDBURL = (typeof dspApiConfig.graphDBURL === 'string' ? dspApiConfig.graphDBURL: '');
+                    const fusekiUrl = (typeof dspApiConfig.fusekiUrl === 'string' ? dspApiConfig.fusekiUrl: '');
+                    const graphDBUrl = (typeof dspApiConfig.graphDBUrl === 'string' ? dspApiConfig.graphDBUrl: '');
 
                     // init dsp-api configuration
                     this.dspApiConfig = new KnoraApiConfig(
@@ -59,8 +60,8 @@ export class AppInitService {
                     this.config['apiPath'] = apiPath;
                     this.config['jsonWebToken'] = jsonWebToken;
                     this.config['logErrors'] = logErrors;
-                    this.config['graphDBURL'] = graphDBURL;
-
+                    this.config['fusekiUrl'] = fusekiUrl;
+                    this.config['graphDBUrl'] = graphDBUrl;
                     resolve();
                 }
             ).catch((err) => {

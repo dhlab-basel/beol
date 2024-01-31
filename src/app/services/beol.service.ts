@@ -736,7 +736,7 @@ export class BeolService {
             BIND(ofn:years-from-duration(?EndDate-?ArrivalDate) AS ?duration_y)
             BIND(ofn:months-from-duration(?EndDate-?ArrivalDate) AS ?duration_m)
             BIND(fn:concat( STR(?duration_y *365+ ?duration_m*30 + ?duration_d), " days") AS ?Duration)
-            SERVICE <http://localhost:3030/knora-test/query> {
+            SERVICE <${this._appInitService.config['fusekiUrl']}> {
                   ?FromIri rdfs:label ?From .
                   ?ToIri rdfs:label ?To .
             }
@@ -778,7 +778,7 @@ export class BeolService {
             ?stay trip-onto:hasAccommodation ?accomodationRes .
             ?accomodationRes schema:name ?Accomodation .
             }
-            SERVICE <${this._appInitService.config['graphDBURL']}> {
+            SERVICE <${this._appInitService.config['fusekiUrl']}> {
                   ?FromIri rdfs:label ?From .
                   ?ToIri rdfs:label ?To .
             }
@@ -817,7 +817,7 @@ export class BeolService {
             ?stage trip-onto:meanOfTransportation ?meanOfTransportation .
             ?meanOfTransportation schema:name ?Transportation .
 
-            SERVICE <http://admin:test@localhost:3030/knora-test/query> {
+            SERVICE <${this._appInitService.config['fusekiUrl']}> {
                 ?FromIri beol:hasWikiLink ?startWikiValue .
                 ?startWikiValue <http://www.knora.org/ontology/knora-base#valueHasUri> ?startWikiIri_xsd .
                 ?ToIri beol:hasWikiLink ?endWikiValue .
@@ -847,7 +847,7 @@ export class BeolService {
     }
 
     requestGraphDB(query: string): Observable<DataGraphDB> {
-        const url = "http://localhost:7200/repositories/Reisbuchlein";
+        const url = this._appInitService.config['graphDBUrl']
         const httpOptions = {
             headers: new HttpHeaders({
                 "Content-Type": "application/x-www-form-urlencoded",
