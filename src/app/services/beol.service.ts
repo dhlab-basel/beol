@@ -857,7 +857,7 @@ export class BeolService {
         const body = new HttpParams()
             .set('query', query)
 
-        return this._http.post<DataGraphDB>(url, body, {'headers': headers, withCredentials: true});
+        return this._http.post<DataGraphDB>(url, body, {'headers': headers, withCredentials: true });
     }
 
     /**

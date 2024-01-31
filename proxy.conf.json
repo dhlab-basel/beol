@@ -1,0 +1,7 @@
+{
+  "/repositories": {
+    "target": "https://graphdb.organa.myds.me",
+    "secure": true,
+    "changeOrigin": true
+  }
+}
