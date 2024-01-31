@@ -1,6 +1,6 @@
 {
   "/repositories": {
-    "target": "https://graphdb.organa.myds.me",
+    "target": "https://graphdb.dhlab-journey-star.dhlab.unibas.ch",
     "secure": true,
     "changeOrigin": true
   }
