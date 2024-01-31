@@ -848,17 +848,16 @@ export class BeolService {
 
     requestGraphDB(query: string): Observable<DataGraphDB> {
         const url = this._appInitService.config['graphDBUrl']
-        const httpOptions = {
-            headers: new HttpHeaders({
+        const headers = {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Accept": "application/json",
                 'Authorization': ('Basic ' + btoa('anonymous:test'))
-            })
-        }
+            }
+
         const body = new HttpParams()
             .set('query', query)
 
-        return this._http.post<DataGraphDB>(url, body, httpOptions);
+        return this._http.post<DataGraphDB>(url, body, {'headers': headers, withCredentials: true});
     }
 
     /**
