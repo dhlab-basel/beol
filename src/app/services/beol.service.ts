@@ -753,7 +753,7 @@ export class BeolService {
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX trip: <http://ontology.eil.utoronto.ca/icity/Trip/Trip>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?From ?FromIri ?To ?ToIri ?Start ?End ?Transportation ?Accomodation
+        SELECT ?From ?FromIri ?To ?ToIri ?Start ?End ?Transportation ?Accommodation
         WHERE {
            ?journey a trip-onto:Journey .
             BIND(<${entryIri}> AS ?entryIRI)
@@ -776,7 +776,7 @@ export class BeolService {
             OPTIONAL {
             ?stage trip-onto:hasStay ?stay  .
             ?stay trip-onto:hasAccommodation ?accomodationRes .
-            ?accomodationRes schema:name ?Accomodation .
+            ?accomodationRes schema:name ?Accommodation .
             }
             SERVICE <${this._appInitService.config['fusekiUrl']}> {
                   ?FromIri rdfs:label ?From .
