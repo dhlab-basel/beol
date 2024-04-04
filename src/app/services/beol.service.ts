@@ -710,7 +710,7 @@ export class BeolService {
         PREFIX ofn:<http://www.ontotext.com/sparql/functions/>
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?From ?FromIri ?To ?ToIri ?Departure ?Arrival ?End ?Duration
+        SELECT ?From ?FromIri ?To ?ToIri ?Departure ?Arrival ?Duration_Journey ?Stay_End ?Duration_Stay
         WHERE {
             BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
             BIND(<${entryIri}> AS ?entryIRI)
@@ -731,11 +731,15 @@ export class BeolService {
             BIND(fn:concat(?arr_calendar, " ", STR(?ArrivalDate)) AS ?Arrival)
             ?journeyTriple trip-onto:hasEndDate ?EndDate .
             << ?journeyTriple trip-onto:hasEndDate ?EndDate >> trip-onto:calendar ?end_calendar .
-            BIND(fn:concat(?end_calendar, " ", STR(?EndDate)) AS ?End)
-            BIND(ofn:days-from-duration(?EndDate-?ArrivalDate) AS ?duration_d)
-            BIND(ofn:years-from-duration(?EndDate-?ArrivalDate) AS ?duration_y)
-            BIND(ofn:months-from-duration(?EndDate-?ArrivalDate) AS ?duration_m)
-            BIND(fn:concat( STR(?duration_y *365+ ?duration_m*30 + ?duration_d), " days") AS ?Duration)
+            BIND(fn:concat(?end_calendar, " ", STR(?EndDate)) AS ?Stay_End)
+            BIND(ofn:days-from-duration(?EndDate-?ArrivalDate) AS ?duration_s_d)
+            BIND(ofn:years-from-duration(?EndDate-?ArrivalDate) AS ?duration_s_y)
+            BIND(ofn:months-from-duration(?EndDate-?ArrivalDate) AS ?duration_s_m)
+            BIND(fn:concat( STR(?duration_s_y *365+ ?duration_s_m*30 + ?duration_s_d), " days") AS ?Duration_Stay)
+            BIND(ofn:days-from-duration(?DepartureDate-?ArrivalDate) AS ?duration_d)
+            BIND(ofn:years-from-duration(?DepartureDate-?ArrivalDate) AS ?duration_y)
+            BIND(ofn:months-from-duration(?DepartureDate-?ArrivalDate) AS ?duration_m)
+            BIND(fn:concat( STR(?duration_y *365+ ?duration_m*30 + ?duration_d), " days") AS ?Duration_Journey)
             SERVICE <${this._appInitService.config['fusekiUrl']}> {
                   ?FromIri rdfs:label ?From .
                   ?ToIri rdfs:label ?To .

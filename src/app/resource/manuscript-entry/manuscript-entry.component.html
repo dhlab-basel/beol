@@ -35,34 +35,32 @@
                 </li>
             </ul>
         </section>
-    </aside>
-
-    <main>
-
-        <section *ngIf="props?.title[0]">
-            <h4 class="subheading-2">{{props?.title[0].propertyLabel}}</h4>
-            <read-text-value [valueObject]="props?.title[0]" [bindEvents]="false" [resource]="resource.readResource">
-            </read-text-value>
-        </section>
-
         <section *ngIf="props?.manuscriptEntryOf[0]">
             <h4 class="subheading-2">{{props?.manuscriptEntryOf[0].propertyLabel}}</h4>
             <dsp-link-value [displayValue]="props?.manuscriptEntryOf[0]" [parentResource]="resource.readResource"
                             [propIri]="props?.manuscriptEntryOf[0].property" (referredResourceClicked)="resLinkClicked($event)" [mode]="'read'"></dsp-link-value>
         </section>
-
         <section *ngIf="props?.seqnum[0]">
             <h4 class="subheading-2">Manuscript number</h4>
             <p>{{props.seqnum[0].int}}</p>
         </section>
+    </aside>
 
+    <main>
+
+        <section *ngIf="props?.title[0]" class="title center">
+            <p>
+            <read-text-value [valueObject]="props?.title[0]" [bindEvents]="false" [resource]="resource.readResource">
+            </read-text-value>
+            </p>
+        </section>
         <ng-container *ngIf="isPartOfReisbuechlein">
             <section *ngIf="pages$ | async as page" class="transcription-btn">
                 <mat-card class="intro-card" appearance="outlined" (click)="goToFirstPageTranscription(page.resources[0].id)">
                     <mat-card-content>Transcription</mat-card-content>
                 </mat-card>
             </section>
-
+            <dsp-progress-indicator *ngIf="isJouneryLoading" [color]="'#D88958'">isJouneryLoading</dsp-progress-indicator>
             <ng-container *ngIf="journey$ | async as journey">
                 <section *ngIf="journey.results.bindings.length > 0">
                     <h4>Journey</h4>
@@ -90,7 +88,11 @@
                     </table>
                 </section>
             </ng-container>
-
+            <dsp-progress-indicator *ngIf="isMapLoading" [color]="'#D88958'">isJouneryLoading</dsp-progress-indicator>
+            <ng-container *ngIf="mapCoordinates$ | async as coordinates">
+                <app-map *ngIf="coordinates.results.bindings.length > 0" [mapData]="coordinates"></app-map>
+            </ng-container>
+            <dsp-progress-indicator *ngIf="isStageLoading" [color]="'#D88958'">isJouneryLoading</dsp-progress-indicator>
             <ng-container *ngIf="stages$ | async as stages">
                 <section *ngIf="stages.results.bindings.length > 0">
                     <h4>Stages</h4>
@@ -119,9 +121,7 @@
                 </section>
             </ng-container>
 
-            <ng-container *ngIf="mapCoordinates$ | async as coordinates">
-                <app-map *ngIf="coordinates.results.bindings.length > 0" [mapData]="coordinates"></app-map>
-            </ng-container>
+
 
         </ng-container>
 

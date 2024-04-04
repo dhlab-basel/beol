@@ -42,6 +42,9 @@ export class ManuscriptEntryComponent extends BeolResource {
     ontologyInfo: ResourceClassAndPropertyDefinitions;
     incomingStillImageRepresentationCurrentOffset: number; // last offset requested for `this.resource.incomingStillImageRepresentations`
     isLoading = true;
+    isJouneryLoading = true
+    isStageLoading = true
+    isMapLoading = true
     errorMessage: any;
     dspConstants = Constants;
     navigationSubscription: Subscription;
@@ -149,6 +152,7 @@ export class ManuscriptEntryComponent extends BeolResource {
             .pipe(
                 map((data: DataGraphDB) => this.addURI(data))
             );
+            this.isJouneryLoading = false
     }
 
     private getStages() {
@@ -156,10 +160,14 @@ export class ManuscriptEntryComponent extends BeolResource {
             .pipe(
                 map((data: DataGraphDB) => this.addURI(data)),
             );
+        this.isStageLoading = false
     }
 
     private getMapCoordinates() {
         this.mapCoordinates$ = this._beolService.make_coordinates_query(this.iri);
+
+        this.isMapLoading = false
+
     }
 
     goToLocation(resIri) {
