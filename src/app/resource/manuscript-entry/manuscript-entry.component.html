@@ -49,10 +49,11 @@
     <main>
 
         <section *ngIf="props?.title[0]" class="title center">
-            <p>
-            <read-text-value [valueObject]="props?.title[0]" [bindEvents]="false" [resource]="resource.readResource">
-            </read-text-value>
-            </p>
+            <h4>
+                <read-text-value [valueObject]="props?.title[0]" [bindEvents]="false" [resource]="resource.readResource">
+                </read-text-value>
+            </h4>
+
         </section>
         <ng-container *ngIf="isPartOfReisbuechlein">
             <section *ngIf="pages$ | async as page" class="transcription-btn">
