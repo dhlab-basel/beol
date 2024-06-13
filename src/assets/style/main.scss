@@ -356,7 +356,24 @@ h1 {
   font-weight: bold;
   vertical-align: middle;
 }
-
+.icon-p170_1:before {
+  content: "\e1701";
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.icon-p173:before {
+  content: "\e173";
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.icon-p170_2:before {
+  content: "\e1702";
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+}
 @font-face {
   font-family: LeipzigFraktur;
   src: url(../fonts/Leipzig/LeipzigFrakturNormal.ttf);
