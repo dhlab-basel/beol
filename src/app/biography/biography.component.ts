@@ -401,7 +401,7 @@ export class BiographyComponent implements OnInit, OnDestroy {
         this._router.navigate(['/search/gravsearch/', gravsearch], { relativeTo: this._route });
     }
 
-    goToResource(gnd: string) {
+    goToPersonResource(gnd: string) {
         const resType =  this._appInitService.config['ontologyIRI'] + '/ontology/0801/beol/v2#person';
 
         // create a query that gets the person by gnd

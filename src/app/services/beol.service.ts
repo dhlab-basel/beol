@@ -604,6 +604,39 @@ export class BeolService {
     }
 
     /**
+     * Given the title of a section, get the section
+     *
+     * @param title the title of the section.
+     * @returns the Gravsearch query.
+     */
+    searchForSectionWithTitle(title: string): string {
+        return `
+        PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
+        PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
+        CONSTRUCT {
+
+            ?section knora-api:isMainResource true .
+
+
+        } WHERE {
+
+            ?section a knora-api:Resource .
+
+            ?section a beol:section .
+
+            ?section beol:sectionHasTitle ?title .
+            beol:sectionHasTitle knora-api:objectType <http://www.w3.org/2001/XMLSchema#string> .
+            ?title a <http://www.w3.org/2001/XMLSchema#string> .
+
+            FILTER(?title = "${title}"^^<http://www.w3.org/2001/XMLSchema#string>)
+
+        }
+
+        OFFSET 0
+        `;
+    }
+
+    /**
      * Given the Iri of a compound object and the sequence number of the current part, returns the previous and next part.
      *
      * @param compoundIri the Iri of the compound object the current part belongs to.

@@ -47,6 +47,7 @@ export class IntroductionComponent implements OnInit, OnDestroy {
 
     listLeoo: Introduction[];
     listLece: Introduction[];
+    listManuscripts: Introduction[];
     props: IntroProps;
 
     // current index of introduction
@@ -79,8 +80,10 @@ export class IntroductionComponent implements OnInit, OnDestroy {
 
         const introleoo = require('../../assets/data/introductionLeoo.json');
         const introLece = require('../../assets/data/introductionLece.json');
+        const introManuscripts = require('../../assets/data/introduction_manuscripts.json');
         this.listLeoo = <Introduction[]>introleoo.Introductions;
         this.listLece = <Introduction[]>introLece.Introductions;
+        this.listManuscripts = <Introduction[]>introManuscripts.Introductions;
 
         this.paramsSubscription = this._route.paramMap.subscribe((params: ParamMap) => {
             this.project = params.get('project');

@@ -18,7 +18,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/jacob-I-bernoulli.jpg" alt="portrait of Jacob I Bernoulli">
-                    <p><a class="salsah-link" (click)="goToResource(Jacob_I_Bernoulli.gnd)">Jacob Bernoulli</a>, born on
+                    <p><a class="salsah-link" (click)="goToPersonResource(Jacob_I_Bernoulli.gnd)">Jacob Bernoulli</a>, born on
                         December 27, 1654, and deceased on August 16, 1705, held the chair of mathematics at the University
                         of his native city, Basel. He is above all renowned for his pioneering work in the emergent field of
                         probability theory, which owes to him its name and a first important theorem, the Law of Large
@@ -27,19 +27,29 @@
                         of conservation principles, particularly with respect to angular momentum.</p>
                 </section>
 
+                <h2>Diaries</h2>
                 <mat-divider></mat-divider>
 
-                <section>
-                    <h2>Diaries</h2>
+                <h3>Scientific Diary</h3>
+                <div class="row">
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/manuscripts/intro_meditationes">
+                        <mat-card-content>Introduction</mat-card-content>
+                    </mat-card>
                     <mat-card class="intro-card" appearance="outlined"
                               (click)="searchForManuscriptEntries('http://rdfh.ch/0801/HSmk8KWbQjy6YCqnBrwYgA')">
                         <mat-card-content>Meditationes</mat-card-content>
+                    </mat-card>
+                </div>
+                <h3>Travel Diary</h3>
+                <div class="row">
+                    <mat-card class="intro-card" appearance="outlined" routerLink="/introduction/manuscripts/intro_reisbuechlein">
+                        <mat-card-content>Introduction</mat-card-content>
                     </mat-card>
                     <mat-card class="intro-card" appearance="outlined"
                               (click)="searchForManuscriptEntries('http://rdfh.ch/0801/N1XIvGvYSBO1wODFfl0QjQ')">
                         <mat-card-content>Reisbüchlein</mat-card-content>
                     </mat-card>
-                </section>
+                </div>
             </ng-container>
 
             <ng-container *ngSwitchCase="'Johann I Bernoulli'">
@@ -47,7 +57,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/johann-I-bernoulli.jpg" alt="portrait of Johann I Bernoulli">
-                    <p><a class="salsah-link" (click)="goToResource(Johann_I_Bernoulli.gnd)">Johann Bernoulli</a>, born
+                    <p><a class="salsah-link" (click)="goToPersonResource(Johann_I_Bernoulli.gnd)">Johann Bernoulli</a>, born
                         on August 6, 1667, and deceased on January 1, 1748, was a mathematician and physicist from Basel.
                         His teaching laid the foundation for the first textbook of infinitesimal calculus, the Marquis de
                         l'Hôpital's Analyse des infiniment petits, and influenced several notable scientists such as Jean
@@ -81,7 +91,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/placeholder.jpg" alt="placeholder portrait for Nicolaus I Bernoulli">
-                    <p><a class="salsah-link" (click)="goToResource(Nicolaus_I_Bernoulli.gnd)">Nikolaus I Bernoulli</a>
+                    <p><a class="salsah-link" (click)="goToPersonResource(Nicolaus_I_Bernoulli.gnd)">Nikolaus I Bernoulli</a>
                         was born on October 20, 1687, in Basel and died there on November 29, 1759. Although he held a
                         chair in public law in his native city for most of his life, his main research interest was in
                         mathematics, where he contributed to the fields of probability theory, infinite series and
@@ -115,7 +125,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/nicolaus-II-bernoulli.jpg" alt="portrait of Nicolaus II Bernoulli">
-                    <p><a class="salsah-link" (click)="goToResource(Nicolaus_II_Bernoulli.gnd)">Nicolaus II Bernoulli</a>,
+                    <p><a class="salsah-link" (click)="goToPersonResource(Nicolaus_II_Bernoulli.gnd)">Nicolaus II Bernoulli</a>,
                         born on February 6, 1695, and deceased on July 31, 1726, came from the famous dynasty of mathematicians
                         from Basel and showed his promise at an early age. As a professor at Padua he contributed to the
                         spread of Leibnizian calculus in Italy, making significant contributions to the field of
@@ -149,7 +159,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/daniel-bernoulli.jpg" alt="portrait of Daniel Bernoulli">
-                    <p><a class="salsah-link" (click)="goToResource(Daniel_I_Bernoulli.gnd)">Daniel Bernoulli</a>, born
+                    <p><a class="salsah-link" (click)="goToPersonResource(Daniel_I_Bernoulli.gnd)">Daniel Bernoulli</a>, born
                         on February 8, 1700, in Groningen and deceased on March 17, 1782, in Basel, came from a famous
                         family of mathematicians. Holding chairs at St. Petersburg and Basel, he was a prominent
                         physicist of his generation, winning the annual prize of the Paris Académie des Sciences no
@@ -184,7 +194,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/johann-II-bernoulli.jpg" alt="portrait of Johann II Bernoulli">
-                    <p><a class="salsah-link" (click)="goToResource(Johann_II_Bernoulli.gnd)">Johann II Bernoulli</a>,
+                    <p><a class="salsah-link" (click)="goToPersonResource(Johann_II_Bernoulli.gnd)">Johann II Bernoulli</a>,
                         born on May 18, 1710, and deceased on July 17, 1790, was the third son of Johann I Bernoulli.
                         He studied law and mathematics and served as a professor of eloquence at the University of Basel.
                         In 1748, he succeeded his father on the chair of mathematics. His interests included the study
@@ -216,7 +226,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/johann-III-bernoulli.jpg" alt="portrait of Johann III Bernoulli">
-                    <p><a class="salsah-link" (click)="goToResource(Johann_III_Bernoulli.gnd)">Johann III Bernoulli</a>,
+                    <p><a class="salsah-link" (click)="goToPersonResource(Johann_III_Bernoulli.gnd)">Johann III Bernoulli</a>,
                         born on November 4, 1744, and deceased on July 13, 1807, was a grandson of Johann I and the son
                         of Johann II Bernoulli. As an astronomer, he directed the Berlin observatory and the class of
                         mathematics at the Academy. He traveled extensively throughout Europe, was a prolific writer and
@@ -229,7 +239,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/jacob-II-bernoulli.jpg" alt="portrait of Jacob II Bernoulli">
-                    <p><a class="salsah-link" (click)="goToResource(Jacob_II_Bernoulli.gnd)">Jakob II Bernoulli</a>,
+                    <p><a class="salsah-link" (click)="goToPersonResource(Jacob_II_Bernoulli.gnd)">Jakob II Bernoulli</a>,
                         born on October 17, 1759, and deceased on July 3, 1789, was a scion of the renowned dynasty of
                         scientists from Basel. After his studies in law, mathematics, and physics, he traveled in Italy,
                         serving as a secretary to an Austrian diplomat. In 1786, he joined the Russian Academy of
@@ -244,7 +254,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/jacob-hermann.jpg" alt="portrait of Jacob Hermann">
-                    <p><a class="salsah-link" (click)="goToResource(Jacob_Hermann.gnd)">Jacob Hermann</a>, born in Basel
+                    <p><a class="salsah-link" (click)="goToPersonResource(Jacob_Hermann.gnd)">Jacob Hermann</a>, born in Basel
                         on July 16, 1678, and deceased there on July 11, 1733, was a mathematician known for his work in
                         classical mechanics.
                         After defending a thesis on infinite series with Jacob Bernoulli, he studied theology, but then,
@@ -280,7 +290,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/leonhard-euler.jpg" alt="portrait of Leonhard Euler">
-                    <p><a class="salsah-link" (click)="goToResource(Leonhard_Euler.gnd)">Leonhard Euler</a>, born on
+                    <p><a class="salsah-link" (click)="goToPersonResource(Leonhard_Euler.gnd)">Leonhard Euler</a>, born on
                         April 15, 1707, in Basel and deceased on September 18, 1783, in St. Petersburg, was the leading
                         scientist of his time and one of the greatest mathematicians in history. From an early age, he
                         made significant contributions to almost all areas of mathematics and physics: the areas he
@@ -331,7 +341,6 @@
                         <mat-card class="intro-card" appearance="outlined" routerLink="/leoo4A_4_intro">
                             <mat-card-content>
                                 <mat-card-title>Introduction Opera Omnia IVA/4</mat-card-title>
-
                             </mat-card-content>
                         </mat-card>
                         <mat-card class="intro-card" appearance="outlined" routerLink="/lece_intro">
@@ -349,7 +358,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/johann-albrecht-euler.jpg" alt="portrait of Johann Albrecht Euler">
-                    <p><a class="salsah-link" (click)="goToResource(Johann_Albrecht_Euler.gnd)">Johann Albrecht Euler</a>,
+                    <p><a class="salsah-link" (click)="goToPersonResource(Johann_Albrecht_Euler.gnd)">Johann Albrecht Euler</a>,
                         born in St. Petersburg on November 27, 1734, and deceased there on September 17, 1800, was the
                         first child of Leonhard Euler.
                         He became a member of the Berlin Academy in 1754 and won prizes from several scientific institutions.
@@ -381,7 +390,7 @@
                 <section class="biography">
                     <h2>Biography</h2>
                     <img src="assets/images/nicolaus-fuss.jpg" alt="portrait of Nicolaus Fuss">
-                    <p><a class="salsah-link" (click)="goToResource(FussNI.gnd)">Nicolaus (Nikolai) Fuss</a>, born on
+                    <p><a class="salsah-link" (click)="goToPersonResource(FussNI.gnd)">Nicolaus (Nikolai) Fuss</a>, born on
                         January 29, 1755, in Basel and deceased on December 23, 1825, in St. Petersburg was a
                         mathematician and scientist mainly active in Russia.
                         After his studies with Daniel Bernoulli, he went to St. Petersburg in 1773 to serve as an

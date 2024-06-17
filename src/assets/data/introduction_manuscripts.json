@@ -1,0 +1,12 @@
+{
+  "Introductions": [
+    {
+      "name": "intro_reisbuechlein",
+      "label": "Introduction Reisbüchlein"
+    },
+    {
+      "name": "intro_meditationes",
+      "label": "Introduction Meditationes"
+    }
+  ]
+}
