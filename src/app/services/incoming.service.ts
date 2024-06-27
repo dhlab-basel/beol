@@ -156,7 +156,6 @@ knora-api:isPartOf knora-api:objectType knora-api:Resource .
 FILTER NOT EXISTS {
 ?incomingRes  knora-api:isRegionOf <${resourceIri}> .
 }
-
 FILTER NOT EXISTS {
 ?incomingRes  knora-api:isPartOf <${resourceIri}> .
 }

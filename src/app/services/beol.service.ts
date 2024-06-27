@@ -735,6 +735,23 @@ export class BeolService {
         `;
     }
 
+    getTranscriptionSPARQL(pageIri:string){
+        return `
+        PREFIX beol: <${this._appInitService.config['ontologyIRI']}/ontology/0801/beol/simple/v2#>
+        PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>
+
+        CONSTRUCT {
+         ?transcription knora-api:isMainResource true .
+        } WHERE {
+         ?transcription a knora-api:Resource .
+         BIND (<${pageIri}> AS ?page)
+         ?page beol:hasTranscription ?transcription .
+         ?page a knora-api:Resource .
+        }
+        OFFSET 0
+        `;
+    }
+
     getJourney(entryIri: string): Observable<DataGraphDB> {
         const journeyTemplate = `
         PREFIX trip-onto: <http://journeyStar.dhlab.ch/ontology/trip-onto#>

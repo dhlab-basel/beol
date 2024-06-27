@@ -49,6 +49,7 @@ export class PageTranscriptionComponent extends BeolResource {
     resource: BeolCompoundResource;
     previousPage: ReadResource;
     nextPage: ReadResource;
+    transcriptionIri: string;
     activeRegion: string;
     props: PageProps;
 
@@ -83,6 +84,7 @@ export class PageTranscriptionComponent extends BeolResource {
         this.versionArkUrl = this.resource.readResource.versionArkUrl;
 
         this.getPreviousAndNextPage();
+        this.getTranscriptionIRI();
     }
 
     private getPreviousAndNextPage() {
@@ -113,7 +115,17 @@ export class PageTranscriptionComponent extends BeolResource {
     }
 
     getTranscriptionIRI() {
-        return this.props['hasTranscription'][0].linkedResourceIri;
+
+        const gravsearchQuery = this._beolService.getTranscriptionSPARQL(this.iri);
+
+        this._dspApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe(
+            (result: ReadResourceSequence) => {
+                    if (result.resources.length === 1) {
+                        console.log('we got a resource sequence ', result.resources);
+                        this.transcriptionIri = result.resources[0].id;
+                    }
+
+                });
     }
 
     regionActive(regionIri: string) {
