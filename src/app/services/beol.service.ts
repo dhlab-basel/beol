@@ -825,8 +825,10 @@ export class BeolService {
             BIND(fn:concat(?start_calendar, " ", STR(?startDate)) AS ?Start)
             ?stage trip-onto:hasDestination ?ToLocation .
             ?ToLocation owl:sameAs ?ToIri .
+            OPTIONAL {
             ?stage trip-onto:meanOfTransportation ?TransportationType .
-            ?TransportationType schema:name ?Transportation
+            ?TransportationType schema:name ?Transportation .
+            }
             OPTIONAL {
             ?stage trip-onto:hasStay ?stay  .
             ?stay trip-onto:hasAccommodation ?accomodationRes .
@@ -868,17 +870,19 @@ export class BeolService {
             ?stage trip-onto:hasDestination ?ToLocation .
             ?ToLocation owl:sameAs ?ToIri .
 
-            ?stage trip-onto:meanOfTransportation ?meanOfTransportation .
-            ?meanOfTransportation schema:name ?Transportation .
-
             SERVICE <${this._appInitService.config['fusekiUrl']}> {
                 ?FromIri beol:hasWikiLink ?startWikiValue .
                 ?startWikiValue <http://www.knora.org/ontology/knora-base#valueHasUri> ?startWikiIri_xsd .
                 ?ToIri beol:hasWikiLink ?endWikiValue .
                 ?endWikiValue <http://www.knora.org/ontology/knora-base#valueHasUri> ?endWikiIri_xsd .
             }
+            OPTIONAL {
+            ?stage trip-onto:meanOfTransportation ?meanOfTransportation .
+            ?meanOfTransportation schema:name ?Transportation .
+            }
             BIND(URI(?startWikiIri_xsd) AS ?startWikiIri)
             BIND(URI(?endWikiIri_xsd) AS ?endWikiIri)
+
             OPTIONAL{
                 SERVICE <https://query.wikidata.org/sparql> {
                     ?startWikiIri wdp:P625 ?coordinate_start.
