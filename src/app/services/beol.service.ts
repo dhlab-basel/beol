@@ -754,7 +754,7 @@ export class BeolService {
 
     getJourney(entryIri: string): Observable<DataGraphDB> {
         const journeyTemplate = `
-        PREFIX trip-onto: <http://journeyStar.dhlab.ch/ontology/trip-onto#>
+        PREFIX js: <http://journey-star.dhlab.unibas.ch/ontology/JourneyStar#>
         PREFIX schema: <https://schema.org/>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         PREFIX ofn:<http://www.ontotext.com/sparql/functions/>
@@ -762,30 +762,31 @@ export class BeolService {
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         SELECT ?From ?FromIri ?To ?ToIri ?Departure ?Arrival ?Duration_Journey ?Stay_End ?Duration_Stay
         WHERE {
-            BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
+            BIND (<< ?person js:participatedIn ?journey>> AS ?journeyTriple)
             BIND(<${entryIri}> AS ?entryIRI)
-            ?journeyTriple trip-onto:mentionedIn ?entryIRI .
-            ?journey trip-onto:hasStartLocation ?FromLocation .
+            ?journeyTriple js:mentionedIn ?entryIRI .
+            ?journey js:hasStartLocation ?FromLocation .
             ?FromLocation owl:sameAs ?FromIri .
 
-            BIND(<< ?journey trip-onto:hasStartLocation ?FromLocation >> AS ?startStatement)
-            ?journey trip-onto:hasDestination ?ToLocation .
+            BIND(<< ?journey js:hasStartLocation ?FromLocation >> AS ?startStatement)
+            ?journey js:hasDestination ?ToLocation .
             ?ToLocation owl:sameAs ?ToIri .
-            ?startStatement trip-onto:hasDeparture ?DepartureDate .
-            << ?startStatement trip-onto:hasDeparture ?DepartureDate >> trip-onto:calendar ?dep_calendar .
+            ?startStatement js:hasDeparture ?DepartureDate .
+            << ?startStatement js:hasDeparture ?DepartureDate >> js:calendar ?dep_calendar .
             BIND(fn:concat(?dep_calendar, " ", STR(?DepartureDate)) AS ?Departure)
 
-            BIND(<< ?journey trip-onto:hasDestination ?ToLocation >> AS ?arrivalStatement)
-            ?arrivalStatement trip-onto:hasArrival ?ArrivalDate .
-            << ?arrivalStatement trip-onto:hasArrival ?ArrivalDate >> trip-onto:calendar ?arr_calendar .
+            BIND(<< ?journey js:hasDestination ?ToLocation >> AS ?arrivalStatement)
+            ?arrivalStatement js:hasArrival ?ArrivalDate .
+            << ?arrivalStatement js:hasArrival ?ArrivalDate >> js:calendar ?arr_calendar .
             BIND(fn:concat(?arr_calendar, " ", STR(?ArrivalDate)) AS ?Arrival)
-            ?journeyTriple trip-onto:hasEndDate ?EndDate .
-            << ?journeyTriple trip-onto:hasEndDate ?EndDate >> trip-onto:calendar ?end_calendar .
+            ?journeyTriple js:hasEndDate ?EndDate .
+            << ?journeyTriple js:hasEndDate ?EndDate >> js:calendar ?end_calendar .
             BIND(fn:concat(?end_calendar, " ", STR(?EndDate)) AS ?Stay_End)
             BIND(ofn:days-from-duration(?EndDate-?ArrivalDate) AS ?duration_s_d)
             BIND(ofn:years-from-duration(?EndDate-?ArrivalDate) AS ?duration_s_y)
             BIND(ofn:months-from-duration(?EndDate-?ArrivalDate) AS ?duration_s_m)
             BIND(fn:concat( STR(?duration_s_y *365+ ?duration_s_m*30 + ?duration_s_d), " days") AS ?Duration_Stay)
+
             BIND(ofn:days-from-duration(?DepartureDate-?ArrivalDate) AS ?duration_d)
             BIND(ofn:years-from-duration(?DepartureDate-?ArrivalDate) AS ?duration_y)
             BIND(ofn:months-from-duration(?DepartureDate-?ArrivalDate) AS ?duration_m)
@@ -802,37 +803,36 @@ export class BeolService {
 
     getStages(entryIri: string): Observable<DataGraphDB> {
         const stageTemplate = `
-        PREFIX trip-onto: <http://journeyStar.dhlab.ch/ontology/trip-onto#>
+        PREFIX js: <http://journey-star.dhlab.unibas.ch/ontology/JourneyStar#>
         PREFIX schema: <https://schema.org/>
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
-        PREFIX trip: <http://ontology.eil.utoronto.ca/icity/Trip/Trip>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         SELECT ?From ?FromIri ?To ?ToIri ?Start ?End ?Transportation ?Accommodation
         WHERE {
-           ?journey a trip-onto:Journey .
+            ?journey a js:Journey .
             BIND(<${entryIri}> AS ?entryIRI)
-            BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
-            ?journeyTriple trip-onto:mentionedIn ?entryIRI .
-            ?journeyTriple trip-onto:hasStage ?stage .
-            BIND(<<?journeyTriple trip-onto:hasStage ?stage>> AS ?stageTriple)
-            ?stage trip-onto:hasStartLocation ?FromLocation .
+            BIND (<< ?person js:participatedIn ?journey>> AS ?journeyTriple)
+            ?journeyTriple js:mentionedIn ?entryIRI .
+            ?journeyTriple js:hasStage ?stage .
+            BIND(<<?journeyTriple js:hasStage ?stage>> AS ?stageTriple)
+            ?stage js:hasStartLocation ?FromLocation .
             ?FromLocation owl:sameAs ?FromIri .
-            ?stageTriple trip-onto:hasEndDate ?endDate .
-            << ?stageTriple trip-onto:hasEndDate ?endDate >> trip-onto:calendar ?end_calendar .
+            ?stageTriple js:hasEndDate ?endDate .
+            << ?stageTriple js:hasEndDate ?endDate >> js:calendar ?end_calendar .
             BIND(fn:concat(?end_calendar, " ", STR(?endDate)) AS ?End)
-            ?stageTriple trip-onto:hasStartDate ?startDate .
-            << ?stageTriple trip-onto:hasStartDate ?startDate >> trip-onto:calendar ?start_calendar
+            ?stageTriple js:hasStartDate ?startDate .
+            << ?stageTriple js:hasStartDate ?startDate >> js:calendar ?start_calendar
             BIND(fn:concat(?start_calendar, " ", STR(?startDate)) AS ?Start)
-            ?stage trip-onto:hasDestination ?ToLocation .
+            ?stage js:hasDestination ?ToLocation .
             ?ToLocation owl:sameAs ?ToIri .
             OPTIONAL {
-            ?stage trip-onto:meanOfTransportation ?TransportationType .
-            ?TransportationType schema:name ?Transportation .
+                ?stage js:meanOfTransportation ?TransportationType .
+                ?TransportationType schema:name ?Transportation .
             }
             OPTIONAL {
-            ?stage trip-onto:hasStay ?stay  .
-            ?stay trip-onto:hasAccommodation ?accomodationRes .
-            ?accomodationRes schema:name ?Accommodation .
+                ?stage js:hasStay ?stay  .
+                ?stay js:hasAccommodation ?accomodationRes .
+                ?accomodationRes schema:name ?Accommodation .
             }
             SERVICE <${this._appInitService.config['fusekiUrl']}> {
                   ?FromIri rdfs:label ?From .
@@ -846,7 +846,7 @@ export class BeolService {
 
     make_coordinates_query(entryIri: string): Observable<DataGraphDB> {
         const stageCoordinatesTemplate = `
-        PREFIX trip-onto: <http://journeyStar.dhlab.ch/ontology/trip-onto#>
+        PREFIX js: <http://journey-star.dhlab.unibas.ch/ontology/JourneyStar#>
         PREFIX schema: <https://schema.org/>
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX wd: <http://www.wikidata.org/entity/>
@@ -857,17 +857,17 @@ export class BeolService {
         PREFIX beol: <http://www.knora.org/ontology/0801/beol#>
         SELECT ?startWikiIri ?startLat ?startLong ?endWikiIri ?endLat ?endLong ?startDate ?endDate ?Transportation
         WHERE {
-            ?journey a trip-onto:Journey .
+            ?journey a js:Journey .
             BIND(<${entryIri}> AS ?entryIRI)
-            BIND (<< ?person trip-onto:hasJourney ?journey>> AS ?journeyTriple)
-            ?journeyTriple trip-onto:mentionedIn ?entryIRI .
-            ?journeyTriple trip-onto:hasStage ?stage .
-            BIND(<<?journeyTriple trip-onto:hasStage ?stage>> AS ?stageTriple)
-            ?stage trip-onto:hasStartLocation ?FromLocation .
+            BIND (<< ?person js:participatedIn ?journey>> AS ?journeyTriple)
+            ?journeyTriple js:mentionedIn ?entryIRI .
+            ?journeyTriple js:hasStage ?stage .
+            BIND(<<?journeyTriple js:hasStage ?stage>> AS ?stageTriple)
+            ?stage js:hasStartLocation ?FromLocation .
             ?FromLocation owl:sameAs ?FromIri .
-            ?stageTriple trip-onto:hasEndDate ?endDate .
-            ?stageTriple trip-onto:hasStartDate ?startDate .
-            ?stage trip-onto:hasDestination ?ToLocation .
+            ?stageTriple js:hasEndDate ?endDate .
+            ?stageTriple js:hasStartDate ?startDate .
+            ?stage js:hasDestination ?ToLocation .
             ?ToLocation owl:sameAs ?ToIri .
 
             SERVICE <${this._appInitService.config['fusekiUrl']}> {
@@ -877,8 +877,8 @@ export class BeolService {
                 ?endWikiValue <http://www.knora.org/ontology/knora-base#valueHasUri> ?endWikiIri_xsd .
             }
             OPTIONAL {
-            ?stage trip-onto:meanOfTransportation ?meanOfTransportation .
-            ?meanOfTransportation schema:name ?Transportation .
+                ?stage js:meanOfTransportation ?meanOfTransportation .
+                ?meanOfTransportation schema:name ?Transportation .
             }
             BIND(URI(?startWikiIri_xsd) AS ?startWikiIri)
             BIND(URI(?endWikiIri_xsd) AS ?endWikiIri)
