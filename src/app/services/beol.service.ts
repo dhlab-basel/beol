@@ -884,7 +884,7 @@ export class BeolService {
             BIND(URI(?endWikiIri_xsd) AS ?endWikiIri)
 
             OPTIONAL{
-                SERVICE <https://wdqs-proxy/sparql> {
+                SERVICE <http://wdqs-proxy/sparql> {
                     ?startWikiIri wdp:P625 ?coordinate_start.
 
                     ?coordinate_start wdps:P625 ?coordinate_node_start.
